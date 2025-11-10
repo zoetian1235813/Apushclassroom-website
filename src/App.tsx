@@ -270,7 +270,35 @@ function App() {
                     const idx = selectedUnit.topics.findIndex(
                       (t) => t.id === selectedTopic.id
                     );
-                    return selectedUnit.topics[idx + 1] ?? null;
+                    if (idx === -1) {
+                      return null;
+                    }
+
+                    const nextTopicInUnit = selectedUnit.topics[idx + 1];
+                    if (nextTopicInUnit) {
+                      return { unit: selectedUnit, topic: nextTopicInUnit };
+                    }
+
+                    const selectedUnitIndex = apushUnits.findIndex(
+                      (unit) => unit.id === selectedUnit.id
+                    );
+                    if (selectedUnitIndex === -1) {
+                      return null;
+                    }
+
+                    for (
+                      let unitIdx = selectedUnitIndex + 1;
+                      unitIdx < apushUnits.length;
+                      unitIdx += 1
+                    ) {
+                      const unit = apushUnits[unitIdx];
+                      const firstTopic = unit.topics[0];
+                      if (firstTopic) {
+                        return { unit, topic: firstTopic };
+                      }
+                    }
+
+                    return null;
                   })()}
                   onNavigateToTopic={(unit, topic) => {
                     ensureTopicSelection(unit, topic);
