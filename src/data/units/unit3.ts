@@ -6,15 +6,6 @@ export const unit3Contents: Record<string, string> = {
   <span className="text-gray-600">七年战争（1756-1763）把欧洲列强、各殖民地以及众多原住民族群卷入全球冲突。在北美，这场战争被称为法印战争，并在革命时代前改变了帝国格局。</span>
 </p>
 
-<div className="my-6 flex flex-col items-center gap-2">
-  <img
-    src="https://library.fiveable.me/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Ffiveable-92889.appspot.com%2Fo%2Fimages%252F-Ndg0QOJVxGeS.jpg%3Falt%3Dmedia%26token%3D65645e6d-5fd2-449f-9717-30eff59d0024&w=1920&q=75"
-    alt="British and French soldiers fighting in North America"
-    className="rounded-3xl shadow-lg border border-slate-200 w-full max-w-4xl"
-  />
-  <p className="text-sm text-gray-500">Image courtesy of Britannica · 图片来源：大英百科</p>
-</div>
-
 <section className="space-y-4">
   <h3 className="text-2xl font-bold">Causes of the War · 战争起因</h3>
   <article className="space-y-2">
@@ -183,6 +174,15 @@ export const unit3Contents: Record<string, string> = {
   <span className="text-gray-600">为偿还战争债务，英国议会未经殖民地同意即征税。每一项新税都提醒殖民者：他们在伦敦议会没有代表，这使征税问题演变为宪政危机。</span>
 </p>
 
+ <div className="my-6 flex flex-col items-center gap-2">
+   <img
+     src="https://library.fiveable.me/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Ffiveable-92889.appspot.com%2Fo%2Fimages%252F-Ndg0QOJVxGeS.jpg%3Falt%3Dmedia%26token%3D65645e6d-5fd2-449f-9717-30eff59d0024&w=1920&q=75"
+     alt="British and French soldiers fighting in North America"
+     className="rounded-3xl shadow-lg border border-slate-200 w-full max-w-4xl"
+   />
+   <p className="text-sm text-gray-500">Image courtesy of Britannica · 图片来源：大英百科</p>
+ </div>
+
 <div className="bg-white border border-blue-200 rounded-2xl shadow-sm p-5 space-y-3">
   <h3 className="text-xl font-semibold text-blue-700">Why the Policy Shift?</h3>
   <ul className="list-disc list-inside space-y-2 text-base text-gray-800">
@@ -346,23 +346,6 @@ export const unit3Contents: Record<string, string> = {
     </ul>
   </article>
 </section>
-
-<section className="mt-8">
-  <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-    <div>
-      <h3 className="text-xl font-semibold text-indigo-700">Extend Your Learning</h3>
-      <p className="text-sm text-gray-700">
-        Watch AP U.S. History teacher Caleb Lagerwey explain key documents that shaped revolutionary ideology.<br />
-        <span className="text-gray-600">观看 AP 美国历史教师 Caleb Lagerwey 讲解塑造革命思想的核心文献。</span>
-      </p>
-    </div>
-    <a
-      className="inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold px-4 py-2 rounded-xl shadow hover:from-indigo-700 hover:to-purple-700 transition-colors"
-      href="https://library.fiveable.me/apush/unit-3/key-documents-foundations-american-revolution/watch/2GWUy1sJjvDgADaBLDat"
-      target="_blank"
-      rel="noreferrer"
-    >
-      Watch now · 立即观看
     </a>
   </div>
 </section>
@@ -450,18 +433,385 @@ export const unit3Contents: Record<string, string> = {
 `,
 
   "3.9": `
-<h3>Revolution & Constitution Review</h3>
-<ul className="list-disc list-inside space-y-2 text-base text-gray-800">
-  <li>Trace the shift from imperial reform grievances to independence and the creation of a republican nation.<br /><span className="text-gray-600">梳理殖民地从抱怨帝国改革到追求独立并建立共和国的过程。</span></li>
-  <li>Compare how Patriots, Loyalists, enslaved people, women, and Native nations experienced the era.<br /><span className="text-gray-600">比较爱国者、保皇派、被奴役者、女性与原住民族群在这一时期的不同经历。</span></li>
-  <li>Explain how weaknesses of the Articles of Confederation led to the Constitution and how early administrations implemented federal power.<br /><span className="text-gray-600">说明《邦联条例》的弱点如何催生宪法，并分析早期政府如何落实联邦权力。</span></li>
+<h2 className="text-3xl font-black mb-3">Shaping a New Republic</h2>
+<p className="text-base leading-relaxed text-gray-800">
+  The early years of the United States were critical in establishing precedents, institutions, and policies that would shape the nation's future. Under the leadership of the first two presidents, George Washington and John Adams, the young republic faced significant challenges both domestically and internationally.<br />
+  <span className="text-gray-600">美国早期在确立影响国家未来的先例、制度和政策方面至关重要。在前两任总统乔治·华盛顿和约翰·亚当斯的领导下，这个年轻的共和国在国内和国际上面临着重大挑战。</span>
+</p>
+
+<div className="my-6 flex flex-col items-center gap-2">
+  <img
+    src="https://library.fiveable.me/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Ffiveable-92889.appspot.com%2Fo%2Fimages%252FUSCapitol1800.jpg%3Falt%3Dmedia%26token%3De26ca7c6-5e45-4b21-ab52-b099896a1127&w=1920&q=75"
+    alt="U.S. Capitol in Washington, D.C. in 1800"
+    className="rounded-3xl shadow-lg border border-slate-200 w-full max-w-4xl"
+  />
+  <p className="text-sm text-gray-500">William Russell Birch, A view of the Capitol of Washington before it was burnt down by the British, c. 1800. Wikimedia · 图片来源：维基媒体</p>
+</div>
+
+<p className="text-base leading-relaxed text-gray-800 mb-6">
+  The year 1800 brought about a host of changes in government, in particular the first successful and peaceful transfer of power from one political party to another. But the year was important for another reason: the U.S. Capitol in Washington, D.C. (pictured here in 1800) was finally opened to be occupied by Congress, the Supreme Court, the Library of Congress, and the courts of the District of Columbia.<br />
+  <span className="text-gray-600">1800年，政府发生了一系列变革，尤其是首次成功、和平地实现了政权从一个政党向另一个政党的交接。但这一年意义重大还有另一个原因：位于华盛顿特区的美国国会大厦（如图1800年所示）最终启用，供国会、最高法院、国会图书馆和哥伦比亚特区法院使用。</span>
+</p>
+
+<h3 className="text-2xl font-bold mt-8">Domestic Policies Under Washington · 华盛顿执政时期的国内政策</h3>
+<p className="text-base leading-relaxed text-gray-800">
+  George Washington was elected unanimously as the first President of the United States in 1789 and again in 1792. His administration established many important precedents for the executive branch:<br />
+  <span className="text-gray-600">1789年，乔治·华盛顿全票当选为美国第一任总统，并于1792年再次当选。他的政府为行政部门确立了许多重要的先例：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>Created the cabinet system, appointing Thomas Jefferson as Secretary of State and Alexander Hamilton as Secretary of Treasury<br />
+    <span className="text-gray-600">建立了内阁制度，任命托马斯·杰斐逊为国务卿，亚历山大·汉密尔顿为财政部长。</span>
+  </li>
+  <li>Supervised the drafting and adoption of the Bill of Rights (1791), fulfilling promises made during ratification<br />
+    <span className="text-gray-600">监督《权利法案》（1791年）的起草和通过，履行了在批准过程中做出的承诺。</span>
+  </li>
+  <li>Signed the Judiciary Act of 1789, establishing the Supreme Court, district courts, and appellate courts<br />
+    <span className="text-gray-600">签署了1789年《司法法》，设立了最高法院、地方法院和上诉法院</span>
+  </li>
 </ul>
-<h4 className="text-xl font-semibold mt-6">Practice Tips</h4>
-<ul className="list-disc list-inside space-y-2 text-base text-gray-800">
-  <li>Use causation charts to connect wars, taxation, ideology, and institution-building.<br /><span className="text-gray-600">通过因果图梳理战争、税收、思想与制度建设之间的联系。</span></li>
-  <li>Prepare SAQs that cite specific documents such as the Declaratory Act or Federalist No. 10.<br /><span className="text-gray-600">准备引用《宣告法案》或《联邦党人文集》第 10 篇等具体文献的 SAQ 答案。</span></li>
-  <li>Practice LEQ/DBQ thesis statements that compare the American Revolution to other Atlantic World movements.<br /><span className="text-gray-600">练习把美国革命与其他大西洋世界运动进行比较的 LEQ/DBQ 论点。</span></li>
+
+<h4 className="text-xl font-semibold mt-6">Hamilton's Financial Plan · 汉密尔顿的财政计划</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  As Secretary of the Treasury, Alexander Hamilton developed a comprehensive financial plan to address the nation's economic problems:<br />
+  <span className="text-gray-600">作为财政部长，亚历山大·汉密尔顿制定了一项全面的财政计划，以解决国家的经济问题：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>The United States had accumulated approximately $54 million in debt from the Revolutionary War<br />
+    <span className="text-gray-600">美国在独立战争中积累了约5400万美元的债务。</span>
+  </li>
+  <li>Hamilton proposed three major initiatives:<br />
+    <span className="text-gray-600">汉密尔顿提出了三项主要倡议：</span>
+    <ul className="list-circle list-inside space-y-1 text-base text-gray-800 mt-1 ml-4">
+      <li>Federal assumption of state debts and funding all obligations at full face value<br />
+        <span className="text-gray-600">联邦承担州债务并按票面全额偿付所有债务</span>
+      </li>
+      <li>High tariffs on imported goods to protect American industries and generate revenue<br />
+        <span className="text-gray-600">对进口商品征收高额关税，以保护美国产业并增加财政收入</span>
+      </li>
+      <li>Creation of a national bank to handle government funds and establish a stable currency<br />
+        <span className="text-gray-600">创建一家国家银行来管理政府资金并建立稳定的货币体系</span>
+      </li>
+    </ul>
+  </li>
 </ul>
+
+<p className="text-base leading-relaxed text-gray-800 mt-3">
+  Congress accepted the debt assumption proposal but initially rejected the other parts of Hamilton's plan. Eventually, the First Bank of the United States was chartered in 1791 after a compromise with Jefferson and Madison, who agreed to support the bank in exchange for placing the nation's capital in the South.<br />
+  <span className="text-gray-600">国会接受了债务承担提案，但最初否决了汉密尔顿计划的其他部分。最终，在与杰斐逊和麦迪逊达成妥协后，美国第一银行于1791年获得特许状，杰斐逊和麦迪逊同意支持该银行，以换取将国家首都定在南方。</span>
+</p>
+
+<h4 className="text-xl font-semibold mt-6">Tariffs and Taxation · 关税与税收</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  The federal government relied heavily on tariffs (taxes on imports) for revenue since there was no income tax until the early 1900s. Tariffs served dual purposes:<br />
+  <span className="text-gray-600">在20世纪初之前，由于没有所得税，联邦政府在很大程度上依赖关税（对进口商品征收的税）来获取收入。关税有双重目的：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>Generated revenue for the federal government<br />
+    <span className="text-gray-600">为联邦政府创造收入</span>
+  </li>
+  <li>Protected American industries from foreign competition by making imported goods more expensive<br />
+    <span className="text-gray-600">通过提高进口商品价格，保护美国工业免受外国竞争</span>
+  </li>
+</ul>
+
+<p className="text-base leading-relaxed text-gray-800 mt-3">
+  In addition to tariffs, Congress imposed excise taxes on certain domestic products, including whiskey.<br />
+  <span className="text-gray-600">除了关税，国会还对包括威士忌在内的某些国内产品征收消费税。</span>
+</p>
+
+<h4 className="text-xl font-semibold mt-6">The Whiskey Rebellion · 威士忌叛乱</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  In 1794, farmers in western Pennsylvania rebelled against an excise tax on whiskey:<br />
+  <span className="text-gray-600">1794年，宾夕法尼亚州西部的农民反抗对威士忌征收的消费税：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>The tax disproportionately affected frontier farmers who converted their grain to whiskey for easier transport to markets<br />
+    <span className="text-gray-600">这项税收对偏远地区的农民影响尤为严重，他们将谷物酿成威士忌，以便更便捷地运往市场销售。</span>
+  </li>
+  <li>Protestors attacked tax collectors and refused to pay the tax<br />
+    <span className="text-gray-600">抗议者袭击了税务人员，并拒绝缴税。</span>
+  </li>
+  <li>Washington responded by sending a militia of 13,000 men to suppress the rebellion<br />
+    <span className="text-gray-600">华盛顿的回应是派出一支1.3万人的民兵部队来镇压叛乱。</span>
+  </li>
+  <li>The rebellion collapsed with little violence, but it demonstrated the federal government's willingness and ability to enforce its laws<br />
+    <span className="text-gray-600">这场叛乱几乎未发生暴力冲突便瓦解了，但它表明了联邦政府执行法律的意愿和能力。</span>
+  </li>
+</ul>
+
+<p className="text-base leading-relaxed text-gray-800 mt-3">
+  This incident highlighted growing political divisions:<br />
+  <span className="text-gray-600">这一事件凸显了日益加剧的政治分歧：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-1 ml-2">
+  <li>Federalists supported Washington's show of strength<br />
+    <span className="text-gray-600">联邦党人支持华盛顿展示实力</span>
+  </li>
+  <li>Anti-Federalists (increasingly known as Democratic-Republicans or Jeffersonians) criticized the use of force against citizens<br />
+    <span className="text-gray-600">反联邦党人（越来越多地被称为民主共和党人或杰斐逊派）批评对公民使用武力。</span>
+  </li>
+</ul>
+
+<h3 className="text-2xl font-bold mt-8">Foreign Affairs Under Washington · 华盛顿执政时期的外交事务</h3>
+<p className="text-base leading-relaxed text-gray-800">
+  Washington's administration faced complex international challenges as European powers engaged in ongoing conflicts.<br />
+  <span className="text-gray-600">华盛顿政府在欧洲列强持续冲突的情况下，面临着复杂的国际挑战。</span>
+</p>
+
+<h4 className="text-xl font-semibold mt-6">Neutrality in European Conflicts · 欧洲冲突中的中立政策</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  When revolutionary France declared war on Great Britain, Spain, and other European nations in 1793:<br />
+  <span className="text-gray-600">1793年，革命后的法国向英国、西班牙及其他欧洲国家宣战时：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>Jefferson's Democratic-Republicans favored supporting France based on the 1778 alliance and ideological sympathy with the French Revolution<br />
+    <span className="text-gray-600">杰斐逊领导的民主共和党人基于1778年的联盟关系以及在意识形态上对法国大革命的认同，倾向于支持法国。</span>
+  </li>
+  <li>Hamilton's Federalists preferred closer ties with Britain for economic reasons and feared the radical nature of the French Revolution<br />
+    <span className="text-gray-600">汉密尔顿领导的联邦党人出于经济原因更倾向于与英国建立更紧密的关系，并对法国大革命的激进性质感到担忧。</span>
+  </li>
+  <li>Washington issued the Proclamation of Neutrality (1793), declaring America neutral in the conflict<br />
+    <span className="text-gray-600">华盛顿发布了《中立宣言》（1793年），宣布美国在这场冲突中保持中立。</span>
+  </li>
+  <li>This established the important precedent that the president has primary control over foreign policy<br />
+    <span className="text-gray-600">这确立了一个重要的先例，即总统对对外政策拥有主要控制权。</span>
+  </li>
+</ul>
+
+<h4 className="text-xl font-semibold mt-6">Relations with Great Britain · 与英国的关系</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  Tensions with Britain remained high after the Revolutionary War:<br />
+  <span className="text-gray-600">美国独立战争后，与英国的关系依然高度紧张：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>Britain maintained forts on American territory along the Great Lakes despite treaty obligations to withdraw<br />
+    <span className="text-gray-600">尽管有条约义务撤军，但英国仍在五大湖沿岸的美国领土上保留了堡垒。</span>
+  </li>
+  <li>British forces supported Native American resistance to American expansion<br />
+    <span className="text-gray-600">英国军队支持美洲原住民抵抗美国的扩张</span>
+  </li>
+  <li>British navy seized American ships and impressed American sailors in the West Indies<br />
+    <span className="text-gray-600">英国海军扣押了美国船只，并在西印度群岛强征美国水手。</span>
+  </li>
+  <li>Washington sent John Jay to negotiate with Britain, resulting in Jay's Treaty (1794)<br />
+    <span className="text-gray-600">华盛顿派约翰·杰伊与英国谈判，促成了《杰伊条约》（1794年）</span>
+  </li>
+</ul>
+
+<h4 className="text-xl font-semibold mt-6">Jay's Treaty · 杰伊条约</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  This controversial agreement with Britain:<br />
+  <span className="text-gray-600">这项与英国签订的颇具争议的协议：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>Secured British withdrawal from western forts<br />
+    <span className="text-gray-600">确保英国从西部堡垒撤军</span>
+  </li>
+  <li>Established limited American trading rights with British colonies<br />
+    <span className="text-gray-600">确立了美国与英国殖民地有限的贸易权</span>
+  </li>
+  <li>Did not address impressment of American sailors<br />
+    <span className="text-gray-600">没有解决美国水手被强征入伍的问题</span>
+  </li>
+  <li>Required America to pay pre-Revolutionary debts to British merchants<br />
+    <span className="text-gray-600">要求美国偿还革命前欠英国商人的债务</span>
+  </li>
+</ul>
+
+<p className="text-base leading-relaxed text-gray-800 mt-3">
+  The treaty avoided war but was highly unpopular with Democratic-Republicans who saw it as favoring British interests and abandoning France. It further deepened political divisions in the United States.<br />
+  <span className="text-gray-600">该条约避免了战争，但极不受民主共和党人的欢迎，他们认为该条约偏袒英国利益，抛弃了法国。这进一步加深了美国的政治分歧。</span>
+</p>
+
+<h4 className="text-xl font-semibold mt-6">Washington's Farewell Address · 《华盛顿告别演说》</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  When Washington left office in 1796, he issued a Farewell Address with important advice for the nation:<br />
+  <span className="text-gray-600">1796年，华盛顿卸任时发表了《告别演说》，为国家提出了重要建议：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>Warned against "permanent alliances" with foreign powers<br />
+    <span className="text-gray-600">告诫不要与外国势力结成“永久联盟”</span>
+  </li>
+  <li>Cautioned against partisan divisions and the formation of political parties<br />
+    <span className="text-gray-600">告诫要警惕党派分裂和政党的形成</span>
+  </li>
+  <li>Emphasized the importance of national unity<br />
+    <span className="text-gray-600">强调了国家统一的重要性</span>
+  </li>
+  <li>Advocated for religion and morality as pillars of prosperity<br />
+    <span className="text-gray-600">倡导宗教和道德是繁荣的支柱</span>
+  </li>
+</ul>
+
+<h3 className="text-2xl font-bold mt-8">The Adams Administration · 亚当斯政府</h3>
+<p className="text-base leading-relaxed text-gray-800">
+  John Adams narrowly defeated Thomas Jefferson in the 1796 election, becoming the nation's second president. Under the original constitutional system, Jefferson, as runner-up, became vice president.<br />
+  <span className="text-gray-600">约翰·亚当斯在1796年的选举中险胜托马斯·杰斐逊，成为美国第二任总统。根据最初的宪法制度，作为第二名的杰斐逊成为副总统。</span>
+</p>
+
+<h4 className="text-xl font-semibold mt-6">The XYZ Affair and Quasi-War with France · XYZ事件与美法准战争</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  Relations with France deteriorated after Jay's Treaty:<br />
+  <span className="text-gray-600">《杰伊条约》签订后，美国与法国的关系恶化：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>France began seizing American ships, viewing Jay's Treaty as pro-British<br />
+    <span className="text-gray-600">法国开始扣押美国船只，认为《杰伊条约》亲英。</span>
+  </li>
+  <li>Adams sent three diplomats to France to negotiate in 1797<br />
+    <span className="text-gray-600">1797年，亚当斯派遣了三名外交官前往法国进行谈判。</span>
+  </li>
+  <li>French officials (later identified as "X," "Y," and "Z") demanded bribes before negotiations could begin<br />
+    <span className="text-gray-600">法国官员（后来被确认为“X”、“Y”和“Z”）在谈判开始前索要贿赂。</span>
+  </li>
+  <li>Americans were outraged when the XYZ Affair became public<br />
+    <span className="text-gray-600">当“XYZ事件”公之于众时，美国民众感到义愤填膺。</span>
+  </li>
+  <li>Unofficial naval fighting (the "Quasi-War") broke out between American and French ships from 1798-1800<br />
+    <span className="text-gray-600">1798年至1800年间，美国和法国船只之间爆发了非官方海战（即“准战争”）。</span>
+  </li>
+</ul>
+
+<p className="text-base leading-relaxed text-gray-800 mt-3">
+  Adams eventually sent new representatives to France, negotiating an end to the Quasi-War through the Convention of 1800. Though criticized by some Federalists who wanted a full-scale war, Adams considered this peaceful resolution one of his greatest accomplishments.<br />
+  <span className="text-gray-600">亚当斯最终向法国派遣了新的代表，通过1800年公约谈判结束了准战争。尽管一些希望全面开战的联邦党人对此提出批评，但亚当斯认为这一和平解决方案是他最伟大的成就之一。</span>
+</p>
+
+<h4 className="text-xl font-semibold mt-6">Alien and Sedition Acts · 《客籍法和惩治叛乱法》</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  As tensions with France increased, the Federalist-controlled Congress passed the Alien and Sedition Acts in 1798:<br />
+  <span className="text-gray-600">随着与法国的关系日益紧张，由联邦党人控制的国会于1798年通过了《客籍法和惩治叛乱法》：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>The Alien Act extended the residency requirement for citizenship from 5 to 14 years and allowed the president to deport "dangerous" aliens<br />
+    <span className="text-gray-600">《客籍法》将入籍所需的居住年限从5年延长至14年，并允许总统驱逐“危险”外国人。</span>
+  </li>
+  <li>The Sedition Act made it illegal to publish "false, scandalous, and malicious" statements against the government or its officials<br />
+    <span className="text-gray-600">《煽动叛乱法》规定，发表针对政府或其官员的“虚假、诽谤性及恶意”言论属于违法行为。</span>
+  </li>
+  <li>These laws were primarily used against Democratic-Republican newspaper editors and politicians<br />
+    <span className="text-gray-600">这些法律主要用于对付民主共和党报纸编辑和政治家。</span>
+  </li>
+</ul>
+
+<h4 className="text-xl font-semibold mt-6">Kentucky and Virginia Resolutions · 肯塔基和弗吉尼亚决议案</h4>
+<p className="text-base leading-relaxed text-gray-800">
+  Jefferson and Madison secretly drafted responses to the Alien and Sedition Acts:<br />
+  <span className="text-gray-600">杰斐逊和麦迪逊秘密起草了对《客籍法和惩治叛乱法》的回应：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>The Kentucky Resolutions (Jefferson) and Virginia Resolutions (Madison) argued that states could judge the constitutionality of federal laws<br />
+    <span className="text-gray-600">《肯塔基决议案》（杰斐逊起草）和《弗吉尼亚决议案》（麦迪逊起草）主张，各州有权评判联邦法律是否符合宪法。</span>
+  </li>
+  <li>They introduced the concept of "nullification" - that states could declare federal laws void within their borders<br />
+    <span className="text-gray-600">他们引入了“废除论”的概念，即各州可以宣布联邦法律在其境内无效。</span>
+  </li>
+  <li>While these resolutions had little immediate impact, they established principles that would resurface in later debates over states' rights<br />
+    <span className="text-gray-600">虽然这些决议在当时没有产生多大直接影响，但它们确立了一些原则，这些原则在后来关于州权的辩论中再次出现。</span>
+  </li>
+</ul>
+
+<h3 className="text-2xl font-bold mt-8">The Rise of Political Parties · 政党的兴起</h3>
+<p className="text-base leading-relaxed text-gray-800">
+  Despite Washington's warnings against factions, the 1790s saw the emergence of the first American political party system:<br />
+  <span className="text-gray-600">尽管华盛顿警告要防范党派纷争，但18世纪90年代，美国第一个政党体系还是出现了：</span>
+</p>
+
+<div className="grid gap-4 md:grid-cols-2 mt-4">
+  <article className="border border-blue-200 bg-blue-50 rounded-2xl p-4 shadow-sm">
+    <h4 className="text-lg font-semibold text-blue-700">Federalists (led by Hamilton and Adams) · 联邦党人（由汉密尔顿和亚当斯领导）：</h4>
+    <ul className="list-disc list-inside space-y-2 text-sm text-gray-700 mt-2">
+      <li>Supported a strong federal government<br />
+        <span className="text-gray-600">支持一个强大的联邦政府</span>
+      </li>
+      <li>Favored commercial and manufacturing interests<br />
+        <span className="text-gray-600">支持商业和制造业利益</span>
+      </li>
+      <li>Maintained closer ties with Britain<br />
+        <span className="text-gray-600">与英国保持更紧密的联系</span>
+      </li>
+      <li>Drew support from merchants, manufacturers, and creditors<br />
+        <span className="text-gray-600">获得了商人、制造商和债权人的支持</span>
+      </li>
+    </ul>
+  </article>
+  
+  <article className="border border-green-200 bg-green-50 rounded-2xl p-4 shadow-sm">
+    <h4 className="text-lg font-semibold text-green-700">Democratic-Republicans (led by Jefferson and Madison) · 民主共和党人（由杰斐逊和麦迪逊领导）：</h4>
+    <ul className="list-disc list-inside space-y-2 text-sm text-gray-700 mt-2">
+      <li>Advocated limited federal power and states' rights<br />
+        <span className="text-gray-600">主张限制联邦权力和州权</span>
+      </li>
+      <li>Championed agricultural interests<br />
+        <span className="text-gray-600">支持农业利益</span>
+      </li>
+      <li>Sympathized with France<br />
+        <span className="text-gray-600">同情法国</span>
+      </li>
+      <li>Drew support from farmers, artisans, and frontiersmen<br />
+        <span className="text-gray-600">赢得了农民、工匠和拓荒者的支持</span>
+      </li>
+    </ul>
+  </article>
+</div>
+
+<p className="text-base leading-relaxed text-gray-800 mt-6">
+  These partisan divisions would culminate in the election of 1800, which resulted in the first peaceful transfer of power between opposing political parties when Jefferson defeated Adams - a crucial moment in establishing democratic traditions.<br />
+  <span className="text-gray-600">这些党派分歧在1800年的选举中达到顶点，当时杰斐逊击败亚当斯，实现了美国历史上首次反对党之间的和平权力交接，这是确立民主传统的关键时刻。</span>
+</p>
+
+<h3 className="text-2xl font-bold mt-8">Legacy of the Early Republic · 早期共和国的遗产</h3>
+<p className="text-base leading-relaxed text-gray-800">
+  The Washington and Adams administrations established critical precedents that would influence the future development of the United States:<br />
+  <span className="text-gray-600">华盛顿和亚当斯政府确立了影响美国未来发展的重要先例：</span>
+</p>
+
+<ul className="list-disc list-inside space-y-2 text-base text-gray-800 mt-3 ml-2">
+  <li>✅ Created a functioning federal government under the new Constitution<br />
+    <span className="text-gray-600">依据新宪法创建了一个运转正常的联邦政府</span>
+  </li>
+  <li>✅ Established the principle of civilian control of the military<br />
+    <span className="text-gray-600">确立了文官控制军队的原则</span>
+  </li>
+  <li>✅ Demonstrated the federal government's authority to enforce its laws<br />
+    <span className="text-gray-600">展示了联邦政府执行其法律的权力</span>
+  </li>
+  <li>✅ Developed a financial system to address national debt<br />
+    <span className="text-gray-600">开发了一个解决国债问题的金融体系</span>
+  </li>
+  <li>✅ Pursued a foreign policy based on American interests rather than permanent alliances<br />
+    <span className="text-gray-600">推行基于美国利益而非永久联盟的外交政策</span>
+  </li>
+  <li>✅ Created a framework for the peaceful transfer of power between opposing parties<br />
+    <span className="text-gray-600">建立了一个对立政党之间和平权力交接的框架</span>
+  </li>
+</ul>
+
+<p className="text-base leading-relaxed text-gray-800 mt-3">
+  These early years shaped how the United States would function as a republic and helped transform the Constitution from a document into a working system of government.<br />
+  <span className="text-gray-600">这些早期岁月塑造了美国作为一个共和国的运作方式，并助力将《宪法》从一份文件转变为一个切实可行的政府体系。</span>
+</p>
+
+<div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 mt-8">
+  <h3 className="text-xl font-semibold text-indigo-700">Key Terms · 关键术语</h3>
+  <p className="text-base text-gray-800 leading-relaxed mt-2">
+    Cabinet system, Bill of Rights (1791), Judiciary Act of 1789, Hamilton's Financial Plan, First Bank of the United States, Whiskey Rebellion, Proclamation of Neutrality (1793), Jay's Treaty (1794), Washington's Farewell Address, XYZ Affair, Quasi-War, Alien and Sedition Acts, Kentucky and Virginia Resolutions, Federalists, Democratic-Republicans<br />
+    <span className="text-gray-600">内阁制度、《权利法案》（1791）、1789年《司法法》、汉密尔顿财政计划、美国第一银行、威士忌叛乱、《中立宣言》（1793）、《杰伊条约》（1794）、《华盛顿告别演说》、XYZ事件、准战争、《客籍法和惩治叛乱法》、肯塔基和弗吉尼亚决议案、联邦党人、民主共和党人</span>
+  </p>
+</div>
 `,
+
 };
 

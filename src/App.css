@@ -40,3 +40,16 @@
 .read-the-docs {
   color: #888;
 }
+strong {
+  font-weight: 700;
+  font-size: 1.2rem; /* 粗体标题更大 */
+}
+
+em {
+  text-decoration: underline; /* 下划线 */
+}
+
+mark, .highlight {
+  background-color: #fff176; /* 黄色荧光笔 */
+  padding: 0 2px;
+}

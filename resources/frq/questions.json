@@ -1,0 +1,111 @@
+[
+  {
+    "id": "2025-set2-leq2",
+    "year": 2025,
+    "examSet": "Set 2",
+    "questionLabel": "LEQ 2",
+    "type": "LEQ",
+    "prompt": "Evaluate how Native American societies adapted to the presence of European colonists in North America from 1500 to 1754.",
+    "pointsPossible": 6,
+    "timeFrame": "1500\u20131754",
+    "themes": [
+      "Native American history",
+      "Colonial America",
+      "Interaction and exchange"
+    ],
+    "tags": ["Adaptation", "Colonization", "LEQ"],
+    "source": "AP\u00ae United States History 2025 Scoring Guidelines (Set 2)",
+    "rubric": {
+      "generalNotes": [
+        "Each rubric row is scored independently unless otherwise stated.",
+        "Historical evidence must be accurate and defensible; minor factual slips are acceptable if they do not undercut the argument.",
+        "Minor grammatical issues are tolerated so long as they do not obscure the argument."
+      ],
+      "criteria": [
+        {
+          "id": "row-a",
+          "row": "Row A",
+          "title": "Thesis / Claim",
+          "maxPoints": 1,
+          "description": "Responds to the prompt with a historically defensible thesis or claim that establishes a line of reasoning.",
+          "earningNotes": [
+            "Thesis must appear in either the introduction or conclusion in one connected location.",
+            "Statement must identify at least one relevant development or category of analysis tied to Native adaptations.",
+            "Acceptable lines of reasoning may emphasize alliances, trade, cultural adaptation, resistance, or other defensible categories."
+          ],
+          "sampleEarns": [
+            "\u201cWhile some Native nations leveraged alliances with Europeans to strengthen their position, others doubled down on Indigenous networks to resist colonial encroachment.\u201d",
+            "\u201cNative Americans balanced selective adoption of European goods with the preservation of cultural traditions to survive the colonial era.\u201d"
+          ],
+          "sampleMisses": [
+            "Restatements of the prompt with no reasoning (e.g., \u201cNative peoples adapted in many ways.\u201d).",
+            "Claims that are not historically defensible (e.g., \u201cNative Americans never changed their societies in response to Europeans.\u201d)."
+          ]
+        },
+        {
+          "id": "row-b",
+          "row": "Row B",
+          "title": "Contextualization",
+          "maxPoints": 1,
+          "description": "Describes a broader historical context relevant to Native American societies and European colonization.",
+          "earningNotes": [
+            "Context may come from developments before, during, or after 1500\u20131754 if clearly tied to the prompt.",
+            "Acceptable contexts include pre-contact trade networks, European religious and imperial rivalries, or early colonial ventures that shaped later interactions.",
+            "Must go beyond a passing phrase; should describe a development or process."
+          ],
+          "sampleEarns": [
+            "\u201cMaize agriculture supported complex trade routes across North America before Europeans arrived, giving Native societies leverage in early exchanges.\u201d",
+            "\u201cThe Columbian Exchange unleashed diseases and new animals that forced Native communities to rethink settlement patterns.\u201d"
+          ],
+          "sampleMisses": [
+            "Irrelevant references such as the Declaration of Independence.",
+            "Passing mentions with no elaboration (e.g., \u201cThere were many tribes before colonization.\u201d)."
+          ]
+        },
+        {
+          "id": "row-c",
+          "row": "Row C",
+          "title": "Evidence",
+          "maxPoints": 2,
+          "description": "Uses specific historical evidence to address how Native American societies adapted to European colonists. One point for identifying at least two relevant examples; two points for using them to support an argument.",
+          "earningNotes": [
+            "Evidence must fall within the geographic and chronological scope (North America, 1500\u20131754).",
+            "Qualifying examples include the fur trade, Covenant Chain alliances, Pueblo Revolt, Columbian Exchange adaptations, mission settlements, imperial wars, etc.",
+            "To earn two points, the response must explicitly connect evidence to an argument about adaptation (commerce, diplomacy, resistance, cultural change, etc.)."
+          ],
+          "sampleEarns": [
+            "\u201cThe Haudenosaunee negotiated the Covenant Chain with the British to secure trade advantages, showing diplomatic adaptation.\u201d",
+            "\u201cMission settlements in New France demonstrate selective adoption of Christianity, while uprisings like Metacom\u2019s War highlight resistance.\u201d",
+            "\u201cAdopting horses after the Columbian Exchange transformed Plains hunting practices, revealing technological adaptation.\u201d"
+          ],
+          "sampleMisses": [
+            "Using evidence outside the time/place (e.g., Cahokia).",
+            "Repeating facts provided in the prompt without adding specificity.",
+            "Listing isolated facts with no link to adaptation."
+          ]
+        },
+        {
+          "id": "row-d",
+          "row": "Row D",
+          "title": "Analysis & Reasoning / Complex Understanding",
+          "maxPoints": 2,
+          "description": "Uses historical reasoning (comparison, causation, CCOT) to frame the argument (1 pt) and/or demonstrates complex understanding through nuanced analysis or extensive evidence (2 pts).",
+          "earningNotes": [
+            "First point: argument must employ a reasoning skill to organize ideas (e.g., comparing Spanish vs. French relations, explaining causes/effects of adaptation).",
+            "Second point: show sophistication such as addressing multiple perspectives, connecting across regions, or weaving together \u22654 pieces of evidence in a nuanced claim.",
+            "Complexity must extend beyond a single sentence; it should enhance the overall argument."
+          ],
+          "sampleEarns": [
+            "Explains both accommodation and resistance, tying each to specific colonial powers and outcomes.",
+            "Connects Plains horse cultures, eastern fur trade diplomacy, and Southwest revolts to argue that adaptation strategies varied with local conditions.",
+            "Links developments before and after 1754 to show continuity and change in Native sovereignty efforts."
+          ],
+          "sampleMisses": [
+            "Listing evidence without explaining how it supports the argument.",
+            "Referencing reasoning words (\u201ccause,\u201d \u201ccompare\u201d) without actually performing the analysis."
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -76,39 +76,6 @@ function App() {
     [selectedTopicSteps]
   );
 
-  const allTopicStepsCompleted = useMemo(() => {
-    if (!selectedTopicSteps.length) {
-      return false;
-    }
-    return selectedTopicSteps.every((step) => isStepCompleted(step.id));
-  }, [selectedTopicSteps, isStepCompleted]);
-
-  const nextTopic = useMemo(() => {
-    if (!selectedUnit || !selectedTopic) {
-      return null;
-    }
-    const unitIndex = apushUnits.findIndex((unit) => unit.id === selectedUnit.id);
-    if (unitIndex === -1) {
-      return null;
-    }
-    const topicIndex = selectedUnit.topics.findIndex(
-      (topic) => topic.id === selectedTopic.id
-    );
-    if (topicIndex === -1) {
-      return null;
-    }
-    if (topicIndex < selectedUnit.topics.length - 1) {
-      return { unit: selectedUnit, topic: selectedUnit.topics[topicIndex + 1] };
-    }
-    for (let i = unitIndex + 1; i < apushUnits.length; i += 1) {
-      const candidateUnit = apushUnits[i];
-      if (candidateUnit.topics.length) {
-        return { unit: candidateUnit, topic: candidateUnit.topics[0] };
-      }
-    }
-    return null;
-  }, [selectedUnit, selectedTopic]);
-
   useEffect(() => {
     if (!selectedTopicSteps.length) {
       setSelectedStepId(null);
@@ -143,11 +110,6 @@ function App() {
       setSelectedStepId(null);
     }
     expandUnit(unit.id);
-  };
-
-  const handleNavigateToTopic = (unit: Unit, topic: Topic) => {
-    ensureTopicSelection(unit, topic);
-    setCurrentView("step");
   };
 
   const handleNavigate = (view: View) => {
@@ -300,9 +262,20 @@ function App() {
                   onNavigate={handleNavigate}
                   onSelectStep={handleSelectStep}
                   unitContents={unitContents}
-                  allStepsCompleted={allTopicStepsCompleted}
-                  nextTopic={nextTopic}
-                  onNavigateToTopic={handleNavigateToTopic}
+                  allStepsCompleted={
+                    selectedTopicSteps.length > 0 &&
+                    selectedTopicSteps.every((s) => completedSteps[s.id])
+                  }
+                  nextTopic={(() => {
+                    const idx = selectedUnit.topics.findIndex(
+                      (t) => t.id === selectedTopic.id
+                    );
+                    return selectedUnit.topics[idx + 1] ?? null;
+                  })()}
+                  onNavigateToTopic={(unit, topic) => {
+                    ensureTopicSelection(unit, topic);
+                    setCurrentView("step");
+                  }}
                 />
               )}
 

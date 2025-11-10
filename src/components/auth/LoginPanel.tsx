@@ -114,6 +114,7 @@ export const LoginPanel: FC = () => {
         Sign in to sync your progress
       </div>
       <input
+        id="auth-email-input"
         type="email"
         value={email}
         onChange={(event) => setEmail(event.target.value)}
