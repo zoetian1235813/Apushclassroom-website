@@ -27,3 +27,14 @@ export const requireAuth = (req, res, next) => {
   req.tokenPayload = decoded;
   return next();
 };
+
+export const requireAdmin = [
+  requireAuth,
+  (req, res, next) => {
+    if (req.user.account_type !== "admin") {
+      return res.status(403).json({ error: "Access denied. Administrator privileges required." });
+    }
+    return next();
+  },
+];
+

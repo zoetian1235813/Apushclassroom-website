@@ -89,6 +89,7 @@ export const apushUnits: Unit[] = [
       { id: "5.9", title: "Reconstruction", isProgressCheck: false },
       { id: "5.10", title: "Failure of Reconstruction", isProgressCheck: false },
       { id: "5.11", title: "Comparison in Period 5", isProgressCheck: true },
+      { id: "unit5progresscheck", title: "Unit 5 Progress Check", isProgressCheck: true },
     ],
   },
   {

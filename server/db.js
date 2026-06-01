@@ -19,6 +19,10 @@ CREATE TABLE IF NOT EXISTS users (
   wechat_unionid TEXT,
   display_name TEXT,
   avatar_url TEXT,
+  account_type TEXT NOT NULL DEFAULT 'registered',
+  subscription_status TEXT NOT NULL DEFAULT 'free',
+  content_region TEXT NOT NULL DEFAULT 'overseas',
+  subscription_updated_at TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
   last_login_at TEXT
@@ -67,6 +71,38 @@ CREATE TABLE IF NOT EXISTS wrong_questions (
   UNIQUE(user_id, question_id),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS activation_codes (
+  code TEXT PRIMARY KEY,
+  consumed INTEGER NOT NULL DEFAULT 0,
+  consumed_by TEXT,
+  consumed_at TEXT
+);
 `);
+
+db.exec(`
+INSERT OR IGNORE INTO activation_codes (code) VALUES
+('APUSH8888'),
+('APUSH6666'),
+('APUSH-2026-ACTIVE'),
+('APUSH-VX-19855352384'),
+('APUSH-ZOE-TIAN'),
+('APUSH-9999'),
+('APUSH-520'),
+('APUSH-1314');
+`);
+
+const ensureColumn = (table, column, definition) => {
+  const columns = db.prepare(`PRAGMA table_info(${table})`).all();
+  const hasColumn = columns.some((item) => item.name === column);
+  if (!hasColumn) {
+    db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  }
+};
+
+ensureColumn("users", "subscription_status", "TEXT NOT NULL DEFAULT 'free'");
+ensureColumn("users", "content_region", "TEXT NOT NULL DEFAULT 'overseas'");
+ensureColumn("users", "subscription_updated_at", "TEXT");
+ensureColumn("users", "account_type", "TEXT NOT NULL DEFAULT 'registered'");
 
 export default db;

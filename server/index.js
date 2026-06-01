@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import db from "./db.js";
 import { sendVerificationCode } from "./email.js";
-import { requireAuth } from "./middleware.js";
+import { requireAuth, requireAdmin } from "./middleware.js";
 import { signToken } from "./tokens.js";
 import {
   buildWeChatAuthUrl,
@@ -47,6 +47,8 @@ app.get(config.healthPath, (req, res) => {
 
 const emailCodeTtlSeconds = config.emailCodeTtlSeconds;
 const wechatRedirectUri = config.wechatRedirectUri;
+const adminEmail = (process.env.ADMIN_EMAIL || "admin@apush.com").toLowerCase().trim();
+const adminPassword = process.env.ADMIN_PASSWORD || "111111";
 const openaiApiKey = config.openai.apiKey;
 const openaiClient = openaiApiKey ? new OpenAI({ apiKey: openaiApiKey }) : null;
 
@@ -110,6 +112,20 @@ const upsertUserByWeChatStmt = db.prepare(`
     last_login_at = excluded.last_login_at
 `);
 
+const insertGuestUserStmt = db.prepare(`
+  INSERT INTO users (
+    id,
+    display_name,
+    account_type,
+    subscription_status,
+    content_region,
+    created_at,
+    updated_at,
+    last_login_at
+  )
+  VALUES (?, ?, 'guest', 'free', 'overseas', ?, ?, ?)
+`);
+
 const getUserByEmailStmt = db.prepare(`
   SELECT *
   FROM users
@@ -157,6 +173,44 @@ const deleteProgressStmt = db.prepare(`
   WHERE user_id = ?
     AND topic_id = ?
     AND step_id = ?
+`);
+
+const updateContentRegionStmt = db.prepare(`
+  UPDATE users
+  SET content_region = ?,
+      updated_at = ?
+  WHERE id = ?
+`);
+
+const updateSubscriptionStmt = db.prepare(`
+  UPDATE users
+  SET subscription_status = ?,
+      subscription_updated_at = ?,
+      updated_at = ?
+  WHERE id = ?
+`);
+
+const selectAdminUsersStmt = db.prepare(`
+  SELECT
+    id,
+    email,
+    wechat_openid,
+    account_type,
+    display_name,
+    subscription_status,
+    content_region,
+    subscription_updated_at,
+    created_at,
+    updated_at,
+    last_login_at
+  FROM users
+  ORDER BY updated_at DESC
+`);
+
+const getUserByIdStmt = db.prepare(`
+  SELECT *
+  FROM users
+  WHERE id = ?
 `);
 
 const upsertWrongQuestionStmt = db.prepare(`
@@ -236,10 +290,18 @@ const mapUser = (user) => ({
   displayName: user.display_name,
   avatarUrl: user.avatar_url,
   wechatOpenId: user.wechat_openid,
+  accountType: user.account_type || "registered",
+  subscriptionStatus: user.subscription_status || "free",
+  contentRegion: user.content_region || "overseas",
+  subscriptionUpdatedAt: user.subscription_updated_at,
   createdAt: user.created_at,
   updatedAt: user.updated_at,
   lastLoginAt: user.last_login_at,
 });
+
+const validContentRegions = new Set(["china", "overseas"]);
+const validSubscriptionStatuses = new Set(["free", "pending", "active"]);
+
 
 const validateEmail = (email) => {
   const emailPattern =
@@ -285,6 +347,57 @@ app.post("/auth/email/verify", (req, res) => {
       .json({ error: "Email and verification code are required" });
   }
 
+  const normalizedEmail = email.toLowerCase().trim();
+  const normalizedCode = code.trim();
+
+  // Admin Account and Password Bypass
+  if (
+    (normalizedEmail === adminEmail || normalizedEmail === "admin" || normalizedEmail === "admin@apush.com") &&
+    normalizedCode === adminPassword
+  ) {
+    const now = isoNow();
+    const activeAdminEmail = normalizedEmail === "admin" ? adminEmail : normalizedEmail;
+    let user = getUserByEmailStmt.get(activeAdminEmail);
+    if (!user) {
+      const newUser = {
+        id: "admin-user-id",
+        email: activeAdminEmail,
+        display_name: "Admin",
+        created_at: now,
+        updated_at: now,
+        last_login_at: now,
+      };
+      upsertUserByEmailStmt.run(newUser);
+      
+      // Force set to admin and active premium
+      updateSubscriptionStmt.run("active", now, now, "admin-user-id");
+      db.prepare(`UPDATE users SET account_type = 'admin' WHERE id = 'admin-user-id'`).run();
+      
+      user = getUserByEmailStmt.get(activeAdminEmail);
+    } else {
+      // Force set to admin and active premium
+      updateSubscriptionStmt.run("active", now, now, user.id);
+      db.prepare(`UPDATE users SET account_type = 'admin' WHERE id = ?`).run(user.id);
+      
+      upsertUserByEmailStmt.run({
+        id: user.id,
+        email: user.email,
+        display_name: user.display_name,
+        created_at: user.created_at,
+        updated_at: now,
+        last_login_at: now,
+      });
+      user = getUserByEmailStmt.get(activeAdminEmail);
+    }
+
+    const token = signToken({ sub: user.id, provider: "email" });
+
+    return res.json({
+      token,
+      user: mapUser(user),
+    });
+  }
+
   const record = findValidEmailCodeStmt.get(email.toLowerCase());
 
   if (!record) {
@@ -327,6 +440,19 @@ app.post("/auth/email/verify", (req, res) => {
   }
 
   const token = signToken({ sub: user.id, provider: "email" });
+
+  return res.json({
+    token,
+    user: mapUser(user),
+  });
+});
+
+app.post("/auth/guest", (_req, res) => {
+  const now = isoNow();
+  const id = uuidv4();
+  insertGuestUserStmt.run(id, "Guest User", now, now, now);
+  const user = getUserByIdStmt.get(id);
+  const token = signToken({ sub: user.id, provider: "guest" });
 
   return res.json({
     token,
@@ -418,6 +544,102 @@ app.get("/auth/me", requireAuth, (req, res) => {
   const user = mapUser(req.user);
   const progress = selectProgressStmt.all(req.user.id);
   return res.json({ user, progress });
+});
+
+app.patch("/account/preferences", requireAuth, (req, res) => {
+  const { contentRegion } = req.body ?? {};
+  if (!validContentRegions.has(contentRegion)) {
+    return res.status(400).json({ error: "contentRegion must be china or overseas" });
+  }
+
+  updateContentRegionStmt.run(contentRegion, isoNow(), req.user.id);
+  const user = getUserByIdStmt.get(req.user.id);
+  return res.json({ user: mapUser(user) });
+});
+
+app.post("/billing/upgrade-request", requireAuth, (req, res) => {
+  const now = isoNow();
+  updateSubscriptionStmt.run("pending", now, now, req.user.id);
+  const user = getUserByIdStmt.get(req.user.id);
+  return res.json({
+    user: mapUser(user),
+    message: "Upgrade request recorded. Admin can review this account.",
+  });
+});
+
+app.post("/billing/activate", requireAuth, (req, res) => {
+  const { code } = req.body ?? {};
+  if (!code) {
+    return res.status(400).json({ error: "激活码不能为空" });
+  }
+
+  const normalizedCode = code.trim().toUpperCase();
+
+  const stmt = db.prepare(`SELECT * FROM activation_codes WHERE code = ?`);
+  const record = stmt.get(normalizedCode);
+
+  if (!record) {
+    return res.status(400).json({ error: "无效的激活码，请检查拼写" });
+  }
+
+  if (record.consumed === 1) {
+    return res.status(400).json({ error: "该激活码已被使用" });
+  }
+
+  const now = isoNow();
+
+  db.prepare(`
+    UPDATE activation_codes
+    SET consumed = 1, consumed_by = ?, consumed_at = ?
+    WHERE code = ?
+  `).run(req.user.id, now, normalizedCode);
+
+  updateSubscriptionStmt.run("active", now, now, req.user.id);
+
+  const user = getUserByIdStmt.get(req.user.id);
+
+  return res.json({
+    success: true,
+    user: mapUser(user),
+    message: "账号激活成功！已开通高级权限（Premium）。",
+  });
+});
+
+app.get("/admin/users", requireAdmin, (_req, res) => {
+  const users = selectAdminUsersStmt.all().map((user) => ({
+    id: user.id,
+    email: user.email,
+    wechatOpenId: user.wechat_openid,
+    accountType: user.account_type,
+    displayName: user.display_name,
+    subscriptionStatus: user.subscription_status,
+    contentRegion: user.content_region,
+    subscriptionUpdatedAt: user.subscription_updated_at,
+    createdAt: user.created_at,
+    updatedAt: user.updated_at,
+    lastLoginAt: user.last_login_at,
+  }));
+  return res.json({ users });
+});
+
+app.patch("/admin/users/:userId/subscription", requireAdmin, (req, res) => {
+  const { userId } = req.params;
+  const { subscriptionStatus } = req.body ?? {};
+  if (!validSubscriptionStatuses.has(subscriptionStatus)) {
+    return res
+      .status(400)
+      .json({ error: "subscriptionStatus must be free, pending, or active" });
+  }
+
+  const existingUser = getUserByIdStmt.get(userId);
+  if (!existingUser) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  const now = isoNow();
+  updateSubscriptionStmt.run(subscriptionStatus, now, now, userId);
+  const user = getUserByIdStmt.get(userId);
+  return res.json({ user: mapUser(user) });
 });
 
 app.get("/progress", requireAuth, (req, res) => {
@@ -699,6 +921,171 @@ app.delete("/progress", requireAuth, (req, res) => {
   deleteProgressStmt.run(req.user.id, topicId, stepId);
   const progress = selectProgressStmt.all(req.user.id);
   return res.json({ success: true, progress });
+});
+
+// ==================== ADMIN ENDPOINTS ====================
+
+// 1. GET /api/admin/stats - Overview stats
+app.get("/api/admin/stats", requireAdmin, (req, res) => {
+  try {
+    const totalUsers = db.prepare("SELECT COUNT(*) AS count FROM users").get().count;
+    const activePremium = db.prepare("SELECT COUNT(*) AS count FROM users WHERE subscription_status = 'active'").get().count;
+    const pendingRequests = db.prepare("SELECT COUNT(*) AS count FROM users WHERE subscription_status = 'pending'").get().count;
+    const totalCodes = db.prepare("SELECT COUNT(*) AS count FROM activation_codes").get().count;
+    const unusedCodes = db.prepare("SELECT COUNT(*) AS count FROM activation_codes WHERE consumed = 0").get().count;
+
+    return res.json({
+      totalUsers,
+      activePremium,
+      pendingRequests,
+      totalCodes,
+      unusedCodes,
+    });
+  } catch (err) {
+    console.error("[Admin Stats Error]:", err);
+    return res.status(500).json({ error: "Failed to fetch admin stats" });
+  }
+});
+
+// 2. GET /api/admin/users - Users directory with details
+app.get("/api/admin/users", requireAdmin, (req, res) => {
+  try {
+    const users = db.prepare("SELECT * FROM users ORDER BY created_at DESC").all();
+    
+    // Enrich users with progress info and mistake counts
+    const enrichedUsers = users.map(user => {
+      const progressCount = db.prepare("SELECT COUNT(*) AS count FROM lesson_progress WHERE user_id = ? AND completed = 1").get(user.id).count;
+      const mistakeCount = db.prepare("SELECT COUNT(*) AS count FROM wrong_questions WHERE user_id = ?").get(user.id).count;
+      
+      return {
+        id: user.id,
+        email: user.email,
+        displayName: user.display_name,
+        avatarUrl: user.avatar_url,
+        accountType: user.account_type,
+        subscriptionStatus: user.subscription_status,
+        contentRegion: user.content_region,
+        createdAt: user.created_at,
+        lastLoginAt: user.last_login_at,
+        progressCount,
+        mistakeCount
+      };
+    });
+
+    return res.json({ users: enrichedUsers });
+  } catch (err) {
+    console.error("[Admin Users Error]:", err);
+    return res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+
+// 3. PATCH /api/admin/users/:id/subscription - Change user status or upgrade
+app.patch("/api/admin/users/:id/subscription", requireAdmin, (req, res) => {
+  const { id } = req.params;
+  const { subscriptionStatus, accountType } = req.body ?? {};
+  
+  try {
+    const user = db.prepare("SELECT * FROM users WHERE id = ?").get(id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const updatedAt = new Date().toISOString();
+    const updatedSubStatus = subscriptionStatus || user.subscription_status;
+    const updatedAccountType = accountType || user.account_type;
+
+    db.prepare(`
+      UPDATE users 
+      SET subscription_status = ?, account_type = ?, updated_at = ?, subscription_updated_at = ?
+      WHERE id = ?
+    `).run(updatedSubStatus, updatedAccountType, updatedAt, updatedAt, id);
+
+    const updatedUser = db.prepare("SELECT * FROM users WHERE id = ?").get(id);
+    return res.json({ success: true, user: updatedUser });
+  } catch (err) {
+    console.error("[Admin Update User Error]:", err);
+    return res.status(500).json({ error: "Failed to update user subscription" });
+  }
+});
+
+// 4. GET /api/admin/users/:id/progress - Fetch detailed student learning progress
+app.get("/api/admin/users/:id/progress", requireAdmin, (req, res) => {
+  const { id } = req.params;
+  try {
+    const progress = db.prepare("SELECT topic_id, step_id, updated_at FROM lesson_progress WHERE user_id = ?").all(id);
+    const mistakes = db.prepare("SELECT * FROM wrong_questions WHERE user_id = ?").all(id);
+    return res.json({ progress, mistakes });
+  } catch (err) {
+    console.error("[Admin Progress Fetch Error]:", err);
+    return res.status(500).json({ error: "Failed to fetch student learning profile" });
+  }
+});
+
+// 5. DELETE /api/admin/users/:id - Delete a user (cascades)
+app.delete("/api/admin/users/:id", requireAdmin, (req, res) => {
+  const { id } = req.params;
+  try {
+    db.prepare("DELETE FROM users WHERE id = ?").run(id);
+    return res.json({ success: true, message: "User deleted successfully" });
+  } catch (err) {
+    console.error("[Admin Delete User Error]:", err);
+    return res.status(500).json({ error: "Failed to delete user" });
+  }
+});
+
+// 6. GET /api/admin/codes - List all activation codes
+app.get("/api/admin/codes", requireAdmin, (req, res) => {
+  try {
+    const codes = db.prepare(`
+      SELECT ac.*, u.email AS consumed_by_email 
+      FROM activation_codes ac
+      LEFT JOIN users u ON ac.consumed_by = u.id
+      ORDER BY ac.consumed_at DESC, ac.code ASC
+    `).all();
+    return res.json({ codes });
+  } catch (err) {
+    console.error("[Admin Codes Error]:", err);
+    return res.status(500).json({ error: "Failed to fetch activation codes" });
+  }
+});
+
+// 7. POST /api/admin/codes - Generate custom/batch activation codes
+app.post("/api/admin/codes", requireAdmin, (req, res) => {
+  const { code, count, prefix } = req.body ?? {};
+  try {
+    if (code) {
+      // Create a single custom code
+      db.prepare("INSERT INTO activation_codes (code, consumed) VALUES (?, 0)").run(code.trim().toUpperCase());
+    } else {
+      // Batch generate
+      const codesGenerated = [];
+      const batchPrefix = (prefix || "APUSH-").trim().toUpperCase();
+      const codeCount = count || 5;
+
+      for (let i = 0; i < codeCount; i++) {
+        const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+        const finalCode = `${batchPrefix}${randomStr}`;
+        db.prepare("INSERT INTO activation_codes (code, consumed) VALUES (?, 0)").run(finalCode);
+        codesGenerated.push(finalCode);
+      }
+    }
+    return res.json({ success: true, message: "Activation codes created successfully" });
+  } catch (err) {
+    console.error("[Admin Create Codes Error]:", err);
+    return res.status(400).json({ error: "Code already exists or invalid arguments." });
+  }
+});
+
+// 8. DELETE /api/admin/codes/:code - Revoke/delete an unused code
+app.delete("/api/admin/codes/:code", requireAdmin, (req, res) => {
+  const { code } = req.params;
+  try {
+    db.prepare("DELETE FROM activation_codes WHERE code = ?").run(code);
+    return res.json({ success: true, message: "Activation code deleted" });
+  } catch (err) {
+    console.error("[Admin Revoke Code Error]:", err);
+    return res.status(500).json({ error: "Failed to delete activation code" });
+  }
 });
 
 const isDirectRun =

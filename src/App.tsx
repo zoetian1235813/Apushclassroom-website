@@ -1,5 +1,6 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useCallback } from "react";
 import InteractivePractice from "./components/InteractivePractice";
 import { ProgressSummary } from "./components/ProgressSummary";
 import { Sidebar } from "./components/Sidebar";
@@ -7,19 +8,35 @@ import { HomeView } from "./components/views/HomeView";
 import { StepView } from "./components/views/StepView";
 import { StudyView } from "./components/views/StudyView";
 import { QuestionTypesView } from "./components/views/QuestionTypesView";
+import { FrqQuestionBankView } from "./components/views/FrqQuestionBankView";
 import { PastExamsView } from "./components/views/PastExamsView";
+import { UserGuideView } from "./components/views/UserGuideView";
 import { TopicPracticeView } from "./components/views/TopicPracticeView";
+import { AdminDashboardView } from "./components/views/AdminDashboardView";
 import { unitContents } from "./data/units/units";
 import { apushUnits } from "./data/apushUnits";
 import { topicQuestionBank } from "./data/questions";
+import { frqQuestionBank } from "./data/frq";
+import { useAuth } from "./state/authContext";
 import { useLessonProgress } from "./state/lessonProgress";
 import { buildStepsForTopic } from "./utils/lessonUtils";
 import { LessonStep, Topic, Unit } from "./types/lesson";
 import { View } from "./types/navigation";
 
 function App() {
+  const { user } = useAuth();
   const { isStepCompleted, toggleStep, markStep, completedSteps } =
     useLessonProgress();
+  const contentRegion = user?.contentRegion ?? "overseas";
+  const hasPremiumAccess = user?.subscriptionStatus === "active";
+  const canAccessUnit = useCallback(
+    (unit: Unit) => hasPremiumAccess || unit.id === 1,
+    [hasPremiumAccess]
+  );
+  const buildSteps = useCallback(
+    (unit: Unit, topic: Topic) => buildStepsForTopic(unit, topic, contentRegion),
+    [contentRegion]
+  );
 
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
@@ -34,10 +51,10 @@ function App() {
 
   const allLessonSteps = useMemo(
     () =>
-      apushUnits.flatMap((unit) =>
-        unit.topics.flatMap((topic) => buildStepsForTopic(unit, topic))
+      apushUnits.filter(canAccessUnit).flatMap((unit) =>
+        unit.topics.flatMap((topic) => buildSteps(unit, topic))
       ),
-    []
+    [buildSteps, canAccessUnit]
   );
 
   const totalStepCount = allLessonSteps.length;
@@ -55,8 +72,8 @@ function App() {
     if (!selectedUnit || !selectedTopic) {
       return [] as LessonStep[];
     }
-    return buildStepsForTopic(selectedUnit, selectedTopic);
-  }, [selectedUnit, selectedTopic]);
+    return buildSteps(selectedUnit, selectedTopic);
+  }, [buildSteps, selectedUnit, selectedTopic]);
 
   const selectedStep = useMemo(() => {
     if (!selectedTopicSteps.length) {
@@ -75,6 +92,47 @@ function App() {
     () => selectedTopicSteps.find((step) => step.type === "notes") ?? null,
     [selectedTopicSteps]
   );
+
+  const allTopicStepsCompleted = useMemo(() => {
+    if (!selectedTopicSteps.length) {
+      return false;
+    }
+    return selectedTopicSteps.every((step) => isStepCompleted(step.id));
+  }, [selectedTopicSteps, isStepCompleted]);
+
+  const nextTopic = useMemo(() => {
+    if (!selectedUnit || !selectedTopic) {
+      return null;
+    }
+    const topicIndex = selectedUnit.topics.findIndex(
+      (topic) => topic.id === selectedTopic.id
+    );
+    if (topicIndex === -1) {
+      return null;
+    }
+    if (topicIndex < selectedUnit.topics.length - 1) {
+      return { unit: selectedUnit, topic: selectedUnit.topics[topicIndex + 1] };
+    }
+    const selectedUnitIndex = apushUnits.findIndex(
+      (unit) => unit.id === selectedUnit.id
+    );
+    if (selectedUnitIndex === -1) {
+      return null;
+    }
+    for (let idx = selectedUnitIndex + 1; idx < apushUnits.length; idx += 1) {
+      const unit = apushUnits[idx];
+      if (unit.topics.length && canAccessUnit(unit)) {
+        return { unit, topic: unit.topics[0] };
+      }
+    }
+    return null;
+  }, [canAccessUnit, selectedUnit, selectedTopic]);
+
+  useEffect(() => {
+    if (selectedUnit && !canAccessUnit(selectedUnit)) {
+      setCurrentView("userGuide");
+    }
+  }, [canAccessUnit, selectedUnit]);
 
   useEffect(() => {
     if (!selectedTopicSteps.length) {
@@ -103,7 +161,7 @@ function App() {
   const ensureTopicSelection = (unit: Unit, topic: Topic) => {
     setSelectedUnit(unit);
     setSelectedTopic(topic);
-    const steps = buildStepsForTopic(unit, topic);
+    const steps = buildSteps(unit, topic);
     if (steps.length) {
       setSelectedStepId(steps[0].id);
     } else {
@@ -112,7 +170,32 @@ function App() {
     expandUnit(unit.id);
   };
 
+  const handleNavigateToTopic = (unit: Unit, topic: Topic) => {
+    if (!canAccessUnit(unit)) {
+      setCurrentView("userGuide");
+      return;
+    }
+    ensureTopicSelection(unit, topic);
+    setCurrentView("step");
+  };
+
   const handleNavigate = (view: View) => {
+    const premiumViews: View[] = [
+      "questionTypes",
+      "practice",
+      "topicPractice",
+      "frqPractice",
+      "pastExams",
+      "wrongNotebook",
+    ];
+    if (view === "adminDashboard" && user?.accountType !== "admin") {
+      setCurrentView("home");
+      return;
+    }
+    if (!hasPremiumAccess && premiumViews.includes(view)) {
+      setCurrentView("userGuide");
+      return;
+    }
     if (view === "study" && (!selectedUnit || !selectedTopic)) {
       const fallbackUnit = apushUnits[0];
       const fallbackTopic = fallbackUnit.topics[0];
@@ -127,6 +210,11 @@ function App() {
     if (!unit.topics.length) {
       return;
     }
+    if (!canAccessUnit(unit)) {
+      setCurrentView("userGuide");
+      toggleMobileSidebar(false);
+      return;
+    }
     const firstTopic = unit.topics[0];
     ensureTopicSelection(unit, firstTopic);
     setCurrentView("step");
@@ -134,17 +222,29 @@ function App() {
   };
 
   const handleSelectTopic = (unit: Unit, topic: Topic) => {
+    if (!canAccessUnit(unit)) {
+      setCurrentView("userGuide");
+      return;
+    }
     ensureTopicSelection(unit, topic);
     setCurrentView("study");
   };
 
   const handleOpenStep = (unit: Unit, topic: Topic, step: LessonStep) => {
+    if (!canAccessUnit(unit)) {
+      setCurrentView("userGuide");
+      return;
+    }
     ensureTopicSelection(unit, topic);
     setSelectedStepId(step.id);
     setCurrentView("step");
   };
 
   const handleOpenTopicQuestions = (unit: Unit, topic: Topic) => {
+    if (!hasPremiumAccess) {
+      setCurrentView("userGuide");
+      return;
+    }
     ensureTopicSelection(unit, topic);
     setCurrentView("topicPractice");
   };
@@ -155,6 +255,15 @@ function App() {
   };
 
   const handlePracticeStart = (type: "SAQ" | "LEQ") => {
+    if (!hasPremiumAccess) {
+      setCurrentView("userGuide");
+      return;
+    }
+    if (type === "LEQ") {
+      setPracticeType(null);
+      setCurrentView("frqPractice");
+      return;
+    }
     setPracticeType(type);
     setCurrentView("practice");
   };
@@ -218,8 +327,10 @@ function App() {
             onOpenStep={handleOpenStep}
             onToggleStepCompleted={toggleStep}
             isStepCompleted={isStepCompleted}
-            buildSteps={buildStepsForTopic}
+            buildSteps={buildSteps}
+            canAccessUnit={canAccessUnit}
             onNavigate={handleNavigate}
+            isAdmin={user?.accountType === "admin"}
           />
 
           <main className="flex-1 min-w-0">
@@ -228,15 +339,18 @@ function App() {
                 units={apushUnits}
                 onNavigate={handleNavigate}
                 onUnitClick={handleUnitCardClick}
+                canAccessUnit={canAccessUnit}
               />
             )}
+
+            {currentView === "userGuide" && <UserGuideView />}
 
             {currentView === "study" && selectedUnit && selectedTopic && (
               <StudyView
                 selectedUnit={selectedUnit}
                 selectedTopic={selectedTopic}
                 onOpenNotes={(unit, topic) => {
-                  const [firstStep] = buildStepsForTopic(unit, topic);
+                  const [firstStep] = buildSteps(unit, topic);
                   if (firstStep) {
                     handleOpenStep(unit, topic, firstStep);
                   }
@@ -262,48 +376,9 @@ function App() {
                   onNavigate={handleNavigate}
                   onSelectStep={handleSelectStep}
                   unitContents={unitContents}
-                  allStepsCompleted={
-                    selectedTopicSteps.length > 0 &&
-                    selectedTopicSteps.every((s) => completedSteps[s.id])
-                  }
-                  nextTopic={(() => {
-                    const idx = selectedUnit.topics.findIndex(
-                      (t) => t.id === selectedTopic.id
-                    );
-                    if (idx === -1) {
-                      return null;
-                    }
-
-                    const nextTopicInUnit = selectedUnit.topics[idx + 1];
-                    if (nextTopicInUnit) {
-                      return { unit: selectedUnit, topic: nextTopicInUnit };
-                    }
-
-                    const selectedUnitIndex = apushUnits.findIndex(
-                      (unit) => unit.id === selectedUnit.id
-                    );
-                    if (selectedUnitIndex === -1) {
-                      return null;
-                    }
-
-                    for (
-                      let unitIdx = selectedUnitIndex + 1;
-                      unitIdx < apushUnits.length;
-                      unitIdx += 1
-                    ) {
-                      const unit = apushUnits[unitIdx];
-                      const firstTopic = unit.topics[0];
-                      if (firstTopic) {
-                        return { unit, topic: firstTopic };
-                      }
-                    }
-
-                    return null;
-                  })()}
-                  onNavigateToTopic={(unit, topic) => {
-                    ensureTopicSelection(unit, topic);
-                    setCurrentView("step");
-                  }}
+                  allStepsCompleted={allTopicStepsCompleted}
+                  nextTopic={nextTopic}
+                  onNavigateToTopic={handleNavigateToTopic}
                 />
               )}
 
@@ -316,7 +391,7 @@ function App() {
                   questions={topicQuestionBank[selectedTopic.id] ?? []}
                   onBack={() => setCurrentView("study")}
                   onOpenNotes={() => {
-                    const steps = buildStepsForTopic(
+                    const steps = buildSteps(
                       selectedUnit,
                       selectedTopic
                     );
@@ -335,11 +410,20 @@ function App() {
               <QuestionTypesView onPractice={handlePracticeStart} />
             )}
 
+            {currentView === "frqPractice" && (
+              <FrqQuestionBankView
+                questions={frqQuestionBank}
+                onBack={() => setCurrentView("questionTypes")}
+              />
+            )}
+
             {currentView === "practice" && practiceType && (
               <InteractivePractice type={practiceType} />
             )}
 
             {currentView === "pastExams" && <PastExamsView />}
+
+            {currentView === "adminDashboard" && <AdminDashboardView />}
           </main>
         </div>
       </div>

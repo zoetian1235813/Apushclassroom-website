@@ -3,12 +3,15 @@ import { Unit } from "../types/lesson";
 interface UnitCardProps {
   unit: Unit;
   onClick: (unit: Unit) => void;
+  locked?: boolean;
 }
 
-export const UnitCard = ({ unit, onClick }: UnitCardProps) => (
+export const UnitCard = ({ unit, onClick, locked = false }: UnitCardProps) => (
   <button
     type="button"
-    className="glass-card group flex h-full flex-col gap-4 overflow-hidden border border-white/25 px-5 py-6 text-left transition-transform hover:-translate-y-1 hover:shadow-glass"
+    className={`glass-card group flex h-full flex-col gap-4 overflow-hidden border border-white/25 px-5 py-6 text-left transition-transform hover:-translate-y-1 hover:shadow-glass ${
+      locked ? "opacity-60" : ""
+    }`}
     onClick={() => onClick(unit)}
   >
     <div className={`h-1.5 w-full bg-gradient-to-r ${unit.color} rounded-full`} />
@@ -18,11 +21,15 @@ export const UnitCard = ({ unit, onClick }: UnitCardProps) => (
       >
         Unit {unit.id}
       </span>
-      <span className="text-xs uppercase tracking-[0.3em]">{unit.period}</span>
+      <span className="text-xs uppercase tracking-[0.3em]">
+        {locked ? "Premium" : unit.period}
+      </span>
     </div>
     <h4 className="text-lg font-semibold text-midnight transition-colors group-hover:text-glow">
       {unit.title}
     </h4>
-    <p className="text-sm text-midnight/60">{unit.topics.length} 主题</p>
+    <p className="text-sm text-midnight/60">
+      {locked ? "付费版解锁完整内容" : `${unit.topics.length} 主题`}
+    </p>
   </button>
 );

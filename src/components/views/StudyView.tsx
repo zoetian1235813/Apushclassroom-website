@@ -92,7 +92,9 @@ export const StudyView = ({
           }}
           disabled={!hasTopicQuestions}
         >
-          {selectedTopic.isProgressCheck
+          {selectedTopic.id === "unit5progresscheck"
+            ? "开始练习"
+            : selectedTopic.isProgressCheck
             ? "开始进度校准"
             : hasTopicQuestions
             ? "开始练习"

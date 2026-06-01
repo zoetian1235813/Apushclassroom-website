@@ -323,4 +323,10 @@ export const unit5Contents: Record<string, string> = {
 <h3>🗂️ Key Terms</h3>
 <p>Union vs. Confederacy, Emancipation, Reconstruction, Radical Republicans<br /><span className="text-gray-600">联邦与邦联、解放、重建、激进共和党</span></p>
 `,
+
+  unit5progresscheck: `
+<h3>ðŸ“?Unit 5 Progress Check</h3>
+<p>33 é¸æ“‡é¢˜ç»¼åˆè€ƒæ ¸å¤©å®šå‘½è®ºã€�ç¾Žå¢¨æˆ˜äº‰ã€�å†…æˆ˜ä¸Žé‡å»ºç­‰æ ¸å¿ƒè€ƒç‚¹ï¼Œä¼´éšä¸­æ–‡è§£è¯». </p>
+<p className="text-gray-600 text-sm">ç‚¹å‡»â€œå¼€å§‹ç»ƒä¹ â€ç›´æŽ¥å…¥åœºæ•´å¥—æ¨¡æ‹Ÿç»ƒä¹ ã€‚</p>
+`,
 };

@@ -14,6 +14,10 @@ export interface AuthenticatedUser {
   email?: string | null;
   displayName?: string | null;
   avatarUrl?: string | null;
+  accountType?: "registered" | "guest" | "admin";
+  subscriptionStatus?: "free" | "pending" | "active";
+  contentRegion?: "china" | "overseas";
+  subscriptionUpdatedAt?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   lastLoginAt?: string | null;
@@ -33,9 +37,12 @@ interface AuthContextValue {
   remoteProgress: ProgressEntry[];
   sendEmailCode: (email: string) => Promise<void>;
   verifyEmailCode: (email: string, code: string) => Promise<void>;
+  startGuestLogin: () => Promise<void>;
   startWeChatLogin: () => Promise<void>;
   logout: () => void;
   refreshProfile: () => Promise<void>;
+  updateContentRegion: (contentRegion: "china" | "overseas") => Promise<void>;
+  requestUpgrade: () => Promise<void>;
   setRemoteProgress: Dispatch<SetStateAction<ProgressEntry[]>>;
   setToken: (token: string | null) => void;
 }
@@ -48,6 +55,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<AuthenticatedUser | null>(null);
+  const [guestRegion, setGuestRegionState] = useState<"china" | "overseas">(() => {
+    const saved = localStorage.getItem("apush-guest-region");
+    return (saved === "china" || saved === "overseas") ? saved : "overseas";
+  });
+
+  const userWithGuestPref = useMemo(() => {
+    if (user) return user;
+    return {
+      id: "guest-tourist",
+      accountType: "guest" as const,
+      subscriptionStatus: "free" as const,
+      contentRegion: guestRegion,
+    };
+  }, [user, guestRegion]);
+
   const [token, setTokenState] = useState<string | null>(null);
   const [remoteProgress, setRemoteProgress] = useState<ProgressEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -143,6 +165,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     [applyToken]
   );
 
+  const startGuestLogin = useCallback(async () => {
+    const data = await apiRequest<{ token: string; user: AuthenticatedUser }>(
+      "/auth/guest",
+      {
+        method: "POST",
+      }
+    );
+    applyToken(data.token);
+    setUser(data.user);
+    setRemoteProgress([]);
+  }, [applyToken]);
+
   const startWeChatLogin = useCallback(async () => {
     const redirectTarget = `${window.location.origin}${window.location.pathname}`;
     const search = window.location.search ? window.location.search : "";
@@ -162,6 +196,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     window.location.href = data.url;
   }, []);
 
+  const updateContentRegion = useCallback(
+    async (contentRegion: "china" | "overseas") => {
+      if (!token) {
+        localStorage.setItem("apush-guest-region", contentRegion);
+        setGuestRegionState(contentRegion);
+        return;
+      }
+      const data = await apiRequest<{ user: AuthenticatedUser }>(
+        "/account/preferences",
+        {
+          method: "PATCH",
+          token,
+          body: JSON.stringify({ contentRegion }),
+        }
+      );
+      setUser(data.user);
+    },
+    [token]
+  );
+
+  const requestUpgrade = useCallback(async () => {
+    if (!token) {
+      throw new Error("Sign in before requesting an upgrade.");
+    }
+    const data = await apiRequest<{ user: AuthenticatedUser }>(
+      "/billing/upgrade-request",
+      {
+        method: "POST",
+        token,
+      }
+    );
+    setUser(data.user);
+  }, [token]);
+
   const logout = useCallback(() => {
     applyToken(null);
     setUser(null);
@@ -170,29 +238,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const contextValue = useMemo<AuthContextValue>(
     () => ({
-      user,
+      user: userWithGuestPref,
       token,
       isAuthenticated: Boolean(user && token),
       isLoading,
       remoteProgress,
       sendEmailCode,
       verifyEmailCode,
+      startGuestLogin,
       startWeChatLogin,
       logout,
       refreshProfile,
+      updateContentRegion,
+      requestUpgrade,
       setRemoteProgress,
       setToken: applyToken,
     }),
     [
+      userWithGuestPref,
       user,
       token,
       isLoading,
       remoteProgress,
       sendEmailCode,
       verifyEmailCode,
+      startGuestLogin,
       startWeChatLogin,
       logout,
       refreshProfile,
+      updateContentRegion,
+      requestUpgrade,
       applyToken,
       setRemoteProgress,
     ]

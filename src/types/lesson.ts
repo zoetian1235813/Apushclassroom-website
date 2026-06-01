@@ -17,7 +17,27 @@ export interface LessonStep {
   label: string;
   type: "video" | "notes";
   description?: string;
-  videoSrc?: string;
   durationLabel?: string;
+  videoSrc?: string;
+  /** 可选：B站等外链 iframe 地址，优先渲染 */
+  videoEmbedUrl?: string;
+  /** 可选：跳转到平台观看的外链按钮 */
+  videoLinkUrl?: string;
+  videoSourceLabel?: string;
+  videoChecks?: VideoKnowledgeCheck[];
   contentId?: string;
+}
+
+export interface VideoCheckChoice {
+  id: string;
+  text: string;
+}
+
+export interface VideoKnowledgeCheck {
+  id: string;
+  timestamp: number;
+  question: string;
+  choices: VideoCheckChoice[];
+  correctChoiceId: string;
+  explanation: string;
 }

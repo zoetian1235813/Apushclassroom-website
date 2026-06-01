@@ -65,6 +65,38 @@ const techChangeDocuments = `
 <p>Article observing slow productivity growth despite new technologies, arguing many innovations replace workers without yet creating widespread new tasks.</p>
 `;
 
+const wilentzEdsallExcerpts = `
+<p><strong>Material 1</strong>: Sean Wilentz, historian, 2008</p>
+<blockquote>
+  <p>"The Reagan era unfolded amid major social and political transitions... Reagan and his supporters... delivered what sounded like straightforward, commonsense solutions to the nation’s ills: cut taxes, shrink government domestic spending, encourage private investment, and keep the military strong while aiding those abroad who were fighting communist tyranny."</p>
+</blockquote>
+<p><strong>Material 2</strong>: Thomas B. & Mary D. Edsall, journalists, 1991</p>
+<blockquote>
+  <p>"Race and taxes, on their own, have changed the votes of millions of once-Democratic men and women. But it was the collision of race and taxes with two additional forces... the rights revolution... and the reform movement focusing on the right to guaranteed political representation... These forces acted most powerfully on white ethnic voters in the North and lower-income southern white populists... determining the viability of the conservative presidential majority."</p>
+</blockquote>
+`;
+
+const lewisInternetExcerpt = `
+<p><em>Peter H. Lewis, <cite>New York Times</cite>, 1994</em></p>
+<blockquote>
+  <p>"There is still widespread agreement that the growth of the Internet, and the number of people using it, is exponential... Companies seeking to tap a vast new customer base are spending millions to stake out storefronts in cyberspace... An Internet electronic mail address is considered de rigueur for business cards today, and even the White House is 'on the Net.'"</p>
+</blockquote>
+`;
+
+const naftaImmigrationExcerpt = `
+<p><em>International Institute for Economics, "NAFTA: An Assessment", 1993</em></p>
+<blockquote>
+  <p>"While the NAFTA itself is silent on illegal immigration... Over the long term, Mexican prosperity is the only practical answer... NAFTA may marginally increase the gross number of illegal immigrants. However, in the longer run, NAFTA should help create the level of Mexican prosperity that will substantially reduce the gross level of illegal immigration."</p>
+</blockquote>
+`;
+
+const friedmanMiddleEastExcerpt = `
+<p><em>Thomas Friedman, <cite>New York Times</cite>, 2009</em></p>
+<blockquote>
+  <p>"We are once again having one of those big troop debates: Do we send more forces to Afghanistan? ... In 1973, Denmark got all its oil from the Middle East. Today? Zero. Why? Because Denmark got tough. It imposed on itself a carbon tax... Such a tax would make our economy healthier... and shrink our dependence on oil from other countries."</p>
+</blockquote>
+`;
+
 export const unit9TopicQuestions: TopicQuestionBank = {
   "9.2": [
     {
@@ -429,5 +461,264 @@ export const unit9TopicQuestions: TopicQuestionBank = {
       source: "AP U.S. History SAQ practice prompt on post-Cold War foreign policy",
     },
   ],
+  "9.7": [
+    {
+      id: "9-7-q1",
+      stimulus: wilentzEdsallExcerpts,
+      prompt:
+        "Which of the following best describes a similarity between Wilentz’s and the Edsalls’s arguments about political change in the 1980s?",
+      options: [
+        { id: "A", text: "Both interpretations emphasize the role of party leadership in prompting political realignments." },
+        { id: "B", text: "Both interpretations identify a movement of White working-class voters away from the Democratic Party." },
+        { id: "C", text: "Both interpretations suggest tax policies as a factor contributing to conservative victories." },
+        { id: "D", text: "Both interpretations emphasize the role of the Vietnam War in alienating voters from the party establishments." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "两者都把“税收”视作选民流动与保守派崛起的重要触发点：Wilentz写到里根阵营以减税赢得支持，Edsalls将税收与种族、权利革命并列为重组选票的关键。",
+    },
+    {
+      id: "9-7-q2",
+      stimulus: wilentzEdsallExcerpts,
+      prompt:
+        "Which of the following best describes a difference between the arguments made by Wilentz and by the Edsalls in the excerpts?",
+      options: [
+        { id: "A", text: "The Edsalls emphasize domestic policy, while Wilentz focuses on foreign policy drawing voters to conservatives." },
+        { id: "B", text: "The Edsalls argue minority-rights protections alienated White voters, while Wilentz argues Reagan’s leadership image drew voters rightward." },
+        { id: "C", text: "The Edsalls claim Reagan’s win was only Democratic failure, while Wilentz says it was only GOP strategy." },
+        { id: "D", text: "The Edsalls claim the conservative movement was dominated by White workers, while Wilentz claims anti-communist Republicans dominated." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "Edsalls突出“权利革命+税收+种族”使白人选民疏远民主党；Wilentz强调里根以“讨喜且乐观的领袖”形象归咎糟糕领导，吸引选民转向保守派。",
+    },
+    {
+      id: "9-7-q3",
+      stimulus: wilentzEdsallExcerpts,
+      prompt: "Which of the following claims about Ronald Reagan’s victory in 1980 is supported by the arguments in the two excerpts?",
+      options: [
+        { id: "A", text: "It resulted from concerns about recent changes in gender and race relations." },
+        { id: "B", text: "It resulted in a redistribution of income benefiting the wealthy." },
+        { id: "C", text: "It reflected voter dissatisfaction with government regulation of industry." },
+        { id: "D", text: "It resulted from shifts in Democratic and Republican voter coalitions." },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "两段都描述传统民主党选民转向共和党右派，显示1980年胜选依托选民联盟重组，而非单一社会议题或结果层面的收入再分配。",
+    },
+    {
+      id: "9-7-q4",
+      stimulus: wilentzEdsallExcerpts,
+      prompt: "The political developments depicted in the excerpts were most directly situated within which of the following contexts?",
+      options: [
+        { id: "A", text: "Support for reducing the size of the United States military" },
+        { id: "B", text: "Growth in union membership among industrial workers" },
+        { id: "C", text: "Success in the passage of policies restricting immigration" },
+        { id: "D", text: "Debate over limiting the size and scope of government programs" },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "里根主义以削减国内开支、减税、限制“大政府”为号召，Edsalls论述也围绕权利扩张与税收的冲突，核心语境是政府规模与职能之争。",
+    },
+    {
+      id: "9-7-q5",
+      stimulus: lewisInternetExcerpt,
+      prompt: "Which of the following best explains the cause of the development described in the excerpt?",
+      options: [
+        { id: "A", text: "National priorities shifted following the end of the Cold War." },
+        { id: "B", text: "Technological advancement spurred economic transformations." },
+        { id: "C", text: "Declines in manufacturing led many people to seek new employment opportunities." },
+        { id: "D", text: "New industries took advantage of changing national demographics." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "90年代互联网普及直接源于计算机、通信等技术突破，催生新商业模式并驱动经济转型，其他选项要么间接要么不符。",
+    },
+    {
+      id: "9-7-q6",
+      stimulus: lewisInternetExcerpt,
+      prompt: "Which of the following best explains a key reason for the development described in the excerpt?",
+      options: [
+        { id: "A", text: "Easier access to technology allowed increased numbers of Internet users." },
+        { id: "B", text: "Internet sites replaced traditional retail outlets for shopping." },
+        { id: "C", text: "Wages for workers at Internet-based businesses increased as the economy improved." },
+        { id: "D", text: "Internet use contributed to debates about changing culture in the United States." },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "PC价格下降、ISP普及降低了使用门槛，直接促成用户数量指数级上升；B、C、D要么夸大替代效应要么偏结果而非原因。",
+    },
+    {
+      id: "9-7-q7",
+      stimulus: lewisInternetExcerpt,
+      prompt: "Which of the following best explains a result of the development described in the excerpt?",
+      options: [
+        { id: "A", text: "Political support for free-trade policies grew." },
+        { id: "B", text: "The economic gap between wealthy and poor people decreased." },
+        { id: "C", text: "New technologies allowed for greater global communication." },
+        { id: "D", text: "Efforts were made to reform government social programs." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "互联网的普及最直接的结果是跨地域即时通信与全球互联增强，其他选项要么无关要么与事实相反。",
+    },
+    {
+      id: "9-7-q8",
+      stimulus: naftaImmigrationExcerpt,
+      prompt:
+        "Which of the following best explains a limitation in the argument about the short-term impact of the NAFTA agreement on immigration as presented in the excerpt?",
+      options: [
+        { id: "A", text: "Immigrants from Latin America were outnumbered by Canadian immigrants who sought opportunity in the United States." },
+        { id: "B", text: "Immigrants became a large portion of draftees in the United States military as a result of international conflict." },
+        { id: "C", text: "The size of immigrant communities declined following the passage of international trade agreements." },
+        { id: "D", text: "Immigrants from Latin America were attracted to areas populated by other immigrants with similar ethnic backgrounds." },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "报告忽视了族群网络与聚居区的吸引力，连锁移民会推动短期流入，即便经济尚未改善；A、B、C均与实际或语境不符。",
+    },
+    {
+      id: "9-7-q9",
+      stimulus: naftaImmigrationExcerpt,
+      prompt:
+        "The argument in the excerpt overlooks which of the following broader historical contexts that best explains why some immigrants came to the United States during the late twentieth century?",
+      options: [
+        { id: "A", text: "Cold War tensions resulted in efforts to attract immigrant workers in defense industries." },
+        { id: "B", text: "The need for unskilled immigrant labor increased as agricultural production mechanized." },
+        { id: "C", text: "Businesses exerted continued demand for labor supplied by immigrants." },
+        { id: "D", text: "Immigrants were attracted by the lower taxes enacted by the Reagan administration." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "美国农业、建筑、服务业持续需要廉价劳动力，这是移民流的关键背景，报告聚焦墨西哥贫困而忽视需求端；其余选项要么时序错误要么不合事实。",
+    },
+    {
+      id: "9-7-q10",
+      stimulus: naftaImmigrationExcerpt,
+      prompt:
+        "The argument in the excerpt does not account for which of the following historical factors that most directly explain population changes in the southern and western United States?",
+      options: [
+        { id: "A", text: "The discovery of new mineral resources spurred the growth of boom towns." },
+        { id: "B", text: "The weather in the Sun Belt coupled with an improving economic base encouraged people to relocate." },
+        { id: "C", text: "The revival of industrial manufacturing in the Midwest resulted in people relocating there." },
+        { id: "D", text: "The passage of civil rights legislation gave people the ability to live where they wanted." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "阳光地带气候优势与新兴产业吸引人口南移西移，这是区域人口增长的直接驱动，NAFTA论证未涉及；A、C、D不符合主要动力。",
+    },
+    {
+      id: "9-7-q11",
+      stimulus: naftaImmigrationExcerpt,
+      prompt: "The ideas in the excerpt are best explained in the context of which of the following historical developments?",
+      options: [
+        { id: "A", text: "Political responses to demographic changes" },
+        { id: "B", text: "Economic reactions to technological development" },
+        { id: "C", text: "Military responses to national security concerns" },
+        { id: "D", text: "Social reactions to changing family structures" },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "NAFTA与移民讨论本质是对拉美移民增长、人口结构变化的政策回应，属于人口与政治的交汇；其余选项与材料主旨不符。",
+    },
+    {
+      id: "9-7-q12",
+      stimulus: friedmanMiddleEastExcerpt,
+      prompt:
+        "Which of the following explanations of the effects of United States involvement in the Middle East could Friedman’s point of view best be used to support?",
+      options: [
+        { id: "A", text: "Spending money in the Middle East was strengthening the national economy." },
+        { id: "B", text: "Engaging in warfare in the Middle East contributed to debates about fossil fuel dependence." },
+        { id: "C", text: "Attempting to prevent terrorism threatened Americans’ civil liberties." },
+        { id: "D", text: "Building oil refineries in the Middle East was causing extensive environmental changes." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "弗里德曼用增兵辩论引出石油依赖与国家安全的联系，主张以碳税减依赖，恰体现中东战争激发的能源依赖辩论。",
+    },
+    {
+      id: "9-7-q13",
+      stimulus: friedmanMiddleEastExcerpt,
+      prompt:
+        "The excerpt and its intended audience can best be used to support which of the following explanations of American public opinion in the early twenty-first century?",
+      options: [
+        { id: "A", text: "Some Americans viewed reducing dependence on fossil fuels as a way to improve the economy." },
+        { id: "B", text: "Many Americans viewed new taxes as necessary to pay for military efforts in the Middle East." },
+        { id: "C", text: "Many Americans were concerned about the impact of fossil fuel consumption on personal health." },
+        { id: "D", text: "Some Americans viewed war in the Middle East as a way to stimulate the economy." },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "他面向大众呼吁碳税与新能源，论证可减赤字、刺激产业，反映部分美国人将能源转型视为经济改善路径，而非为战争筹款或以战促增。",
+    },
+    {
+      id: "9-7-q14",
+      stimulus: friedmanMiddleEastExcerpt,
+      prompt:
+        "Friedman’s point of view on United States troops being sent to the Middle East can best be used to support which of the following explanations for United States foreign policy in the twenty-first century?",
+      options: [
+        { id: "A", text: "The United States faced intense competition for global power from the Soviet Union." },
+        { id: "B", text: "Politicians increasingly supported a return to an isolationist foreign policy." },
+        { id: "C", text: "Military efforts in Afghanistan and Iraq were the direct result of terrorist attacks." },
+        { id: "D", text: "Military goals in Afghanistan and Iraq were controversial and difficult to achieve." },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "他质疑增兵能否取胜，转而主张能源策略，凸显中东战争目标的争议与达成难度；A、B、C未体现其批评重点。",
+    },
+    {
+      id: "9-7-q15",
+      stimulus: friedmanMiddleEastExcerpt,
+      prompt:
+        "Which of the following historical contexts best reflects the issues in the debate depicted in the excerpt?",
+      options: [
+        { id: "A", text: "The economic shifts that occurred as a result of the decline of manufacturing" },
+        { id: "B", text: "The continuation of interventionist foreign policies following the Cold War" },
+        { id: "C", text: "The passage of free-trade agreements with diplomatic allies in North America" },
+        { id: "D", text: "The demographic shifts that occurred as a result of changing immigration patterns" },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "是否增兵阿富汗的争论发生在冷战后美国持续干预主义的框架下，延续用军事手段处理危机的传统；其他选项与中东用兵争议关联弱。",
+    },
+    {
+      id: "9-7-q16",
+      prompt: "Which of the following factors is most typically used to explain why the Cold War ended?",
+      options: [
+        { id: "A", text: "Covert wars in Afghanistan and Latin America ended in communist victories." },
+        { id: "B", text: "Nuclear rearmament by the Reagan administration intimidated the Soviet Union’s leaders." },
+        { id: "C", text: "Strong United States diplomacy along with Soviet economic problems contributed to political changes in the Soviet Union." },
+        { id: "D", text: "Soviet leaders’ reassertion of control over Eastern Europe resulted in revolutionary protests and uprisings." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "主流解释强调美方外交压力与苏联内部经济危机共同促成体制松动与解体；A、B、D要么片面要么与史实不符。",
+    },
+    {
+      id: "9-7-q17",
+      prompt: "Which of the following best explains a result of the Cold War?",
+      options: [
+        { id: "A", text: "The status of the United States as the world’s main superpower fostered international debates over the appropriate use of American power and influence." },
+        { id: "B", text: "Conservative politicians increasingly emphasized the need for traditional social values and a reduced role for government." },
+        { id: "C", text: "The rapid adoption of digital communication technologies led to new business innovations." },
+        { id: "D", text: "Economic shifts resulted in fewer manufacturing jobs, declining union membership, and stagnating real wages for workers." },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "冷战结束后美国成为唯一超级大国，引发全球对其动用军政力量方式的持续争议，这是最直接的结果之一；B、C、D与冷战终结的特定后果关联较弱。",
+    },
+    {
+      id: "9-7-q18",
+      prompt: "Which of the following best explains the effect of Ronald Reagan’s election to the presidency on United States foreign policy?",
+      options: [
+        { id: "A", text: "He asserted more direct diplomatic and military pressure on the Soviet Union than did his predecessors." },
+        { id: "B", text: "He sought to establish economic relationships with communist countries such as China." },
+        { id: "C", text: "He attempted to mediate the end of the Cold War through United Nations agreements." },
+        { id: "D", text: "He withdrew United States support from military defense pacts." },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "里根推行“以实力求和平”，强化军备与对苏外交施压，相比前任更为直接强硬；B、C、D不符合其主要外交影响。",
+    },
+  ],
 };
-

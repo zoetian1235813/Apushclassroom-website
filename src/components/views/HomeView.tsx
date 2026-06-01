@@ -7,9 +7,15 @@ interface HomeViewProps {
   units: Unit[];
   onNavigate: (view: View) => void;
   onUnitClick: (unit: Unit) => void;
+  canAccessUnit?: (unit: Unit) => boolean;
 }
 
-export const HomeView = ({ units, onNavigate, onUnitClick }: HomeViewProps) => (
+export const HomeView = ({
+  units,
+  onNavigate,
+  onUnitClick,
+  canAccessUnit = () => true,
+}: HomeViewProps) => (
   <div className="space-y-10">
     <section className="relative overflow-hidden glass-panel px-6 py-8 sm:px-10 sm:py-12">
       <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-white/60 blur-3xl" />
@@ -95,7 +101,12 @@ export const HomeView = ({ units, onNavigate, onUnitClick }: HomeViewProps) => (
       </div>
       <div className="grid gap-5 md:grid-cols-3">
         {units.map((unit) => (
-          <UnitCard key={unit.id} unit={unit} onClick={onUnitClick} />
+          <UnitCard
+            key={unit.id}
+            unit={unit}
+            onClick={onUnitClick}
+            locked={!canAccessUnit(unit)}
+          />
         ))}
       </div>
     </section>

@@ -254,9 +254,9 @@ const postelPopulistExcerpt = `
 `;
 
 export const unit6TopicQuestions: TopicQuestionBank = {
-  "5.1": [
+  "6.1": [
     {
-      id: "5-1-q1",
+      id: "6-1-q1",
       prompt:
         "Based on the excerpts, which statement best describes a major difference between Sinn's and Pfaelzer's interpretations of Gold Rush-era immigration?",
       stimulus: pacificImmigrationDocs,
@@ -288,7 +288,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Elizabeth Sinn and Jean Pfaelzer on Pacific Coast immigration",
     },
     {
-      id: "5-1-q2",
+      id: "6-1-q2",
       prompt:
         "Which comparison best explains how immigration to the Pacific coast in the 1850s and 1860s related to immigration elsewhere in the United States?",
       stimulus: pacificImmigrationDocs,
@@ -320,7 +320,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Elizabeth Sinn and Jean Pfaelzer on Pacific Coast immigration",
     },
     {
-      id: "5-1-q3",
+      id: "6-1-q3",
       prompt:
         "Which historical effect of Pacific Coast immigration in the 1850s and 1860s is best illustrated by the excerpts?",
       stimulus: pacificImmigrationDocs,
@@ -352,7 +352,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Elizabeth Sinn and Jean Pfaelzer on Pacific Coast immigration",
     },
     {
-      id: "5-1-q4",
+      id: "6-1-q4",
       prompt:
         "Anti-immigrant nativism of the 1840s and 1850s had the most in common with which of the following earlier developments?",
       options: [
@@ -382,7 +382,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "Both the Alien and Sedition Acts and nineteenth-century nativism sought to restrict the rights of perceived troublesome immigrants, highlighting a pattern of suspicion toward newcomers.",
     },
     {
-      id: "5-1-q5",
+      id: "6-1-q5",
       prompt:
         "Which factor best explains the territorial expansion of slavery in the middle of the nineteenth century?",
       options: [
@@ -407,7 +407,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
 
 
     {
-      id: "5-1-q6",
+      id: "6-1-q6",
       prompt:
         "Sentiments expressed by business leaders and politicians like Whitney most directly contributed to which development?",
       stimulus: asaWhitneyProposal,
@@ -435,7 +435,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Asa Whitney memorial to Congress, 1845",
     },
     {
-      id: "5-1-q7",
+      id: "6-1-q7",
       prompt: "The excerpt best reflects which of the following developments?",
       stimulus: asaWhitneyProposal,
       options: [
@@ -450,7 +450,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Asa Whitney memorial to Congress, 1845",
     },
     {
-      id: "5-1-q8",
+      id: "6-1-q8",
       prompt:
         "Which factor most directly contributed to Whitney's request in the excerpt?",
       stimulus: asaWhitneyProposal,
@@ -475,7 +475,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Asa Whitney memorial to Congress, 1845",
     },
     {
-      id: "5-1-q9",
+      id: "6-1-q9",
       prompt: "Which statement best describes the concept of Manifest Destiny?",
       options: [
         {
@@ -498,7 +498,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "Manifest Destiny framed continental expansion as a mission sanctioned by God and history, justifying westward settlement and conquest.",
     },
     {
-      id: "5-1-q10",
+      id: "6-1-q10",
       prompt:
         "Which development best explains why Manifest Destiny rhetoric surged in popularity during the 1840s?",
       options: [
@@ -528,7 +528,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "Leaders used Manifest Destiny to rally support for annexing Texas and seizing Mexican lands for American settlement.",
     },
     {
-      id: "5-1-q11",
+      id: "6-1-q11",
       prompt:
         "Which statement identifies a historical similarity between Manifest Destiny in the 1840s and European colonization of North America in the 1600s?",
       options: [
@@ -560,9 +560,9 @@ export const unit6TopicQuestions: TopicQuestionBank = {
 
 
   ],
-  "5.2": [
+  "6.2": [
     {
-      id: "5-2-q1",
+      id: "6-2-q1",
       prompt: "The excerpt best reflects which historical situation?",
       stimulus: henryClayCompromiseExcerpt,
       options: [
@@ -593,7 +593,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Henry Clay, Senate speech, 1850",
     },
     {
-      id: "5-2-q2",
+      id: "6-2-q2",
       prompt:
         "The position expressed by Clay best serves as evidence of which broader development?",
       stimulus: henryClayCompromiseExcerpt,
@@ -621,7 +621,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Henry Clay, Senate speech, 1850",
     },
     {
-      id: "5-2-q3",
+      id: "6-2-q3",
       prompt:
         "The excerpt best corroborates which broader historical context?",
       stimulus: henryClayCompromiseExcerpt,
@@ -653,9 +653,9 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Henry Clay, Senate speech, 1850",
     },
   ],
-  "5.3": [
+  "6.3": [
     {
-      id: "5-3-q1",
+      id: "6-3-q1",
       prompt:
         "The Kansas-Nebraska Act of 1854 was most similar in intent to which earlier legislative initiative?",
       options: [
@@ -669,9 +669,9 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "Both laws attempted to settle sectional disputes over the spread of slavery by drawing political compromises around territorial expansion.",
     },
   ],
-  "5.4": [
+  "6.4": [
     {
-      id: "5-4-q1",
+      id: "6-4-q1",
       prompt:
         "The United States Supreme Court's decision in Dred Scott v. Sandford (1857) departed from earlier practices in which way?",
       options: [
@@ -701,7 +701,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "By declaring Congress lacked authority to bar slavery from the territories, the Court overturned compromises like the Missouri Compromise.",
     },
     {
-      id: "5-4-q2",
+      id: "6-4-q2",
       prompt:
         "The excerpt best serves as evidence for which development in early 1861?",
       stimulus: lincolnIndependenceHallExcerpt,
@@ -729,7 +729,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Abraham Lincoln, Independence Hall remarks, 1861",
     },
     {
-      id: "5-4-q3",
+      id: "6-4-q3",
       prompt:
         "The excerpt most likely reflects which historical situation?",
       stimulus: lincolnIndependenceHallExcerpt,
@@ -745,7 +745,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Abraham Lincoln, Independence Hall remarks, 1861",
     },
     {
-      id: "5-4-q4",
+      id: "6-4-q4",
       prompt:
         "Evidence in the excerpt best corroborates which of the following?",
       stimulus: lincolnIndependenceHallExcerpt,
@@ -777,9 +777,9 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Abraham Lincoln, Independence Hall remarks, 1861",
     },
   ],
-  "5.5": [
+  "6.5": [
     {
-      id: "5-5-q1",
+      id: "6-5-q1",
       prompt:
         "The data in the tables indicate which of the following?",
       stimulus: civilWarMilitaryTables,
@@ -807,7 +807,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Civil War enlistment and occupation data compiled by James M. McPherson",
     },
     {
-      id: "5-5-q2",
+      id: "6-5-q2",
       prompt:
         "The data in the first table most directly indicate which of the following about the professions of Civil War soldiers?",
       stimulus: civilWarMilitaryTables,
@@ -835,7 +835,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Civil War enlistment and occupation data compiled by James M. McPherson",
     },
     {
-      id: "5-5-q3",
+      id: "6-5-q3",
       prompt:
         "The data in the tables most likely indicate which of the following?",
       stimulus: civilWarMilitaryTables,
@@ -863,7 +863,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Civil War enlistment and occupation data compiled by James M. McPherson",
     },
     {
-      id: "5-5-q4",
+      id: "6-5-q4",
       prompt:
         "Which factor can best be used to explain the Union victory in the Civil War?",
       options: [
@@ -889,9 +889,9 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "The Union leveraged its larger population and industrial capacity to field bigger armies and supply them, critical advantages in a prolonged war.",
     },
   ],
-  "5.6": [
+  "6.6": [
     {
-      id: "5-6-q1",
+      id: "6-6-q1",
       prompt:
         "Historians could best use the poster excerpt as evidence for which development?",
       stimulus: americanRepublicanPoster,
@@ -919,7 +919,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "American Republican Party broadside, 1844",
     },
     {
-      id: "5-6-q2",
+      id: "6-6-q2",
       prompt:
         "Which historical situation best explains how contemporaries would have interpreted the poster?",
       stimulus: americanRepublicanPoster,
@@ -935,7 +935,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "American Republican Party broadside, 1844",
     },
     {
-      id: "5-6-q3",
+      id: "6-6-q3",
       prompt:
         "The language in the poster most directly promotes which of the following?",
       stimulus: americanRepublicanPoster,
@@ -951,7 +951,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "American Republican Party broadside, 1844",
     },
     {
-      id: "5-6-q4",
+      id: "6-6-q4",
       prompt:
         "Which comparison best describes Whitman's and Giddings's arguments about the Mexican-American War?",
       stimulus: whitmanGiddingsExcerpts,
@@ -983,7 +983,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Walt Whitman and Joshua Giddings on the Mexican-American War",
     },
     {
-      id: "5-6-q5",
+      id: "6-6-q5",
       prompt:
         "Based on the excerpts, Giddings would likely agree with and Whitman would likely disagree with which claim about the causes of the Mexican-American War?",
       stimulus: whitmanGiddingsExcerpts,
@@ -1006,7 +1006,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Walt Whitman and Joshua Giddings on the Mexican-American War",
     },
     {
-      id: "5-6-q6",
+      id: "6-6-q6",
       prompt:
         "Which statement best describes a similarity in how Whitman and Giddings made their arguments?",
       stimulus: whitmanGiddingsExcerpts,
@@ -1035,9 +1035,9 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "Each writer referenced global opinion, with Whitman citing American patience before the world and Giddings appealing to the judgment of the civilized world, revealing the importance of public persuasion on the home front.",
       source: "Walt Whitman and Joshua Giddings on the Mexican-American War",
     },
-  ],  "5.7": [
+  ],  "6.7": [
     {
-      id: "5-7-q1",
+      id: "6-7-q1",
       prompt:
         "Ideas expressed by Douglass in the excerpt were most likely interpreted as supporting which argument about the Civil War?",
       stimulus: frederickDouglassEditorial,
@@ -1053,7 +1053,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Frederick Douglass, April 1863 editorial",
     },
     {
-      id: "5-7-q2",
+      id: "6-7-q2",
       prompt:
         "Which statement best explains Douglass's point of view in the excerpt?",
       stimulus: frederickDouglassEditorial,
@@ -1085,7 +1085,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Frederick Douglass, April 1863 editorial",
     },
     {
-      id: "5-7-q3",
+      id: "6-7-q3",
       prompt:
         "Douglass's rhetoric in the excerpt was most likely interpreted as promoting which of the following?",
       stimulus: frederickDouglassEditorial,
@@ -1101,7 +1101,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Frederick Douglass, April 1863 editorial",
     },
     {
-      id: "5-7-q4",
+      id: "6-7-q4",
       prompt:
         "Which factor contributed most directly to the end of slavery in the United States?",
       options: [
@@ -1128,7 +1128,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "Union battlefield success made it possible to pass the Thirteenth Amendment, which abolished slavery nationwide.",
     },
     {
-      id: "5-7-q5",
+      id: "6-7-q5",
       prompt:
         "Which document from the set best illustrates the agency of enslaved people taking initiative to secure freedom early in the Civil War?",
       stimulus: emancipationDocumentSet,
@@ -1160,7 +1160,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Civil War emancipation document set, 1861-1863",
     },
     {
-      id: "5-7-q6",
+      id: "6-7-q6",
       prompt:
         "Which document most directly supports the argument that the rebellion freed the Union from returning contrabands to enslavers?",
       stimulus: emancipationDocumentSet,
@@ -1192,7 +1192,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Civil War emancipation document set, 1861-1863",
     },
     {
-      id: "5-7-q7",
+      id: "6-7-q7",
       prompt:
         "Which document best reflects rising pressure on Lincoln from abolitionists and allies to accelerate emancipation policies?",
       stimulus: emancipationDocumentSet,
@@ -1224,7 +1224,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Civil War emancipation document set, 1861-1863",
     },
     {
-      id: "5-7-q8",
+      id: "6-7-q8",
       prompt:
         "Which document most clearly demonstrates President Lincoln's rationale for issuing the Emancipation Proclamation as a wartime necessity?",
       stimulus: emancipationDocumentSet,
@@ -1256,7 +1256,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Civil War emancipation document set, 1861-1863",
     },
     {
-      id: "5-7-q9",
+      id: "6-7-q9",
       prompt:
         "Taken together, the documents best illustrate which broader change in Union policy during the Civil War?",
       stimulus: emancipationDocumentSet,
@@ -1288,9 +1288,9 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Civil War emancipation document set, 1861-1863",
     },
   ],
-  "5.8": [
+  "6.8": [
     {
-      id: "5-8-q1",
+      id: "6-8-q1",
       prompt:
         "Which evidence could best be used to refute Stevens's claim that the Union had done little for formerly enslaved people by 1867?",
       stimulus: thaddeusStevensReconstructionSpeech,
@@ -1322,7 +1322,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "Thaddeus Stevens, Reconstruction speech, 1867",
     },
     {
-      id: "5-8-q2",
+      id: "6-8-q2",
       prompt:
         "Which development best supports Stevens's claim about the importance of African American suffrage in the excerpt?",
       stimulus: thaddeusStevensReconstructionSpeech,
@@ -1353,9 +1353,9 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "The rise of Redeemer governments that disfranchised Black voters confirmed Stevens's warning that Republican power would collapse without African American suffrage.",
       source: "Thaddeus Stevens, Reconstruction speech, 1867",
     },
-  ],  "5.9": [
+  ],  "6.9": [
     {
-      id: "5-9-q1",
+      id: "6-9-q1",
       prompt:
         "Which piece of evidence could best be used to modify Foner's main argument in the second excerpt?",
       stimulus: reconstructionViolenceExcerpts,
@@ -1387,7 +1387,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "George C. Rable and Eric Foner on Reconstruction violence",
     },
     {
-      id: "5-9-q2",
+      id: "6-9-q2",
       prompt:
         "Based on their arguments, both Rable and Foner would most likely agree with which claim?",
       stimulus: reconstructionViolenceExcerpts,
@@ -1403,7 +1403,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "George C. Rable and Eric Foner on Reconstruction violence",
     },
     {
-      id: "5-9-q3",
+      id: "6-9-q3",
       prompt:
         "Which statement describes a difference between Rable's and Foner's interpretations in the excerpts?",
       stimulus: reconstructionViolenceExcerpts,
@@ -1435,7 +1435,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
       source: "George C. Rable and Eric Foner on Reconstruction violence",
     },
     {
-      id: "5-9-q4",
+      id: "6-9-q4",
       prompt:
         "Which similarity between Rable's and Foner's arguments is best supported by the excerpts?",
       stimulus: reconstructionViolenceExcerpts,
@@ -1453,9 +1453,9 @@ export const unit6TopicQuestions: TopicQuestionBank = {
 
 
   ],
-  "5.10": [
+  "6.10": [
     {
-      id: "5-10-q1",
+      id: "6-10-q1",
       prompt:
         "Which statement best summarizes a key difference in regional identity between many Northerners and many white Southerners during Reconstruction (1865-1877)?",
       options: [
@@ -1485,7 +1485,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "Radical Republicans promoted equal rights and federal enforcement, while many white Southerners defended white supremacy and sought to limit Black citizenship.",
     },
     {
-      id: "5-10-q2",
+      id: "6-10-q2",
       prompt:
         "Which development provides the strongest evidence for Southern attempts to restore antebellum social relations during Reconstruction?",
       options: [
@@ -1515,7 +1515,7 @@ export const unit6TopicQuestions: TopicQuestionBank = {
         "Sharecropping arrangements and Black Codes curtailed Black autonomy, demonstrating southern efforts to recreate dependent labor systems.",
     },
   ],
-  "6.13": [
+  unit6progresscheck: [
     {
       id: "6-13-q1",
       prompt:
@@ -2080,9 +2080,3 @@ export const unit6TopicQuestions: TopicQuestionBank = {
     },
   ],
 };
-
-
-
-
-
-

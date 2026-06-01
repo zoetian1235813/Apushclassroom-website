@@ -1,244 +1,271 @@
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import { saqInteractiveBank } from "../../data/saqInteractiveBank";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowLeft, Lock, Sparkles, Clock } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  saqGuidedExercises,
+  saqReleaseCatalog,
+  type SAQAvailableReleaseId,
+} from "../../data/saqGuidedExercises";
+import { SAQExercise } from "../saq/SAQExercise";
 
-type StepKey = "A" | "B" | "C";
-
-const STEP_SEQUENCE: StepKey[] = ["A", "B", "C"];
-const STEP_LABELS: Record<StepKey, string> = {
-  A: "Thesis",
-  B: "Evidence",
-  C: "Analysis"
-};
+const DEFAULT_RELEASE: SAQAvailableReleaseId = "2025-set2-saq1";
 
 export default function SAQPractice() {
   const navigate = useNavigate();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [step, setStep] = useState<StepKey>("A");
-  const [selected, setSelected] = useState<string | null>(null);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [finished, setFinished] = useState(false);
+  const { year: routeYear } = useParams<{ year?: string }>();
 
-  const questions = saqInteractiveBank;
-  const current = questions[currentIndex];
+  const selectedYear = useMemo(
+    () => saqReleaseCatalog.find((entry) => `${entry.year}` === routeYear),
+    [routeYear]
+  );
 
-  const { currentPrompt, currentOptions, currentAnswer } = useMemo(() => {
-    if (!current) {
-      return {
-        currentPrompt: "",
-        currentOptions: [] as string[],
-        currentAnswer: ""
-      };
+  const firstAvailableRelease = useMemo(() => {
+    if (!selectedYear) return null;
+    for (const set of selectedYear.sets) {
+      const found = set.saqs.find((item) => item.status === "available");
+      if (found) return found.id as SAQAvailableReleaseId;
     }
-    if (step === "A") {
-      return {
-        currentPrompt: current.promptA,
-        currentOptions: current.optionsA,
-        currentAnswer: current.correctA
-      };
-    }
-    if (step === "B") {
-      return {
-        currentPrompt: current.promptB,
-        currentOptions: current.optionsB,
-        currentAnswer: current.correctB
-      };
-    }
-    return {
-      currentPrompt: current.promptC,
-      currentOptions: current.optionsC,
-      currentAnswer: current.correctC
-    };
-  }, [current, step]);
+    return null;
+  }, [selectedYear]);
 
-  const answerCount =
-    step === "A"
-      ? 0
-      : step === "B"
-      ? 1
-      : 2;
+  const [activeReleaseId, setActiveReleaseId] = useState<
+    SAQAvailableReleaseId | null
+  >(routeYear ? firstAvailableRelease : DEFAULT_RELEASE);
 
-  const handleAnswer = (option: string) => {
-    if (!current) {
-      return;
+  useEffect(() => {
+    if (routeYear) {
+      setActiveReleaseId(firstAvailableRelease);
     }
-    setSelected(option);
-    const correct = option === currentAnswer;
-    setIsCorrect(correct);
+  }, [firstAvailableRelease, routeYear]);
 
-    const audioPath = correct ? "/sounds/correct.mp3" : "/sounds/wrong.mp3";
-    try {
-      const sound = new Audio(audioPath);
-      void sound.play().catch(() => {});
-    } catch {
-      // ignore audio errors so the flow continues
-    }
-
-    if (!correct) {
-      return;
-    }
-
-    setTimeout(() => {
-      const nextStepIndex = STEP_SEQUENCE.indexOf(step) + 1;
-      const hasNextStep = nextStepIndex < STEP_SEQUENCE.length;
-      if (hasNextStep) {
-        setStep(STEP_SEQUENCE[nextStepIndex]);
-      } else if (currentIndex < questions.length - 1) {
-        setCurrentIndex((prev) => prev + 1);
-        setStep("A");
-      } else {
-        setFinished(true);
+  const activeExercise = activeReleaseId
+    ? saqGuidedExercises[activeReleaseId]
+    : undefined;
+  const activeMeta = useMemo(() => {
+    if (!activeReleaseId) return null;
+    for (const year of saqReleaseCatalog) {
+      for (const set of year.sets) {
+        const hit = set.saqs.find((saq) => saq.id === activeReleaseId);
+        if (hit) {
+          return { year, set, saq: hit };
+        }
       }
-      setSelected(null);
-      setIsCorrect(null);
-    }, 600);
+    }
+    return null;
+  }, [activeReleaseId]);
+
+  const handleSelectRelease = (
+    releaseId: string,
+    status: "available" | "upcoming"
+  ) => {
+    if (status !== "available") return;
+    setActiveReleaseId(releaseId as SAQAvailableReleaseId);
   };
 
-  const handleRestart = () => {
-    setCurrentIndex(0);
-    setStep("A");
-    setSelected(null);
-    setIsCorrect(null);
-    setFinished(false);
-  };
-
-  const handleBackHome = () => {
-    navigate("/", { state: { view: "questionTypes" } });
-  };
-
-  if (!questions.length) {
+  if (!routeYear) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen bg-[#f7f3e9] text-[#2b3a4d]">
-        <h1 className="text-2xl font-bold mb-4">No SAQ sets available</h1>
-        <p className="text-base">Add questions to begin interactive practice.</p>
-      </div>
-    );
-  }
+      <div className="min-h-screen bg-slate-50 text-slate-900">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8">
+          <button
+            onClick={() => navigate("/")}
+            className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-emerald-400 hover:text-emerald-600"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            返回题型特训
+          </button>
 
-  if (finished) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen bg-[#f7f3e9] text-center px-6">
-        <h1 className="text-3xl font-bold text-[#2b3a4d] mb-4">Great work!</h1>
-        <p className="text-lg text-gray-700 mb-6">
-          You have completed all SAQ practice sets. Keep up the momentum.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <button
-            onClick={handleRestart}
-            className="px-6 py-3 rounded-lg bg-[#2b3a4d] text-white font-semibold hover:bg-[#1f2a3b] transition-colors"
-          >
-            Practice again
-          </button>
-          <button
-            onClick={handleBackHome}
-            className="px-6 py-3 rounded-lg bg-white border border-[#2b3a4d] text-[#2b3a4d] font-semibold hover:bg-[#f0ece1] transition-colors"
-          >
-            Back to question training
-          </button>
+          <header className="rounded-3xl bg-gradient-to-r from-emerald-600 to-teal-600 p-6 text-white shadow-2xl">
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.4em] text-emerald-100">
+                  SAQ Learning Lab
+                </p>
+                <h1 className="mt-3 text-3xl font-black">
+                  历年真题 · 按年份进入专页
+                </h1>
+                <p className="text-sm text-emerald-100/90">
+                  点击年份进入独立页面查看对应 Set/SAQ，避免在一页内折叠拥挤。
+                </p>
+              </div>
+            </div>
+          </header>
+
+          <section className="grid gap-4 sm:grid-cols-2">
+            {saqReleaseCatalog.map((year) => (
+              <button
+                key={year.year}
+                onClick={() => navigate(`/saq/${year.year}`)}
+                className="flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg"
+              >
+                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-500">
+                  {year.label}
+                </span>
+                <span className="text-xl font-bold text-slate-900">
+                  {year.year} · {year.highlight}
+                </span>
+                <span className="text-sm text-slate-500">
+                  点击查看该年份的所有 Set / SAQ
+                </span>
+              </button>
+            ))}
+          </section>
         </div>
       </div>
     );
   }
-
-  const totalQuestions = questions.length;
-  const currentProgress = currentIndex * STEP_SEQUENCE.length + answerCount;
-  const totalSteps = totalQuestions * STEP_SEQUENCE.length;
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f7f3e9]">
-      <header className="w-full bg-[#2b3a4d] text-white py-6 shadow-md">
-        <div className="max-w-5xl mx-auto px-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="uppercase text-xs tracking-[0.3em] text-green-200">
-              Question Type Training
-            </p>
-            <h1 className="text-3xl font-bold">Short Answer Question Lab</h1>
-          </div>
-          <div className="text-sm text-green-100">
-            {`Progress: ${currentIndex + 1}/${totalQuestions} | Step ${step} (${STEP_LABELS[step]})`}
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8">
+        <button
+          onClick={() => navigate("/")}
+          className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-emerald-400 hover:text-emerald-600"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          返回年份选择
+        </button>
 
-      {current?.type === "stimulus" && (
-        <section className="sticky top-0 z-10 w-full bg-[#f0ece1] border-b border-[#d4cbb3] shadow-sm">
-            <div className="max-w-5xl mx-auto px-6 py-5 space-y-2">
-              {current.stimulus && (
-                <div className="text-lg font-semibold text-[#2b3a4d] whitespace-pre-line">
-                  {current.stimulus}
+        <header className="rounded-3xl bg-gradient-to-r from-emerald-600 to-teal-600 p-6 text-white shadow-2xl">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] text-emerald-100">
+                SAQ Learning Lab
+              </p>
+              <h1 className="mt-3 text-3xl font-black">
+                历年真题 · {selectedYear?.label ?? routeYear}
+              </h1>
+              <p className="text-sm text-emerald-100/90">
+                按年份展示 Set 和 SAQ，点击“进入练习”直接加载互动组件。
+              </p>
+            </div>
+            {activeMeta && (
+              <div className="flex flex-col gap-2 rounded-2xl bg-white/10 px-5 py-4 text-sm font-semibold">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-yellow-200" />
+                  <span>当前练习</span>
                 </div>
-              )}
-              <div
-                className="text-gray-700 text-sm leading-relaxed space-y-2"
-                dangerouslySetInnerHTML={{ __html: current.stimulusText ?? "" }}
-              />
-            </div>
-        </section>
-      )}
-
-      <main className="flex-1 w-full">
-        <div className="max-w-5xl mx-auto px-6 py-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-            <div className="text-left">
-              <h2 className="text-2xl font-bold text-[#2b3a4d]">
-                {current?.title}
-              </h2>
-              <p className="text-sm text-gray-600">
-                Era focus: {current?.era}
-              </p>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-gray-700">
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#e1d9c7] text-[#2b3a4d] font-semibold">
-                Step {step}: {STEP_LABELS[step]}
-              </span>
-            </div>
-          </div>
-
-          <div className="w-full bg-[#e7dec6] rounded-full h-2 mb-8 overflow-hidden">
-            <div
-              className="h-full bg-[#2b3a4d] transition-all duration-500"
-              style={{
-                width: `${((currentProgress + (isCorrect ? 1 : 0)) / totalSteps) * 100}%`
-              }}
-            />
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`${current?.id ?? "none"}-${step}`}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -24 }}
-              transition={{ duration: 0.35 }}
-              className="bg-white border border-[#ded3ba] rounded-3xl shadow-lg p-8"
-            >
-              <p className="text-gray-800 text-lg leading-relaxed mb-6">
-                {currentPrompt}
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {currentOptions.map((option) => {
-                  const isSelected = selected === option;
-                  const stateClass = isSelected
-                    ? isCorrect
-                      ? "bg-green-200 border-green-600 text-green-900"
-                      : "bg-red-200 border-red-600 text-red-900"
-                    : "bg-white hover:bg-[#f4efe2]";
-                  return (
-                    <button
-                      key={option}
-                      onClick={() => handleAnswer(option)}
-                      className={`p-4 text-left border rounded-2xl text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2b3a4d] ${stateClass}`}
-                    >
-                      {option}
-                    </button>
-                  );
-                })}
+                <p className="text-lg">
+                  {activeMeta.year.year} · {activeMeta.set.title}
+                </p>
+                <p className="text-emerald-100/80">{activeMeta.saq.title}</p>
               </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </main>
+            )}
+          </div>
+        </header>
+
+        {!selectedYear && (
+          <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800">
+            未找到年份 {routeYear}，请返回选择列表。
+          </div>
+        )}
+
+        {selectedYear && (
+          <section className="space-y-4 rounded-3xl border border-white/60 bg-white p-6 shadow-xl">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-500">
+                  Release Timeline · {selectedYear.year}
+                </p>
+                <h2 className="text-lg font-bold text-slate-900">
+                  {selectedYear.label} · {selectedYear.highlight}
+                </h2>
+                <p className="text-sm text-slate-500">
+                  按 Set 展示对应 SAQ；点击进入即可练习。
+                </p>
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-4 py-2 text-sm text-slate-600">
+                <Clock className="h-4 w-4" />
+                本页收录 {selectedYear.sets.length} 个 Set
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {selectedYear.sets.map((set) => (
+                <div
+                  key={set.id}
+                  className="rounded-2xl border border-slate-200 bg-slate-50/70"
+                >
+                  <div className="flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left">
+                    <div>
+                      <p className="text-sm font-semibold text-slate-500">
+                        {set.title}
+                      </p>
+                      <p className="text-base font-bold text-slate-900">
+                        {set.subtitle}
+                      </p>
+                    </div>
+                    <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">
+                      {set.statusTag}
+                    </span>
+                  </div>
+
+                  <div className="space-y-3 border-t border-slate-200 px-4 py-4">
+                    {set.saqs.map((saq) => {
+                      const isAvailable = saq.status === "available";
+                      const isActive =
+                        isAvailable && activeExercise?.releaseId === saq.id;
+                      return (
+                        <div
+                          key={saq.id}
+                          className={`rounded-2xl border p-4 ${
+                            isActive
+                              ? "border-emerald-400 bg-emerald-50/60"
+                              : "border-slate-200 bg-slate-50"
+                          }`}
+                        >
+                          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                            <div>
+                              <p className="text-sm font-semibold text-slate-900">
+                                {saq.title}
+                              </p>
+                              <p className="text-xs text-slate-500">
+                                {saq.description}
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                                  isAvailable
+                                    ? "bg-emerald-100 text-emerald-700"
+                                    : "bg-slate-200 text-slate-500"
+                                }`}
+                              >
+                                {isAvailable ? "可练习" : "待上线"}
+                              </span>
+                              {isAvailable ? (
+                                <button
+                                  onClick={() =>
+                                    handleSelectRelease(saq.id, saq.status)
+                                  }
+                                  className={`rounded-full px-4 py-1 text-sm font-semibold transition ${
+                                    isActive
+                                      ? "bg-emerald-500 text-white shadow"
+                                      : "bg-white text-emerald-600 shadow hover:bg-emerald-50"
+                                  }`}
+                                >
+                                  {isActive ? "当前练习" : "进入练习"}
+                                </button>
+                              ) : (
+                                <Lock className="h-4 w-4 text-slate-400" />
+                              )}
+                            </div>
+                          </div>
+
+                          {isAvailable && isActive && activeExercise && (
+                            <div className="mt-4">
+                              <SAQExercise exercise={activeExercise} />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 }

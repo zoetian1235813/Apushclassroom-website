@@ -59,6 +59,23 @@ export const LessonProgressProvider: React.FC<{ children: React.ReactNode }> = (
     return map;
   }, [remoteProgress]);
 
+  // Merge remote progress into local storage on fetch/login
+  useEffect(() => {
+    if (Object.keys(remoteCompletedMap).length > 0) {
+      setCompletedSteps((prev) => {
+        let changed = false;
+        const next = { ...prev };
+        Object.keys(remoteCompletedMap).forEach((stepId) => {
+          if (!next[stepId]) {
+            next[stepId] = true;
+            changed = true;
+          }
+        });
+        return changed ? next : prev;
+      });
+    }
+  }, [remoteCompletedMap]);
+
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
@@ -104,6 +121,18 @@ export const LessonProgressProvider: React.FC<{ children: React.ReactNode }> = (
 
   const markStep = useCallback(
     (stepId: string, completed: boolean) => {
+      // ALWAYS save to local state / LocalStorage first!
+      setCompletedSteps((prev) => {
+        const next = { ...prev };
+        if (completed) {
+          next[stepId] = true;
+        } else {
+          delete next[stepId];
+        }
+        return next;
+      });
+
+      // If logged in, ALSO sync to remote server as a backup
       if (isAuthenticated && token) {
         setRemoteProgress((prev) => {
           if (completed) {
@@ -116,18 +145,7 @@ export const LessonProgressProvider: React.FC<{ children: React.ReactNode }> = (
           return prev.filter((entry) => entry.stepId !== stepId);
         });
         void syncRemoteStep(stepId, completed);
-        return;
       }
-
-      setCompletedSteps((prev) => {
-        const next = { ...prev };
-        if (completed) {
-          next[stepId] = true;
-        } else {
-          delete next[stepId];
-        }
-        return next;
-      });
     },
     [isAuthenticated, token, setRemoteProgress, syncRemoteStep]
   );

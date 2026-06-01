@@ -37,71 +37,12 @@ const whitmanGiddingsExcerpts = `
 </blockquote>
 `;
 const civilWarMilitaryTables = `
-<p><strong>Union and Confederate Soldiers by Profession</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Profession</th>
-      <th>Union</th>
-      <th>Confederacy</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Farmers and farm laborers (including planters)</td>
-      <td>47.5%</td>
-      <td>61.2%</td>
-    </tr>
-    <tr>
-      <td>Skilled laborers</td>
-      <td>23.4%</td>
-      <td>14.4%</td>
-    </tr>
-    <tr>
-      <td>Unskilled laborers</td>
-      <td>15.7%</td>
-      <td>10.3%</td>
-    </tr>
-    <tr>
-      <td>White-collar workers</td>
-      <td>8.5%</td>
-      <td>9.2%</td>
-    </tr>
-    <tr>
-      <td>Professionals</td>
-      <td>4.9%</td>
-      <td>4.9%</td>
-    </tr>
-    <tr>
-      <td>Miscellaneous</td>
-      <td>0.0%</td>
-      <td>0.0%</td>
-    </tr>
-  </tbody>
-</table>
-<p><strong>Union and Confederate Militaries</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Military Membership</th>
-      <th>Union</th>
-      <th>Confederacy</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Total enlistment</td>
-      <td>2,672,341</td>
-      <td>1,227,890</td>
-    </tr>
-    <tr>
-      <td>Casualties (wounded and killed)</td>
-      <td>642,427</td>
-      <td>483,026</td>
-    </tr>
-  </tbody>
-</table>
-<p><em>Source: Adapted from James M. McPherson, <cite>Battle Cry of Freedom: The Civil War Era</cite>, 1988.</em></p>
+<figure style="text-align:center;">
+  <img src="/images/civil_war_soldiers_profession.png" alt="Union and Confederate soldiers by profession and military membership" style="max-width:100%; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.12);" />
+  <figcaption style="margin-top:8px; font-size:12px; color:#6b7280;">
+    Source: Adapted from James M. McPherson, <cite>Battle Cry of Freedom: The Civil War Era</cite> (1988).
+  </figcaption>
+</figure>
 `;
 const henryClayCompromiseExcerpt = `
 <p><em>Henry Clay, speech in the United States Senate, 1850</em></p>
@@ -1988,6 +1929,474 @@ export const unit5TopicQuestions: TopicQuestionBank = {
       correctOptionId: "A",
       explanation:
         "Northern and Southern Whigs split irreparably over the expansion of slavery, causing the party to disintegrate as members defected to Democrats or the emerging Republicans.",
+    },
+  ],
+  unit5progresscheck: [
+    {
+      id: "unit5progresscheck-q1",
+      prompt:
+        "Which of the following developments most directly led to the activities described in the excerpt?",
+      stimulus: carsonGoldRushExcerpt,
+      options: [
+        { id: "A", text: "A prohibition on the northern extent of slavery in territories west of the Mississippi River" },
+        { id: "B", text: "The acquisition of significant territory following the Mexican-American War" },
+        { id: "C", text: "The vetoing of the rechartering of the Second Bank of the United States" },
+        { id: "D", text: "The completion of the first transcontinental railroad to the Pacific Ocean" },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "1848 年瓜达卢佩-希达尔戈条约让美国获得加州，为淘金者自由进入、掘金创造前提；铁路与银行事件时间、关联性都不足以直接触发淘金潮。",
+    },
+    {
+      id: "unit5progresscheck-q2",
+      prompt: "Which of the following developments resulted most directly from the gold rush described in the excerpt?",
+      stimulus: carsonGoldRushExcerpt,
+      options: [
+        { id: "A", text: "An anti-Catholic movement arose in western mining communities." },
+        { id: "B", text: "Plantation agriculture spread from the South to the Pacific coast." },
+        { id: "C", text: "People from America, Europe, and Asia migrated to the region." },
+        { id: "D", text: "The West Coast became a major industrial center for the United States." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "“金山”诱惑吸引美国东部、欧洲和亚洲移民涌入加州，人口与文化迅速多元化；反天主教、种植园和工业中心化都不符合淘金热的直接后果或时间线。",
+    },
+    {
+      id: "unit5progresscheck-q3",
+      prompt: "The excerpt best reflects the development of which of the following?",
+      stimulus: carsonGoldRushExcerpt,
+      options: [
+        { id: "A", text: "The emergence of an abolitionist movement in the western territories" },
+        { id: "B", text: "The widely held belief that the United States had a right to expand westward" },
+        { id: "C", text: "The increasing importance of cotton exports to the United States economy" },
+        { id: "D", text: "The debates about Native Americans and Mexican nationals dispossessed of land in California" },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "仅凭太阳和山峰指引去淘金，体现了“天定命运”式的西进正当性信念；题干未呈现废奴、棉花经济或土地争议的重点。",
+    },
+    {
+      id: "unit5progresscheck-q4",
+      prompt: "Which of the following arguments about the Mexican-American War do the excerpts best support?",
+      stimulus: greenbergHietalaExcerpts,
+      options: [
+        { id: "A", text: "It resulted in the first efforts at western expansion." },
+        { id: "B", text: "It generated debates over citizenship." },
+        { id: "C", text: "It ended sectional tensions between the North and South." },
+        { id: "D", text: "It contributed to the elimination of the domestic slave trade." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "两位学者都强调新领土居民能否同化、获得公民权的争论；西进早已有之，南北矛盾加剧而非缓和，国内奴隶贸易也未因战争结束。",
+    },
+    {
+      id: "unit5progresscheck-q5",
+      prompt: "Greenberg’s argument most differs from Hietala’s in that Greenberg claims that",
+      stimulus: greenbergHietalaExcerpts,
+      options: [
+        { id: "A", text: "Race was a defining factor in the tensions leading up to the Mexican-American War" },
+        { id: "B", text: "Pioneers, not politicians, were a major factor in building the American empire" },
+        { id: "C", text: "Most Americans believed that Mexicans in the new territories could not assimilate" },
+        { id: "D", text: "The granting of citizenship to people in the territories was welcomed by many Americans after the war" },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "Greenberg突出“墨西哥人难以同化”的普遍担忧，而Hietala强调政客主导扩张并未突出同化恐惧；两人都承认种族因素重要且并未认为授予公民权广受欢迎。",
+    },
+    {
+      id: "unit5progresscheck-q6",
+      prompt: "Both authors would most likely suggest that the historical situation described in the excerpts contributed to which of the following?",
+      stimulus: greenbergHietalaExcerpts,
+      options: [
+        { id: "A", text: "The continued alteration of Native American culture and society" },
+        { id: "B", text: "The failure of Reconstruction policies to enforce constitutional amendments" },
+        { id: "C", text: "The debate over the rights of states to nullify federal laws" },
+        { id: "D", text: "The controversy over the Supreme Court decision in Dred Scott v. Sandford" },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "无论限制还是推进扩张，都意味着侵占西部原住民土地、破坏其社会文化；其余选项时间或主题与美墨战争直接关联度不足。",
+    },
+    {
+      id: "unit5progresscheck-q7",
+      prompt:
+        "The excerpt best provides evidence about which of the following historical situations in the late 1840s?",
+      stimulus: calhounSlaverySpeech,
+      options: [
+        { id: "A", text: "Increased conflict between urban immigrants and nativists" },
+        { id: "B", text: "Compromises between the Supreme Court and national leaders" },
+        { id: "C", text: "The expanding influence of the Northern abolitionist movement" },
+        { id: "D", text: "Growing sectional tensions caused by the Mexican-American War" },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "卡尔霍恩批评北方要限制新领土奴隶制，正反映美墨战争后奴隶制扩张引发的南北矛盾升温；其余选项与该演讲情境不符。",
+    },
+    {
+      id: "unit5progresscheck-q8",
+      prompt: "The speech given by Calhoun relates to which of the following?",
+      stimulus: calhounSlaverySpeech,
+      options: [
+        { id: "A", text: "The effect of regional attitudes on federal policy making" },
+        { id: "B", text: "The ways in which immigration changed American culture" },
+        { id: "C", text: "The efforts by national leaders to expand the Pacific trade" },
+        { id: "D", text: "The widespread support for the immediate end of slavery" },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "南方为维护奴隶制向联邦施压，体现区域态度直接影响联邦政策；演讲无涉移民、太平洋贸易或立即废奴的全民共识。",
+    },
+    {
+      id: "unit5progresscheck-q9",
+      prompt: "Which of the following can be concluded based on the situation in which Calhoun gave this speech?",
+      stimulus: calhounSlaverySpeech,
+      options: [
+        { id: "A", text: "The United States attempted to establish trade with western American Indian nations" },
+        { id: "B", text: "Americans debated how to integrate conquered territories into the United States" },
+        { id: "C", text: "Americans wanted to access natural resources in the western North America" },
+        { id: "D", text: "The United States sought to gain markets for its manufactured goods in East Asia" },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "演讲背景是如何把美墨战争所得领土并入联邦、是否允许奴隶制；其余选项与当下国会争论焦点不符。",
+    },
+    {
+      id: "unit5progresscheck-q10",
+      prompt:
+        "The excerpt could best be used by historians studying which of the following?",
+      stimulus: douglassGreeleyLetter,
+      options: [
+        { id: "A", text: "The development of new transportation technologies" },
+        { id: "B", text: "The emergence of nativist political parties" },
+        { id: "C", text: "The relocation of Native Americans from the South" },
+        { id: "D", text: "The growth of the abolition movement in the United States" },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "道格拉斯致格里利信展现黑人民权领袖与北方媒体合作推动废奴，是研究废奴运动壮大的典型材料。",
+    },
+    {
+      id: "unit5progresscheck-q11",
+      prompt: "Rhetoric in the excerpt would most likely have been interpreted as promoting which of the following?",
+      stimulus: douglassGreeleyLetter,
+      options: [
+        { id: "A", text: "The creation of societies to send formerly enslaved people to Africa" },
+        { id: "B", text: "The immediate end to the practice of slavery through legal reform" },
+        { id: "C", text: "The expansion of slavery in new territories through popular sovereignty" },
+        { id: "D", text: "The encouragement of enslaved people to take up arms and revolt" },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "道格拉斯主张以法律、舆论促成“立即废奴”，反对殖民非洲、奴隶制扩张或武装起义。",
+    },
+    {
+      id: "unit5progresscheck-q12",
+      prompt: "Ideas in the excerpt would most likely have influenced which of the following?",
+      stimulus: douglassGreeleyLetter,
+      options: [
+        { id: "A", text: "Arguments supporting defining slavery on the grounds of states’ rights" },
+        { id: "B", text: "Claims that the United States should occupy all Mexican territory" },
+        { id: "C", text: "Attempts to convince plantation owners to stop farming cash crops" },
+        { id: "D", text: "Efforts at assisting enslaved people in escaping from the South" },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "强调奴隶自由权与道德正义的言论，直接激励地下铁路等援助逃奴的行动；其余选项与废奴理念方向相反或关联弱。",
+    },
+    {
+      id: "unit5progresscheck-q13",
+      prompt: "The excerpt best serves as evidence that, in 1861,",
+      stimulus: waitmanWilleySpeech,
+      options: [
+        { id: "A", text: "Citizens in the Northern states did not want Abraham Lincoln as president" },
+        { id: "B", text: "Citizens in the Southern states were deeply divided over secession" },
+        { id: "C", text: "Citizens in the Northern states were prepared to accommodate slavery" },
+        { id: "D", text: "Citizens in the Northern states would not accept a Confederate government" },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "威利在弗吉尼亚分裂大会反对脱离，说明南方内部对分裂并非铁板一块；北方支持林肯且不主张容纳奴隶制。",
+    },
+    {
+      id: "unit5progresscheck-q14",
+      prompt: "Which of the following conclusions can best be reached based on the sentiments expressed in the excerpt?",
+      stimulus: waitmanWilleySpeech,
+      options: [
+        { id: "A", text: "Sectional tensions erupted because most Southerners did not support Abraham Lincoln." },
+        { id: "B", text: "Sectional divisions were showing signs of diminishing." },
+        { id: "C", text: "The Compromise of 1850 prevented the outbreak of long-term conflict." },
+        { id: "D", text: "The election of 1860 was a success for the idea that territories should vote whether or not to have slavery." },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "他称林肯由“区域党”推举且无南方选票，反映南方普遍敌视林肯导致矛盾爆发；其余选项与1861年的紧张局势不符。",
+    },
+    {
+      id: "unit5progresscheck-q15",
+      prompt: "Evidence in the excerpt most strongly suggests which of the following?",
+      stimulus: waitmanWilleySpeech,
+      options: [
+        { id: "A", text: "Southern opinions regarding slavery were changing." },
+        { id: "B", text: "Southern businesses rejected paying federal taxes." },
+        { id: "C", text: "Southern voters viewed the presidential election with contempt." },
+        { id: "D", text: "Southern politicians were anxious to form alliances with European countries." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "他称选举是“欺诈”，揭示南方选民蔑视1860年大选结果；演讲未涉及税收、奴隶制立场转变或外交联盟。",
+    },
+    {
+      id: "unit5progresscheck-q16",
+      prompt: "Which of the following differences between the North and the South during the Civil War is depicted in the graph?",
+      stimulusTable: regionalComparisonTable,
+      options: [
+        { id: "A", text: "The South engaged in more international trade than the North." },
+        { id: "B", text: "The South relied more on plantation agriculture than the North." },
+        { id: "C", text: "The North had less developed transportation infrastructure than the South." },
+        { id: "D", text: "The North had fewer people available for labor and the military than the South." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "表中大农场占比南方 84%，凸显南方以种植园奴隶制为核心；北方人口、铁路、出口均更高。",
+    },
+    {
+      id: "unit5progresscheck-q17",
+      prompt:
+        "Which of the following describes a trend in sectional development by 1860 reflected in the data in the graph?",
+      stimulusTable: regionalComparisonTable,
+      options: [
+        { id: "A", text: "The South was becoming less dependent on exports to foreign markets than the North." },
+        { id: "B", text: "The North and the South were becoming more connected through railroads." },
+        { id: "C", text: "The North was becoming more diverse in its economic activities than the South." },
+        { id: "D", text: "The North and the South were becoming less reliant on agricultural products." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "北方在铁路、工厂、钢铁上全面领先，显示经济多元化；南方高度集中于农业出口，且铁路连接仍落后。",
+    },
+    {
+      id: "unit5progresscheck-q18",
+      prompt:
+        "Which of the following developments in labor systems in the United States before the Civil War is reflected by the data in the graph?",
+      stimulusTable: regionalComparisonTable,
+      options: [
+        { id: "A", text: "Indentured servants replaced wage laborers in the North." },
+        { id: "B", text: "Women laborers performed less industrial work in the North." },
+        { id: "C", text: "Large numbers of immigrants moved to urban areas in the South." },
+        { id: "D", text: "An internal trade in enslaved people spread throughout the South." },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "南方大农场比重大且依赖奴隶，国际奴隶贸易禁绝后，内部奴隶贩运满足种植园需求；其余选项与数据或历史事实不符。",
+    },
+    {
+      id: "unit5progresscheck-q19",
+      prompt:
+        "The phrase in the excerpt “Some of them seem willing to fight for you” could most likely be interpreted as having which of the following purposes?",
+      stimulus: lincolnConklingLetter,
+      options: [
+        { id: "A", text: "Authorizing the policy of total war by Union generals in fighting in the South" },
+        { id: "B", text: "Addressing the difficulties of feeding runaway enslaved people at military encampments" },
+        { id: "C", text: "Acknowledging the shuffling of commanding officers in the Union army" },
+        { id: "D", text: "Highlighting the enlistment of formerly enslaved people into the Union army" },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "林肯强调被解放者愿为联邦作战，用以为《解放宣言》和黑人参军辩护；与全面战争、供给困难或军官调整无关。",
+    },
+    {
+      id: "unit5progresscheck-q20",
+      prompt: "Lincoln’s rhetoric in the excerpt would most likely have been interpreted as promoting which of the following arguments?",
+      stimulus: lincolnConklingLetter,
+      options: [
+        { id: "A", text: "Allowing slavery to exist was still a political option." },
+        { id: "B", text: "Maintaining the blockade of Southern states was difficult." },
+        { id: "C", text: "Changing the purpose of the war would strengthen the Union cause." },
+        { id: "D", text: "Achieving the Confederacy’s unconditional surrender was the Union’s main objective." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "他把“保联邦”与“废奴”绑定，认为调整战争目标能提升士气、阻止英法承认邦联；其余选项与信件主旨不符。",
+    },
+    {
+      id: "unit5progresscheck-q21",
+      prompt: "The excerpt could best be used by historians studying which of the following?",
+      stimulus: lincolnConklingLetter,
+      options: [
+        { id: "A", text: "What prevented European powers from supporting the South" },
+        { id: "B", text: "What motivated African Americans during the war" },
+        { id: "C", text: "How Lincoln used executive powers to initiate wartime policy" },
+        { id: "D", text: "How Confederate strategy prevented a rapid Union victory" },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "林肯以总司令战时权力为《解放宣言》正名，是研究总统行政权扩张的关键材料；其余选项并非信件核心。",
+    },
+    {
+      id: "unit5progresscheck-q22",
+      prompt: "Which of the following developments could best refute the argument expressed in the image?",
+      stimulus: nastThanksgivingCartoon,
+      options: [
+        { id: "A", text: "The Mexican-American War resulted in the expansion of United States territories." },
+        { id: "B", text: "The continued westward movement of settlers increased agricultural production." },
+        { id: "C", text: "The conclusion of the Civil War stirred debates over citizenship." },
+        { id: "D", text: "The invention of new sailing technologies made international trade easier." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "漫画赞颂普选与种族共席，但重建后围绕公民权的激烈争论（黑法典、吉姆·克劳）直接反驳这一乐观愿景。",
+    },
+    {
+      id: "unit5progresscheck-q23",
+      prompt:
+        "People who shared the views expressed in the image most likely supported which of the following?",
+      stimulus: nastThanksgivingCartoon,
+      options: [
+        { id: "A", text: "The extension of political opportunities to formerly enslaved people" },
+        { id: "B", text: "The rejection of suffrage rights for women" },
+        { id: "C", text: "The expansion of the power of Southern Democrats" },
+        { id: "D", text: "The enforcement of temperance laws in the North" },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "漫画以“普选”横幅庆祝第15修正案，支持者自然拥护向前奴隶扩展选举权与参政机会；其余选项与主题无关或相反。",
+    },
+    {
+      id: "unit5progresscheck-q24",
+      prompt: "The change in society claimed by the artist in the image was most challenged by",
+      stimulus: nastThanksgivingCartoon,
+      options: [
+        { id: "A", text: "The creation of the Republican Party." },
+        { id: "B", text: "The construction of canals and railroads." },
+        { id: "C", text: "The ending of Reconstruction." },
+        { id: "D", text: "The passage of laws promoting economic development in the West." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "1877 年重建结束、联邦军撤出后，南方推行吉姆·克劳法和剥夺黑人选举权，最直接冲击了漫画宣示的种族平等社会。",
+    },
+    {
+      id: "unit5progresscheck-q25",
+      prompt:
+        "Which of the following claims is supported by the arguments made by both Levine and Langguth?",
+      stimulus: levineLangguthExcerpts,
+      options: [
+        { id: "A", text: "Local political tactics served to deny African Americans their rights." },
+        { id: "B", text: "White southerners accepted racial and political equality." },
+        { id: "C", text: "Republicans permanently changed the balance of political power in the South." },
+        { id: "D", text: "African Americans gained property rights while becoming self-sufficient." },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "两位作者都指出恐怖、操纵选举和地方法规等政治手段剥夺黑人权利；其余说法与他们的论点相反或缺乏依据。",
+    },
+    {
+      id: "unit5progresscheck-q26",
+      prompt: "Levine’s argument about Reconstruction in the excerpt differs from that of Langguth in that Levine argues",
+      stimulus: levineLangguthExcerpts,
+      options: [
+        { id: "A", text: "African Americans were held in a perpetual state of slavery" },
+        { id: "B", text: "White Southerners willingly worked alongside the emancipated population" },
+        { id: "C", text: "Northern Republicans gradually withdrew their support for Reconstruction policies" },
+        { id: "D", text: "White plantation owners conceded to Republican policies in the South" },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "Levine独特强调北方共和党后期后退、保守化削弱了重建；Langguth侧重南方贫穷白人与种植园主的联合。",
+    },
+    {
+      id: "unit5progresscheck-q27",
+      prompt: "Which of the following arguments about Reconstruction policies would both authors most likely disagree with?",
+      stimulus: levineLangguthExcerpts,
+      options: [
+        { id: "A", text: "White Southerners across all economic classes rejected Reconstruction policies." },
+        { id: "B", text: "With Republicans in retreat, Southern Democrats grew more supportive of Reconstruction policies." },
+        { id: "C", text: "Reconstruction policies failed to prevent the spread of violence against formerly enslaved people." },
+        { id: "D", text: "Unfair labor conditions in the South persisted despite Reconstruction policies." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "两位作者都描绘民主党“再建派”复辟并压制黑人，不会认为南方民主党转而支持重建；其余观点与两人论述一致或可兼容。",
+    },
+    {
+      id: "unit5progresscheck-q28",
+      prompt: "Which of the following groups would most likely have supported secession from the United States after the 1860 presidential election?",
+      options: [
+        { id: "A", text: "Northern abolitionists" },
+        { id: "B", text: "Members of the Free Soil Party" },
+        { id: "C", text: "Southern Democrats" },
+        { id: "D", text: "Northern Democrats" },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "南方民主党以奴隶制扩张为核心利益，林肯当选后率先推动分裂；北方废奴派、自由土壤党与北方民主党均不主张脱离联邦。",
+    },
+    {
+      id: "unit5progresscheck-q29",
+      prompt: "The Fourteenth Amendment emerged from which of the following contexts?",
+      options: [
+        { id: "A", text: "Abolitionists’ fears that African Americans would be barred from voting" },
+        { id: "B", text: "Expectations that formerly enslaved people would run for political office" },
+        { id: "C", text: "Republican concerns that African Americans would be denied citizenship rights" },
+        { id: "D", text: "Former Confederate leaders’ support for multiple new amendments to the Constitution" },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "南方《黑人法典》引发共和党担忧黑人虽自由却无公民权，促成第十四修正案；投票权、竞选或南方精英支持多项修宪都不是直接背景。",
+    },
+    {
+      id: "unit5progresscheck-q30",
+      prompt:
+        "Which of the following developments most directly related to the increased sectional strife immediately prior to the election of 1860?",
+      options: [
+        { id: "A", text: "The addition of territory to the United States through the annexation of California" },
+        { id: "B", text: "The rise of nativist political groups in Northern urban areas" },
+        { id: "C", text: "The differing viewpoints over the use of the tariff to protect domestic industry" },
+        { id: "D", text: "The legal ruling that denied African Americans rights of citizenship" },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "1857 年德雷德斯科特案否认黑人公民权并开放奴隶制扩张，直接激化1860年前的区域对立；加州并入、排外政党与关税争议关联度较低。",
+    },
+    {
+      id: "unit5progresscheck-q31",
+      prompt: "The passage of the Kansas-Nebraska Act was intended to resolve debates about which of the following issues in the 1850s?",
+      options: [
+        { id: "A", text: "The increase in immigration" },
+        { id: "B", text: "The expansion of slavery" },
+        { id: "C", text: "The fate of the Second Party system" },
+        { id: "D", text: "The growth of low-wage factory labor" },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "法案用“人民主权”处理堪萨斯、内布拉斯加是否允许奴隶制，试图解决（却加剧）奴隶制扩张争议。",
+    },
+    {
+      id: "unit5progresscheck-q32",
+      prompt:
+        "Which of the following developments was most directly connected to the collapse of the Whig Party in United States politics during the 1850s?",
+      options: [
+        { id: "A", text: "The escalation of tensions between proslavery and antislavery factions" },
+        { id: "B", text: "Abraham Lincoln’s debates with Stephen Douglas over popular sovereignty" },
+        { id: "C", text: "The rejection of Manifest Destiny by a growing percentage of American people" },
+        { id: "D", text: "Disagreement over the constitutionality of federal internal improvements funding" },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "堪萨斯-内布拉斯加后，亲奴与反奴的辉格派系分裂，成员倒向民主党或新生共和党，导致辉格党崩溃；其余因素关联度有限或时间稍晚。",
+    },
+    {
+      id: "unit5progresscheck-q33",
+      prompt: "The industrial resources of the North during the Civil War most likely accounted for which of the following?",
+      options: [
+        { id: "A", text: "The Southern reliance on cotton production and export, along with the system of enslaved labor" },
+        { id: "B", text: "The Confederate strategy that focused on the western theater of operations during the war" },
+        { id: "C", text: "The willingness of African Americans to fight for the Union cause in the conflict" },
+        { id: "D", text: "The disadvantage of the Confederacy in access to arms, munitions, and other supplies" },
+      ],
+      correctOptionId: "D",
+      explanation:
+        "北方工厂、钢铁和铁路优势让其装备充足，南方工业薄弱、被封锁后军需长期短缺，形成决定性的物资劣势。",
     },
   ],
 };

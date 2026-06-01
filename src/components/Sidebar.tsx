@@ -10,6 +10,7 @@ import {
   CheckSquare,
   Square,
   CheckCircle,
+  HelpCircle,
 } from "lucide-react";
 import { LessonStep, Topic, Unit } from "../types/lesson";
 import { View } from "../types/navigation";
@@ -30,7 +31,9 @@ interface SidebarProps {
   onToggleStepCompleted: (stepId: string) => void;
   isStepCompleted: (stepId: string) => boolean;
   buildSteps: (unit: Unit, topic: Topic) => LessonStep[];
+  canAccessUnit?: (unit: Unit) => boolean;
   onNavigate: (view: View) => void;
+  isAdmin?: boolean;
 }
 
 const NAV_BUTTON_CLASS =
@@ -68,7 +71,9 @@ export const Sidebar = ({
   onToggleStepCompleted,
   isStepCompleted,
   buildSteps,
+  canAccessUnit = () => true,
   onNavigate,
+  isAdmin = false,
 }: SidebarProps) => {
   const handleNavClick = (view: View) => {
     onNavigate(view);
@@ -78,6 +83,7 @@ export const Sidebar = ({
   const renderUnit = (unit: Unit) => {
     const isUnitSelected = selectedUnit?.id === unit.id;
     const unitExpanded = !!expandedUnits[unit.id];
+    const locked = !canAccessUnit(unit);
 
     return (
       <div key={unit.id} className="space-y-3">
@@ -86,13 +92,14 @@ export const Sidebar = ({
           onClick={() => onToggleUnitExpand(unit.id)}
           className={`flex w-full items-center justify-between rounded-2xl border border-white/25 px-4 py-3 text-left text-sm font-semibold text-midnight shadow-glow transition-all hover:-translate-y-0.5 hover:shadow-glass ${
             isUnitSelected ? "bg-white" : "bg-white/80"
-          }`}
+          } ${locked ? "opacity-60" : ""}`}
         >
           <span className="flex items-center gap-3">
             <span className="text-lg">📘</span>
-            <span>
-              Unit {unit.id}: {unit.title}
-            </span>
+              <span>
+                Unit {unit.id}: {unit.title}
+                {locked ? " · Premium" : ""}
+              </span>
           </span>
           {unitExpanded ? (
             <ChevronDown className="h-5 w-5 text-midnight/60" />
@@ -202,7 +209,7 @@ export const Sidebar = ({
 
   const expandedPanel = (
     <div className="glass-panel space-y-5 p-5 text-midnight lg:max-h-[calc(100vh-9rem)] lg:overflow-y-auto">
-      <div className="hidden justify-end lg:flex">
+      <div className="sticky top-0 z-20 hidden justify-end bg-white/85 px-1 py-2 backdrop-blur-glass lg:flex">
         <button
           type="button"
           onClick={() => onToggleCollapse(true)}
@@ -221,6 +228,15 @@ export const Sidebar = ({
         >
           <BookOpen className="h-5 w-5 text-white" />
           <span className="flex-1">主页导航</span>
+        </button>
+
+        <button
+          type="button"
+          className={NAV_BUTTON_CLASS}
+          onClick={() => handleNavClick("userGuide")}
+        >
+          <HelpCircle className="h-5 w-5 text-white" />
+          <span className="flex-1">使用指南 / 付费</span>
         </button>
 
         <button
@@ -249,6 +265,17 @@ export const Sidebar = ({
           <FileText className="h-5 w-5 text-white" />
           <span className="flex-1">历年真题</span>
         </button>
+
+        {isAdmin && (
+          <button
+            type="button"
+            className="group flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-red-500 to-indigo-500 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-red-600 hover:to-indigo-600"
+            onClick={() => handleNavClick("adminDashboard")}
+          >
+            <span className="text-lg">⚙️</span>
+            <span className="flex-1">后台管理 (Admin)</span>
+          </button>
+        )}
       </div>
 
       <div className="mt-6 space-y-4">

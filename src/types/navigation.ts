@@ -1,5 +1,6 @@
 export type View =
   | "home"
+  | "userGuide"
   | "study"
   | "step"
   | "topicPractice"
@@ -7,4 +8,5 @@ export type View =
   | "practice"
   | "pastExams"
   | "frqPractice"
-  | "wrongNotebook";
+  | "wrongNotebook"
+  | "adminDashboard";

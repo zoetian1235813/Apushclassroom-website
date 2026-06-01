@@ -228,27 +228,104 @@
 `,
 
   "1.4": `
-<h3><b>🍽️ Columbian Exchange</b></h3>
+<h3><b>1.4 🍽️ Columbian Exchange, Spanish Exploration and Conquest</b></h3>
+<p>A big key focus of this key topic is on geography and the environment, as the age of exploration impacted natural ecosystems as well. Before 1492, when Columbus "discovered" the Americas, the Americas were isolated from Africa, Europe, and Asia. The plants, animals, people, and diseases of the Americas were all contained in the Western Hemisphere. You can imagine how much this changed once the two hemispheres started interacting and its effect on the environment and people.
+<br /><span className="text-gray-600">1492年哥伦布 “发现” 美洲大陆之前，美洲与非洲、欧洲和亚洲相互隔绝。美洲的植物、动物、人类和疾病都局限于西半球。可以想象，当两个半球开始相互交流后，这种状况发生了多大的变化，以及这对环境和人类产生了何种影响。</span></p>
+
+<br>
+<h3><b>🌍 Spanish Exploration and Conquest 西班牙的探索与征服</b></h3>
+<p>Spain led the early exploration and conquest of the Americas, forever changing the Western Hemisphere. The Spanish Empire rapidly expanded through military conquests, missionary work, and settlement.
+<br /><span className="text-gray-600">西班牙在早期对美洲的探索和征服中占据领先地位，永久性地改变了西半球。西班牙帝国通过军事征服、传教活动和殖民定居迅速扩张。</span></p>
+
+<h4><b>Key Spanish Explorers and Conquests: 重要的西班牙探险家与征服行动：</b></h4>
 <ul>
-  <li>New World → Old World: maize, potatoes, tomatoes, cacao; boosted European diets and population growth.
-  <br /><span className="text-gray-600">新大陆 → 旧大陆：玉米、土豆、番茄、可可；改善了欧洲饮食并推动人口增长。</span></li>
-  <li>Old World → New World: horses, pigs, cattle, sugarcane; transformed Native labor and environment.
-  <br /><span className="text-gray-600">旧大陆 → 新大陆：马、猪、牛、甘蔗；改变了原住民的劳作和环境。</span></li>
-  <li>Disease impact: smallpox, measles, influenza killed 90% of Native populations.
-  <br /><span className="text-gray-600">疾病影响：天花、麻疹、流感导致90%的原住民死亡。</span></li>
+  <li><strong>Christopher Columbus</strong> (1492-1504): Made four voyages to the Caribbean, claiming islands for Spain and establishing the first European settlements in the Americas. While he never reached mainland North America, his voyages opened the door to European colonization.
+  <br /><span className="text-gray-600">克里斯托弗·哥伦布（1492 - 1504年）：曾四次航行至加勒比地区，为西班牙宣称对一些岛屿拥有主权，并在美洲建立了首批欧洲人定居点。尽管他从未抵达北美洲大陆，但他的航行开启了欧洲殖民的大门。</span></li>
+
+  <li><strong>Hernán Cortés</strong> (1519-1521): Conquered the powerful Aztec Empire in central Mexico with just a few hundred men. His success was aided by:
+  <br /><span className="text-gray-600">埃尔南·科尔特斯（1519 - 1521年）：仅率领数百人就征服了位于墨西哥中部强大的阿兹特克帝国。他的成功得益于：</span>
+    <ul>
+      <li>Superior weapons and horses
+      <br /><span className="text-gray-600">精良的武器和马匹</span></li>
+      <li>Alliances with local peoples who resented Aztec rule
+      <br /><span className="text-gray-600">与憎恶阿兹特克统治的当地民族结成的联盟</span></li>
+      <li>Devastating smallpox epidemics that weakened Aztec resistance
+      <br /><span className="text-gray-600">毁灭性的天花疫情削弱了阿兹特克人的抵抗力</span></li>
+      <li>The capture of Emperor Montezuma
+      <br /><span className="text-gray-600">蒙特祖马皇帝被俘</span></li>
+    </ul>
+  </li>
+
+  <li><strong>Francisco Pizarro</strong> (1532-1533): Conquered the Inca Empire in Peru using similar tactics to Cortés. The Spanish seized enormous amounts of gold and silver, which were shipped back to Spain.
+  <br /><span className="text-gray-600">弗朗西斯科·皮萨罗（1532 - 1533年）：采用与科尔特斯类似的战术征服了秘鲁的印加帝国。西班牙人掠夺了大量黄金和白银，并将其运回西班牙。</span></li>
+
+  <li><strong>Spanish Florida</strong>: Juan Ponce de León explored Florida in 1513, and Spain established St. Augustine in 1565 (the oldest continuously inhabited European settlement in the US).
+  <br /><span className="text-gray-600">西班牙统治下的佛罗里达：胡安·庞塞·德莱昂于1513年探索了佛罗里达，西班牙于1565年建立了圣奥古斯丁（美国境内欧洲人持续居住的最古老定居点）。</span></li>
 </ul>
+
+<h4><b>Spanish Colonial System: 西班牙殖民体系：</b></h4>
+<ul>
+  <li><strong>Encomienda System</strong>: Spanish colonizers were granted rights to Native American labor in specific areas. While colonizers were supposed to protect and convert Natives to Christianity, in practice, the system often led to brutal exploitation.
+  <br /><span className="text-gray-600">委托监护制：西班牙殖民者被授予在特定地区使用美洲原住民劳动力的权利。虽然殖民者本应保护原住民并使其皈依基督教，但实际上，这一制度常常导致残酷的剥削。</span></li>
+
+  <li><strong>Mission System</strong>: The Spanish established missions throughout their territories to convert Native Americans to Catholicism. These missions served as religious, cultural, and economic centers.
+  <br /><span className="text-gray-600">传教团体系：西班牙人在其领土上广泛设立传教团，旨在使美洲原住民皈依天主教。这些传教团同时成为了宗教、文化及经济中心。</span></li>
+
+  <li><strong>Resource Extraction</strong>: The primary goal of Spanish colonization was extracting wealth - especially gold and silver from mines in Mexico and Peru. This focus on precious metals shaped Spanish colonial development.
+  <br /><span className="text-gray-600">资源开采：西班牙殖民的主要目标是开采财富，尤其是从墨西哥和秘鲁的矿山中获取黄金和白银。这种对贵金属的关注塑造了西班牙的殖民发展。</span></li>
+</ul>
+
+<h4><b>Impact on Native Populations: 对原住民的影响：</b></h4>
+<ul>
+  <li>Combined effects of disease, warfare, and forced labor caused catastrophic population decline
+  <br /><span className="text-gray-600">疾病、战争和强迫劳动的综合影响导致了人口的灾难性下降</span></li>
+  <li>Some regions experienced 90% population loss within a century
+  <br /><span className="text-gray-600">一些地区在一个世纪内人口减少了90%</span></li>
+  <li>Native resistance continued throughout this period, including organized rebellions and everyday forms of resistance
+  <br /><span className="text-gray-600">在此期间，本土抵抗持续不断，包括有组织的叛乱和日常形式的抵抗。</span></li>
+  <li>Surviving populations had to adapt to Spanish rule while maintaining aspects of their cultural identity
+  <br /><span className="text-gray-600">幸存下来的居民不得不适应西班牙的统治，同时保留自身文化身份的某些方面。</span></li>
+</ul>
+
+<p>This rapid conquest created the foundation for Spain's vast American empire, which would dominate the region for the next three centuries.
+<br /><span className="text-gray-600">这次迅速的征服为西班牙庞大的美洲帝国奠定了基础，在接下来的三个世纪里，这个帝国将统治该地区。</span></p>
+
+<br>
+<h3><b>🍽️ Columbian Exchange 哥伦布大交换</b></h3>
+<p>The <strong>Columbian Exchange</strong> was a period of rapid exchange of plants, animals, ideas, technology, and diseases between the Eastern and Western Hemispheres. Some of the notable exchanges that took place during the Columbian Exchange include:
+<br /><span className="text-gray-600">“哥伦布大交换”是指东半球和西半球之间植物、动物、思想、技术和疾病快速交流的时期。在“哥伦布大交换”期间发生的一些值得注意的交流包括：</span></p>
+
+<ul>
+  <li><strong>Introduction of new crops:</strong> The Columbian Exchange introduced new crops to both the Old World and the New World, such as potatoes, maize, and tomatoes. These crops had a major impact on agriculture and the food systems of both regions.
+  <br /><span className="text-gray-600">新作物的引入：哥伦布大交换将新作物引入了新旧世界，如土豆、玉米和西红柿。这些作物对两个地区的农业和粮食系统产生了重大影响。</span></li>
+
+  <li><strong>Introduction of new animals:</strong> The Columbian Exchange also introduced new animals to both regions, including horses, cattle, and pigs. These animals had a major impact on transportation, agriculture, and the environment.
+  <br /><span className="text-gray-600">新动物的引入：哥伦布大交换还为两个地区带来了新的动物，包括马、牛和猪。这些动物对交通、农业和环境产生了重大影响。</span></li>
+
+  <li><strong>Spread of diseases:</strong> The Columbian Exchange also led to the spread of diseases between the Old World and the New World. Many diseases, such as smallpox and influenza, had a devastating impact on the indigenous populations of the Americas.
+  <br /><span className="text-gray-600">疾病传播：哥伦布大交换也导致了疾病在新旧大陆之间的传播。许多疾病，如天花和流感，对美洲的原住民造成了毁灭性的影响。</span></li>
+
+  <li><strong>Cultural exchange:</strong> The Columbian Exchange also facilitated the exchange of ideas, religions, and cultures between the Old World and the New World. This had a major impact on the social, economic, and political development of both hemispheres.
+  <br /><span className="text-gray-600">文化交流：哥伦布大交换还促进了新旧世界之间思想、宗教和文化的交流。这对两个半球的社会、经济和政治发展产生了重大影响。</span></li>
+</ul>
+
 <br>
 <h3><b>🌎 AP Study Highlights</b></h3>
 <ul>
-  <li>Accelerated **mercantilism** and competition among empires.
-  <br /><span className="text-gray-600">加速了重商主义与帝国竞争。</span></li>
-  <li>Led to environmental crises: deforestation, invasive species.
-  <br /><span className="text-gray-600">导致环境危机：森林砍伐、入侵物种。</span></li>
+  <li>The Columbian Exchange transformed global ecosystems and human societies in both hemispheres.
+  <br /><span className="text-gray-600">哥伦布大交换改变了两个半球的全球生态系统和人类社会。</span></li>
+  <li>Spanish conquest relied on military technology, alliances, and disease to overcome powerful empires.
+  <br /><span className="text-gray-600">西班牙征服依赖军事技术、联盟和疾病来征服强大的帝国。</span></li>
+  <li>Native resistance persisted despite overwhelming odds, showing cultural resilience.
+  <br /><span className="text-gray-600">尽管面临巨大困难，原住民的抵抗依然持续，展现了文化韧性。</span></li>
+  <li>The Spanish colonial system focused on extraction of resources and conversion to Catholicism.
+  <br /><span className="text-gray-600">西班牙殖民体系侧重于资源开采和皈依天主教。</span></li>
 </ul>
+
 <br>
 <h3><b>🗂️ Key Terms</b></h3>
-<p>Columbian Exchange, Smallpox, Encomienda, Transatlantic Slave Trade
-<br /><span className="text-gray-600">哥伦布大交换、天花、恩康米恩达制、跨大西洋奴隶贸易</span></p>
+<p>Columbian Exchange, Spanish Conquest, Encomienda System, Mission System, Hernán Cortés, Francisco Pizarro, Aztec Empire, Inca Empire, Smallpox, Montezuma
+<br /><span className="text-gray-600">哥伦布大交换、西班牙征服、委托监护制、传教团体系、埃尔南·科尔特斯、弗朗西斯科·皮萨罗、阿兹特克帝国、印加帝国、天花、蒙特祖马</span></p>
 `,
 
   "1.5": `

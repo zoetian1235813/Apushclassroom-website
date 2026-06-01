@@ -1,4 +1,4 @@
-﻿import type { FC } from "react";
+import type { FC } from "react";
 import { useState } from "react";
 import { useAuth } from "../../state/authContext";
 
@@ -17,6 +17,7 @@ export const LoginPanel: FC = () => {
     isLoading,
     sendEmailCode,
     verifyEmailCode,
+    startGuestLogin,
     startWeChatLogin,
     logout,
   } = useAuth();
@@ -27,8 +28,17 @@ export const LoginPanel: FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSendingCode, setIsSendingCode] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [isGuestLoading, setIsGuestLoading] = useState(false);
 
   const handleSendCode = async () => {
+    const trimmedEmail = email.trim().toLowerCase();
+    if (trimmedEmail === "admin" || trimmedEmail === "admin@apush.com") {
+      setStatusMessage(
+        "检测到管理员账号。请在 Code 输入框内输入管理员密码（默认为 111111），然后点击 Sign in。 (Admin account detected. Enter admin password in Code field and click Sign in.)"
+      );
+      setErrorMessage(null);
+      return;
+    }
     if (!emailPattern.test(email)) {
       setErrorMessage("Please enter a valid email address.");
       return;
@@ -71,18 +81,41 @@ export const LoginPanel: FC = () => {
       return;
     }
     setErrorMessage(null);
-    setStatusMessage("Signing in...");
+    const isLoginAsAdmin =
+      trimmedEmail.toLowerCase() === "admin" ||
+      trimmedEmail.toLowerCase() === "admin@apush.com";
+    setStatusMessage(isLoginAsAdmin ? "管理员身份校验中..." : "Signing in...");
     setIsVerifying(true);
     try {
       await verifyEmailCode(trimmedEmail, trimmedCode);
-      setStatusMessage("Signed in successfully!");
+      setStatusMessage(isLoginAsAdmin ? "管理员登录成功！" : "Signed in successfully!");
       setCode("");
     } catch (error) {
       console.error(error);
-      setErrorMessage("Invalid verification code. Please try again.");
+      setErrorMessage(
+        isLoginAsAdmin
+          ? "管理员账号或密码错误，请检查输入。"
+          : "Invalid verification code. Please try again."
+      );
       setStatusMessage(null);
     } finally {
       setIsVerifying(false);
+    }
+  };
+
+  const handleGuestLogin = async () => {
+    setErrorMessage(null);
+    setStatusMessage("Entering guest mode...");
+    setIsGuestLoading(true);
+    try {
+      await startGuestLogin();
+      setStatusMessage("Guest mode enabled. Unit 1 is unlocked.");
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Could not start guest mode. Please try again.");
+      setStatusMessage(null);
+    } finally {
+      setIsGuestLoading(false);
     }
   };
 
@@ -165,18 +198,25 @@ export const LoginPanel: FC = () => {
       >
         Sign in with WeChat
       </button>
+      <button
+        type="button"
+        onClick={handleGuestLogin}
+        disabled={isGuestLoading}
+        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 disabled:text-gray-400"
+      >
+        {isGuestLoading ? "Starting guest mode..." : "Continue as guest"}
+      </button>
       {statusMessage && (
-        <div className="text-xs text-blue-600">{statusMessage}</div>
+        <div className="text-xs text-blue-600 mt-1">{statusMessage}</div>
       )}
       {errorMessage && (
-        <div className="text-xs text-red-500">{errorMessage}</div>
+        <div className="text-xs text-red-500 mt-1">{errorMessage}</div>
       )}
       {isLoading && (
-        <div className="text-xs text-gray-400">Loading user data...</div>
+        <div className="text-xs text-gray-400 mt-1">Loading user data...</div>
       )}
     </div>
   );
 };
 
 export default LoginPanel;
-

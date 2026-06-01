@@ -16,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/saq" element={<SAQPractice />} />
+            <Route path="/saq/:year" element={<SAQPractice />} />
           </Routes>
         </BrowserRouter>
       </LessonProgressProvider>
