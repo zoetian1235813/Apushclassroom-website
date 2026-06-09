@@ -485,7 +485,7 @@ const unit3Checks: Record<string, VideoKnowledgeCheck[]> = {
   ]
 };
 
-const unit4Checks: Record<string, VideoKnowledgeCheck[]> = {
+export const unit4Checks: Record<string, VideoKnowledgeCheck[]> = {
   "4.1": [
     {
       id: "4.1-parties",
@@ -1008,7 +1008,7 @@ const unit6Checks: Record<string, VideoKnowledgeCheck[]> = {
   ]
 };
 
-const unit7Checks: Record<string, VideoKnowledgeCheck[]> = {
+export const unit7Checks: Record<string, VideoKnowledgeCheck[]> = {
   "7.1": [
     {
       id: "7.1-imperialism",
@@ -1207,7 +1207,7 @@ const unit7Checks: Record<string, VideoKnowledgeCheck[]> = {
   ]
 };
 
-const unit8Checks: Record<string, VideoKnowledgeCheck[]> = {
+export const unit8Checks: Record<string, VideoKnowledgeCheck[]> = {
   "8.1": [
     {
       id: "8.1-containment",
@@ -1392,7 +1392,7 @@ const unit8Checks: Record<string, VideoKnowledgeCheck[]> = {
   ]
 };
 
-const unit9Checks: Record<string, VideoKnowledgeCheck[]> = {
+export const unit9Checks: Record<string, VideoKnowledgeCheck[]> = {
   "9.1": [
     {
       id: "9.1-context",

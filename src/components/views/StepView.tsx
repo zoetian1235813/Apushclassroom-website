@@ -8,6 +8,8 @@ import {
   BookOpen,
   HelpCircle,
   RotateCcw,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { InteractiveVideoPlayer } from "../InteractiveVideoPlayer";
 import type { LessonStep, Topic, Unit } from "../../types/lesson";
@@ -45,6 +47,7 @@ export const StepView = ({
   const [activeCheckIndex, setActiveCheckIndex] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
+  const [isNotesExpanded, setIsNotesExpanded] = useState(true);
 
   const stepCompleted = isStepCompleted(selectedStep.id);
   const topicKey = selectedStep.contentId ?? selectedTopic.id;
@@ -349,6 +352,49 @@ export const StepView = ({
                 )}
                 {selectedStep.videoSrc && !selectedStep.videoEmbedUrl && (
                   <span>Place the corresponding video file at {selectedStep.videoSrc}.</span>
+                )}
+              </div>
+
+              {/* Integrated Lecture Notes */}
+              <div className="mt-8 rounded-3xl border border-midnight/10 bg-white/60 p-6 backdrop-blur-md shadow-glow text-left">
+                <button
+                  type="button"
+                  onClick={() => setIsNotesExpanded(!isNotesExpanded)}
+                  className="flex w-full items-center justify-between border-b border-midnight/5 pb-4 mb-2 text-left"
+                >
+                  <div className="flex items-center gap-2">
+                    <BookOpen className="h-5 w-5 text-midnight" strokeWidth={2} />
+                    <h4 className="text-lg font-bold text-midnight">本节精读笔记 (Lecture Notes)</h4>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-midnight/55 font-semibold">
+                    <span>{isNotesExpanded ? "点击收起" : "点击展开"}</span>
+                    {isNotesExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                  </div>
+                </button>
+                
+                {isNotesExpanded && (
+                  <div className="mt-4 pt-2 border-t border-midnight/5">
+                    <div
+                      className={`unit${selectedTopic.id} prose max-w-none text-sm text-midnight/80 leading-relaxed`}
+                      dangerouslySetInnerHTML={{
+                        __html: topicContent,
+                      }}
+                    />
+                    
+                    {/* Link to mark notes complete */}
+                    {notesStep && !isStepCompleted(notesStep.id) && (
+                      <div className="mt-6 border-t border-midnight/5 pt-4 flex justify-end">
+                        <button
+                          type="button"
+                          onClick={() => markStep(notesStep.id, true)}
+                          className="inline-flex items-center gap-2 rounded-full bg-midnight/5 hover:bg-midnight/10 px-4 py-2 text-xs font-semibold text-midnight transition-all shadow-sm"
+                        >
+                          <CheckCircle className="h-3.5 w-3.5 text-moss" />
+                          看完视频了？一键将本节笔记标记为“已读完成”
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
