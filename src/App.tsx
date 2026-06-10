@@ -13,6 +13,7 @@ import { PastExamsView } from "./components/views/PastExamsView";
 import { UserGuideView } from "./components/views/UserGuideView";
 import { TopicPracticeView } from "./components/views/TopicPracticeView";
 import { AdminDashboardView } from "./components/views/AdminDashboardView";
+import { PromoVideoView } from "./components/views/PromoVideoView";
 import { unitContents } from "./data/units/units";
 import { apushUnits } from "./data/apushUnits";
 import { topicQuestionBank } from "./data/questions";
@@ -424,6 +425,8 @@ function App() {
             {currentView === "pastExams" && <PastExamsView />}
 
             {currentView === "adminDashboard" && <AdminDashboardView />}
+
+            {currentView === "promoVideo" && <PromoVideoView />}
           </main>
         </div>
       </div>

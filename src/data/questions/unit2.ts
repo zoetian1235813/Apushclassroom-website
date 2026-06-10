@@ -12,6 +12,26 @@ const hughJonesExcerpt = `In 1724 Anglican minister Hugh Jones observed that mos
 
 const coldensReport = `In 1724 Cadwallader Colden warned that French missionaries and traders were winning Native American allies and threatening to surround British settlements, urging stronger British involvement in the fur trade.`;
 
+const champlainExcerpt = `Samuel de Champlain, French explorer and founder of Quebec, <em>Voyages of Samuel de Champlain</em>, 1604:
+<blockquote>
+  &ldquo;I helped the Algonquins and the Huron Indians in their war against the Iroquois. They asked me to join them, and I saw this as a great opportunity to secure their friendship and to establish a firm alliance. Through this alliance, we could expand our trade in furs and secure the safety of our settlement at Quebec. We supplied them with iron tools and firearms, and they in turn brought us valuable beaver pelts and guided us through the vast waterways of the interior.&rdquo;
+</blockquote>`;
+
+const winthropExcerpt = `John Winthrop, Puritan governor of the Massachusetts Bay Colony, <em>A Model of Christian Charity</em>, 1630:
+<blockquote>
+  &ldquo;We must delight in each other; make others’ conditions our own; rejoice together, mourn together, labor and suffer together, always having before our eyes our commission and community in the work, as members of the same body. ... For we must consider that we shall be as a city upon a hill. The eyes of all people are upon us. So that if we shall deal falsely with our God in this work we have undertaken, and so cause Him to withdraw His present help from us, we shall be made a story and a by-word through the world.&rdquo;
+</blockquote>`;
+
+const marylandTolerationExcerpt = `Maryland Assembly, <em>Maryland Act Concerning Religion</em>, 1649:
+<blockquote>
+  &ldquo;And whereas the enforcing of the conscience in matters of Religion hath frequently fallen out to be of dangerous Consequence in those commonwealths where it hath been practised... Be it therefore... enacted... that no person or persons whatsoever within this Province... professing to believe in Jesus Christ, shall from henceforth be any ways troubled, molested or discountenanced for or in respect of his or her religion nor in the free exercise thereof.&rdquo;
+</blockquote>`;
+
+const navigationActExcerpt = `The English Parliament, <em>The Navigation Act of 1660</em>:
+<blockquote>
+  &ldquo;...no goods or commodities whatsoever shall be imported into or exported out of any lands, islands, plantations or territories to his Majesty belonging... in Asia, Africa, or America, in any other ship or ships... but in such as do truly and without fraud belong only to the people of England, or Ireland, or dominion of Wales, or are of the built of, and belonging to any of the said plantations...&rdquo;
+</blockquote>`;
+
 const exportsTable = {
   caption: "Value of Selected Goods Exported to British North America from England (in £)",
   headers: ["Good", "1699", "1749"],
@@ -39,6 +59,36 @@ export const unit2TopicQuestions: TopicQuestionBank = {
       correctOptionId: "C",
       explanation:
         "Social mobility, land ownership, and other economic opportunities were the primary motivations for most English migrants.",
+    },
+    {
+      id: "2-1-q2",
+      prompt: "The alliance described in the excerpt most directly reflects which of the following characteristics of French colonization in North America?",
+      stimulus: champlainExcerpt,
+      options: [
+        { id: "A", text: "A reliance on agriculture and permanent family settlements." },
+        { id: "B", text: "A focus on trade alliances and diplomatic relations with Native Americans." },
+        { id: "C", text: "The establishment of large encomiendas to extract mineral wealth." },
+        { id: "D", text: "The complete exclusion of Native populations from colonial society." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "Unlike the English, French colonization focused on fur trading networks and diplomatic alliances with Native American tribes, relying on mutual cooperation for economic success.",
+      source: "Samuel de Champlain, Voyages (1604)",
+    },
+    {
+      id: "2-1-q3",
+      prompt: "Which of the following was a major consequence of the introduction of European goods, such as those mentioned in the excerpt, to Native American societies?",
+      stimulus: champlainExcerpt,
+      options: [
+        { id: "A", text: "A rapid decline in conflict among different Native American nations." },
+        { id: "B", text: "The immediate adoption of European-style agricultural practices by all tribes." },
+        { id: "C", text: "An escalation of warfare and competition among Native groups for resources." },
+        { id: "D", text: "The complete eradication of European diseases in the interior." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "The introduction of European goods (especially firearms and iron tools) led to intensified rivalries and warfare among Native American nations, such as the Beaver Wars, as they competed for access to fur hunting grounds and trade partners.",
+      source: "Samuel de Champlain, Voyages (1604)",
     },
   ],
   "2.2": [
@@ -143,6 +193,36 @@ export const unit2TopicQuestions: TopicQuestionBank = {
       explanation:
         "Colonial agriculture created enormous labor demands, prompting colonists to enslave Native peoples and import Africans on a large scale.",
     },
+    {
+      id: "2-4-q2",
+      prompt: "The sentiments expressed in the excerpt best reflect which of the following goals of the New England settlers?",
+      stimulus: winthropExcerpt,
+      options: [
+        { id: "A", text: "To establish a society based on absolute religious freedom for all faiths." },
+        { id: "B", text: "To build a model Christian community shaped by Puritan religious principles." },
+        { id: "C", text: "To secure rapid wealth through the cultivation of plantation cash crops." },
+        { id: "D", text: "To create an independent republic free from the English king's authority." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "Winthrop's 'city upon a hill' metaphor describes the Puritan goal of establishing a close-knit, covenant-based community that would serve as a moral example to the rest of the world.",
+      source: "John Winthrop, A Model of Christian Charity (1630)",
+    },
+    {
+      id: "2-4-q3",
+      prompt: "Which of the following was a major difference between the New England society described in the excerpt and the society of the southern colonies in the Chesapeake?",
+      stimulus: winthropExcerpt,
+      options: [
+        { id: "A", text: "New England developed a highly diversified economy based on small family farms, while the Chesapeake relied on tobacco plantation agriculture." },
+        { id: "B", text: "New England society was characterized by large-scale slave labor, while the Chesapeake relied primarily on free family labor." },
+        { id: "C", text: "New England settlers were mostly young, single men, whereas the Chesapeake was settled by entire family units." },
+        { id: "D", text: "New Englanders rejected all forms of local government, while Chesapeake settlers established town meetings." },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "New England had a cold climate and rocky soil, leading to a diversified economy of small family farms, fishing, and trade. In contrast, the warm climate and fertile soil of the Chesapeake encouraged tobacco plantations staffed by indentured servants and, later, enslaved Africans.",
+      source: "John Winthrop, A Model of Christian Charity (1630)",
+    },
   ],
   "2.5": [
     {
@@ -186,6 +266,36 @@ export const unit2TopicQuestions: TopicQuestionBank = {
       correctOptionId: "D",
       explanation:
         "Print networks—sermons, pamphlets, and newspapers—carried news of Whitefield’s preaching across the Atlantic world.",
+    },
+    {
+      id: "2-5-q4",
+      prompt: "Which of the following was a primary purpose of the Maryland Act Concerning Religion?",
+      stimulus: marylandTolerationExcerpt,
+      options: [
+        { id: "A", text: "To guarantee absolute religious freedom to all non-Christians and atheists." },
+        { id: "B", text: "To protect Catholic settlers from persecution by the growing Protestant majority." },
+        { id: "C", text: "To officially ban the Anglican Church from operating within Maryland." },
+        { id: "D", text: "To declare Maryland's independence from English religious laws." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "Maryland was founded as a haven for Catholics, but Protestants soon outnumbered them. The Act Concerning Religion of 1649 was enacted to protect Catholics and ensure their freedom of worship, although it only extended to those believing in Jesus Christ.",
+      source: "Maryland Toleration Act (1649)",
+    },
+    {
+      id: "2-5-q5",
+      prompt: "The passage of the Maryland Toleration Act is best understood as reflecting which of the following broader trends?",
+      stimulus: marylandTolerationExcerpt,
+      options: [
+        { id: "A", text: "The gradual decline of religious influence in the American colonies." },
+        { id: "B", text: "The emergence of regional diversity and early forms of religious toleration." },
+        { id: "C", text: "The complete unification of all religious sects in British North America." },
+        { id: "D", text: "The immediate adoption of separation of church and state in all colonies." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "The colonies exhibited varying degrees of religious toleration. While New England was initially highly intolerant (banishing dissenters like Roger Williams), colonies like Maryland, Pennsylvania, and Rhode Island established early protections for religious practice.",
+      source: "Maryland Toleration Act (1649)",
     },
   ],
   "2.6": [
@@ -249,10 +359,10 @@ export const unit2TopicQuestions: TopicQuestionBank = {
       stimulus: coldensReport,
       prompt:
         "Using the excerpt, answer (a) identify one historical situation in which it was produced, (b) describe one cause of the development described, and (c) describe one argument Colden makes.",
-      options: [{ id: "FRQ", text: "自由作答" }],
+      options: [{ id: "FRQ", text: "Free response" }],
       correctOptionId: "FRQ",
       explanation:
-        "示例要点： (a) 英国与法国为争夺北美西部的贸易与领土而激烈竞争；(b) 欧洲殖民者希望通过毛皮贸易获得经济收益；(c) Colden 主张英国必须加大与印第安人的贸易与外交，防止被法国包围。",
+        "Key grading points: (a) Great Britain and France competed intensely for control of the fur trade and territory in western North America. (b) European colonists sought economic profits from the fur trade, leading to expansion. (c) Colden argues that Britain must strengthen trade and diplomatic alliances with Native Americans to prevent being surrounded by the French.",
       source: "Cadwallader Colden, 1724",
     },
   ],
@@ -302,16 +412,107 @@ export const unit2TopicQuestions: TopicQuestionBank = {
   ],
   "2.8": [
     {
+      id: "2-8-q1",
+      prompt: "The grievances expressed in Bacon's declaration most directly led to which of the following events?",
+      stimulus: baconDeclaration,
+      options: [
+        { id: "A", text: "An armed rebellion of landless frontier settlers against the colonial government." },
+        { id: "B", text: "The immediate abolition of indentured servitude in Virginia." },
+        { id: "C", text: "The peaceful resolution of border disputes with Native American tribes." },
+        { id: "D", text: "The establishment of the first representative assembly in Virginia." },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "Bacon's Rebellion (1676) was an uprising led by Nathaniel Bacon, uniting poor farmers and landless former indentured servants against the colonial elite led by Governor Berkeley over frontier defense and representation.",
+      source: "Nathaniel Bacon, 1676",
+    },
+    {
+      id: "2-8-q2",
+      prompt: "Which of the following was a long-term result of the rebellion described in Bacon's declaration?",
+      stimulus: baconDeclaration,
+      options: [
+        { id: "A", text: "A major decline in the use of enslaved African labor in the Chesapeake." },
+        { id: "B", text: "A shift away from white indentured servitude toward African chattel slavery." },
+        { id: "C", text: "The crown granting full autonomy to the Virginia House of Burgesses." },
+        { id: "D", text: "The complete reservation of all frontier lands for Native American tribes." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "Planters became fearful of the growing population of poor, landless white former indentured servants. Consequently, they shifted their labor supply toward enslaved Africans, which they believed would be easier to control and would not compete for land.",
+      source: "Nathaniel Bacon, 1676",
+    },
+    {
       id: "2-8-saq",
       stimulus: baconDeclaration,
       prompt:
         "Using the excerpt, answer (a) briefly identify one cause of the development in the excerpt, (b) briefly describe one argument Bacon makes, and (c) briefly describe one similarity between the Native American actions mentioned here and Native actions in another colonial region.",
-      options: [{ id: "FRQ", text: "自由作答" }],
+      options: [{ id: "FRQ", text: "Free response" }],
       correctOptionId: "FRQ",
       explanation:
-        "示例要点： (a) 西弗吉尼亚边疆殖民者在土地和防御方面与伯克利政府矛盾重重；(b) Bacon 指责伯克利滥税并庇护对边疆有威胁的印第安人与贸易；(c) 可类比梅塔科姆战争或普韦布洛起义等印第安人对殖民扩张的抵抗。",
+        "Key grading points: (a) Tensions grew between western Virginia frontier settlers and Governor Berkeley's administration over land distribution and defense. (b) Bacon accuses Berkeley of unjust taxation and protecting hostile Native groups to monopolize the beaver trade. (c) A similarity can be drawn to other instances of Native resistance to colonial expansion, such as Metacom's War (King Philip's War) or the Pueblo Revolt.",
       source: "Nathaniel Bacon, 1676",
     },
   ],
-  "2.9": [],
+  "2.9": [
+    {
+      id: "2-9-q1",
+      prompt: "The law described in the excerpt was designed to enforce which of the following economic systems?",
+      stimulus: navigationActExcerpt,
+      options: [
+        { id: "A", text: "Mercantilism" },
+        { id: "B", text: "Free Market Capitalism" },
+        { id: "C", text: "Feudalism" },
+        { id: "D", text: "Socialism" },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "The Navigation Acts were classic mercantilist policies designed to protect the mother country's trade and ensure that colonies existed to benefit the metropole economically.",
+      source: "The Navigation Act of 1660",
+    },
+    {
+      id: "2-9-q2",
+      prompt: "British colonists in North America most commonly responded to the restrictions in the excerpt by doing which of the following?",
+      stimulus: navigationActExcerpt,
+      options: [
+        { id: "A", text: "Rebelling and declaring immediate independence from Great Britain." },
+        { id: "B", text: "Refusing to consume any manufactured goods made in England." },
+        { id: "C", text: "Smuggling goods and trading illegally with other European nations." },
+        { id: "D", text: "Migrating to French and Spanish colonies in search of free trade." },
+      ],
+      correctOptionId: "C",
+      explanation:
+        "Colonial merchants frequently bypassed the Navigation Acts by smuggling and trading illegally with Dutch, French, and Spanish merchants, especially during the period of salutary neglect.",
+      source: "The Navigation Act of 1660",
+    },
+    {
+      id: "2-9-q3",
+      prompt: "The economic relationship established by the Navigation Acts most directly contributed to which of the following long-term developments?",
+      stimulus: navigationActExcerpt,
+      options: [
+        { id: "A", text: "The rapid industrialization of the southern colonies." },
+        { id: "B", text: "Growing colonial resentment against British interference in local commerce." },
+        { id: "C", text: "The complete eradication of slavery in the middle colonies." },
+        { id: "D", text: "An equal distribution of wealth between English merchants and colonists." },
+      ],
+      correctOptionId: "B",
+      explanation:
+        "Over time, British attempts to enforce mercantilist policies and restrict colonial commerce (especially after the end of salutary neglect in 1763) generated intense resentment among colonial elites and merchants, contributing to the American Revolution.",
+      source: "The Navigation Act of 1660",
+    },
+    {
+      id: "2-9-q4",
+      prompt: "Which of the following historical developments during the mid-1700s temporarily eased the friction caused by the laws described in the excerpt?",
+      stimulus: navigationActExcerpt,
+      options: [
+        { id: "A", text: "The British government's policy of salutary neglect." },
+        { id: "B", text: "The outbreak of the American Revolutionary War." },
+        { id: "C", text: "The creation of a unified colonial currency system." },
+        { id: "D", text: "The expansion of French territory along the Mississippi River." },
+      ],
+      correctOptionId: "A",
+      explanation:
+        "During the late 17th and early 18th centuries, Britain practiced 'salutary neglect,' a policy of loose enforcement of trade regulations as long as the colonies remained loyal and trade continued to enrich Britain. This minimized conflict over trade rules.",
+      source: "The Navigation Act of 1660",
+    },
+  ],
 };

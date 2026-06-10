@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APUSH 备考平台宣传组图生成器</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Configure Tailwind to match actual website style config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: "#1F2131",
+            border: "#E6E4F8",
+            primary: "#AEBBF9",
+            background: "#F9F7F4",
+            lavender: "#C8C2F3",
+            glow: "#AEBBF9",
+            blush: "#F4D4EB",
+            moss: "#B8E6D5",
+          },
+          boxShadow: {
+            glow: "0 10px 40px -20px rgba(174, 187, 249, 0.55)",
+            glass: "0 20px 45px -25px rgba(68, 79, 140, 0.35)",
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Google Fonts Outfit & Noto Sans SC -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <!-- html2canvas for downloading cards as images -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    body {
+      font-family: 'Outfit', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #eef2f6;
+    }
+    .promo-card {
+      width: 720px;
+      height: 960px;
+      background-color: #F8F9FA;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      border-radius: 2rem;
+    }
+  </style>
+</head>
+
+<body class="py-12 px-4 flex flex-col items-center">
+
+  <!-- Header Banner -->
+  <div class="max-w-4xl w-full text-center mb-12">
+    <h1 class="text-4xl font-extrabold text-slate-800 mb-3">🎨 APUSH 宣传组图预览 & 导出工具</h1>
+    <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+      这套宣传组图采用极简蓝白科技感配色，大号浅色数字背景，居中 UI 截图展示。您可以直接在下方预览，或点击每张卡片下方的 <span class="font-bold text-blue-600">“导出为图片”</span> 按钮，直接下载 3:4 比例的高画质宣传图，用于小红书、官网或朋友圈宣传。
+    </p>
+    <div class="mt-6 flex justify-center gap-4">
+      <button onclick="downloadAll()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-full transition shadow-md flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        打包导出全部 5 张
+      </button>
+      <a href="/" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-6 py-3 rounded-full transition flex items-center gap-2">
+        返回平台首页
+      </a>
+    </div>
+  </div>
+
+  <!-- Cards Container -->
+  <div class="flex flex-col gap-16 items-center">
+
+    <!-- Card 1 -->
+    <div class="flex flex-col items-center">
+      <div id="card-1" class="promo-card">
+        <!-- Giant Backdrop Number -->
+        <div class="absolute top-12 left-1/2 -translate-x-1/2 text-[300px] font-black text-blue-100/30 select-none pointer-events-none z-0 leading-none">1</div>
+        
+        <!-- Header Text -->
+        <div class="text-center z-10">
+          <h2 class="text-[#1A202C] text-4xl font-black tracking-wider mb-3">沉浸式双源导学</h2>
+          <p class="text-[#4A5568] text-base leading-relaxed max-w-[500px] mx-auto font-medium">
+            告别冗长枯燥的纯文本阅读。海内外双源视频一键切换，国内备考也能丝滑加载。
+          </p>
+        </div>
+
+        <!-- Center UI: Video Player Mockup -->
+        <div class="w-full bg-white rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden flex flex-col z-10 my-4 grow max-h-[460px]">
+          <!-- Browser Header -->
+          <div class="bg-slate-50 border-b border-slate-100 px-4 py-3 flex items-center justify-between">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-400"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+              <span class="w-3 h-3 rounded-full bg-green-400"></span>
+            </div>
+            <!-- Toggle Tabs (B站/YouTube) -->
+            <div class="flex gap-2">
+              <span class="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-md border border-midnight/20 bg-midnight text-white shadow-glow">
+                B站优化源
+              </span>
+              <span class="px-2.5 py-1 text-xs font-medium text-slate-400 rounded-md border border-slate-200 bg-slate-50">
+                YouTube原画源
+              </span>
+            </div>
+          </div>
+
+          <!-- Real Video Display Area -->
+          <div class="relative bg-slate-900 overflow-hidden min-h-[170px] flex flex-col justify-between p-4">
+            <!-- Simulated Video Canvas -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-slate-950 to-slate-800 opacity-90"></div>
+            
+            <div class="z-10 flex justify-between items-start">
+              <span class="bg-black/60 text-white text-[10px] font-semibold px-2 py-0.5 rounded">Unit 3 · Topic 3.3</span>
+              <span class="bg-[#FF6699] text-white text-[10px] font-bold px-2 py-0.5 rounded">bilibili</span>
+            </div>
+
+            <!-- Video Center Play Button -->
+            <div class="z-10 self-center flex flex-col items-center gap-1">
+              <div class="w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white rounded-full flex items-center justify-center shadow-lg cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current translate-x-0.5" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              <span class="text-white text-xs font-medium tracking-wide">3.3 Taxation Without Representation (视频课)</span>
+            </div>
+
+            <!-- Video Progress Bar -->
+            <div class="z-10 w-full flex items-center gap-2.5">
+              <span class="text-white/60 text-[9px] monospace">04:12</span>
+              <div class="flex-1 h-1 bg-white/20 rounded-full overflow-hidden">
+                <div class="w-[35%] h-full bg-[#FF6699] rounded-full"></div>
+              </div>
+              <span class="text-white/60 text-[9px] monospace">18:45</span>
+            </div>
+          </div>
+
+          <!-- Real Sync checkpoints and Notes block -->
+          <div class="border-t border-slate-100 p-3 bg-slate-50/50 flex flex-col gap-2.5 overflow-y-auto">
+            <!-- Checkpoints list -->
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold text-midnight/60">同步检测点:</span>
+              <span class="bg-[#1f2131] text-white text-[9px] font-semibold px-2.5 py-0.5 rounded-full">1 (04:12)</span>
+              <span class="bg-white border border-slate-200 text-slate-500 text-[9px] font-medium px-2.5 py-0.5 rounded-full">2 (12:45)</span>
+            </div>
+            
+            <!-- Notes Box -->
+            <div class="border border-midnight/10 bg-white/60 p-3 rounded-xl shadow-glow">
+              <div class="flex items-center gap-1.5 border-b border-midnight/5 pb-1.5 mb-1.5">
+                <span class="text-[11px] font-bold text-midnight">💡 本节精读笔记 (Lecture Notes)</span>
+              </div>
+              <div class="space-y-1 text-[10px] text-midnight/85 leading-relaxed">
+                <p><strong>• Stamp Act of 1765:</strong> First direct tax on colonists, sparking massive protests and the Stamp Act Congress.</p>
+                <p><strong>• Townshend Acts (1767):</strong> Taxes on paper, glass, paint, lead, and tea; led to boycotts of British goods.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Dual Features Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex gap-6 z-10">
+          <!-- Left Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Switch Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">海内外双源切换</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">拒绝网络延迟卡顿，保障学习心流不被打断。</p>
+            </div>
+          </div>
+          <!-- Divider -->
+          <div class="w-px bg-slate-100 self-stretch"></div>
+          <!-- Right Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Document Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">双语精炼骨架笔记</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">专为转轨期设计，降低初期全英文阅读的认知阻力。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button onclick="downloadCard('card-1', '01_沉浸式双源导学')" class="mt-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-5 py-2 rounded-lg transition shadow-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        导出此张图片
+      </button>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="flex flex-col items-center">
+      <div id="card-2" class="promo-card">
+        <!-- Giant Backdrop Number -->
+        <div class="absolute top-12 left-1/2 -translate-x-1/2 text-[300px] font-black text-blue-100/30 select-none pointer-events-none z-0 leading-none">2</div>
+        
+        <!-- Header Text -->
+        <div class="text-center z-10">
+          <h2 class="text-[#1A202C] text-4xl font-black tracking-wider mb-3">视频随堂即时测</h2>
+          <p class="text-[#4A5568] text-base leading-relaxed max-w-[500px] mx-auto font-medium">
+            看完视频立即答题。内置随堂真题 Quiz，边看边测，强迫大脑进行主动检索。
+          </p>
+        </div>
+
+        <!-- Center UI: Interactive Quiz Overlay Mockup -->
+        <div class="w-full bg-white rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden flex flex-col z-10 my-4 grow relative min-h-[400px]">
+          <!-- Video Frame (Darkened Background) -->
+          <div class="absolute inset-0 bg-slate-950 flex flex-col justify-between p-4">
+            <div class="flex justify-between items-center text-white/40 text-[9px]">
+              <span>Lesson: 3.3 Taxation Without Representation</span>
+              <span class="bg-rose-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded">PAUSED</span>
+            </div>
+            <!-- Center Replay Icon -->
+            <div class="self-center opacity-10">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              </svg>
+            </div>
+            <div class="w-full h-1 bg-slate-800 rounded-full">
+              <div class="w-[35%] h-full bg-[#FF6699]"></div>
+            </div>
+          </div>
+
+          <!-- Light Overlay Overlay to Darken -->
+          <div class="absolute inset-0 bg-black/60 z-10"></div>
+
+          <!-- Central Pop-up Question Card -->
+          <div class="relative z-20 m-auto w-[92%] bg-white rounded-2xl shadow-2xl border border-slate-100 p-4 flex flex-col gap-3">
+            <!-- Question Title -->
+            <div class="flex items-center gap-1.5 border-b border-midnight/5 pb-2">
+              <span class="text-xs font-bold text-midnight">视频同步互动问答 (Video Sync Q&A)</span>
+              <span class="ml-auto rounded-full bg-midnight/5 px-2 py-0.5 text-[9px] text-midnight/65">检测点 1 (04:12)</span>
+            </div>
+            
+            <h3 class="text-midnight text-[12px] font-bold leading-snug">
+              1. Which of the following describes the key colonial objection to the Stamp Act of 1765?
+            </h3>
+
+            <!-- Options Stack -->
+            <div class="space-y-1.5">
+              <!-- Option A (unselected) -->
+              <div class="border border-midnight/10 bg-white rounded-xl p-2.5 flex items-center gap-2 text-[11px] font-semibold text-midnight hover:bg-midnight/5">
+                <span class="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] shrink-0">A</span>
+                <p>Acceptance of the tax as a regulation of external trade.</p>
+              </div>
+              <!-- Option B (selected & correct) -->
+              <div class="border-2 border-emerald-500 bg-emerald-50 text-[#047857] rounded-xl p-2.5 flex items-center justify-between gap-2 text-[11px] font-semibold">
+                <div class="flex items-center gap-2">
+                  <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] shrink-0">✓</span>
+                  <p>Objection to direct taxes passed without colonial representation in Parliament.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Feedback Alert Panel -->
+            <div class="bg-emerald-50 border border-emerald-200 text-[#047857] rounded-xl p-2.5 text-[10px] leading-relaxed">
+              <p class="font-bold mb-0.5">回答正确！</p>
+              <p class="opacity-90">The Stamp Act was the first direct tax on the colonies, leading to the cry of "no taxation without representation."</p>
+            </div>
+
+            <!-- Action Button -->
+            <button class="bg-[#1F2131] hover:bg-slate-800 text-white text-[10px] font-bold py-1.5 px-3 rounded-full transition shadow-md self-end flex items-center gap-1">
+              继续播放视频
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bottom Dual Features Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex gap-6 z-10">
+          <!-- Left Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Target Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">即时反馈闭环</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">趁热打铁，将刚输入的知识立刻转化为得分能力。</p>
+            </div>
+          </div>
+          <!-- Divider -->
+          <div class="w-px bg-slate-100 self-stretch"></div>
+          <!-- Right Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Lightning Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">强效抗走神机制</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">互动式设问强制打断被动观看，维持极高专注度。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button onclick="downloadCard('card-2', '02_视频随堂即时测')" class="mt-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-5 py-2 rounded-lg transition shadow-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        导出此张图片
+      </button>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="flex flex-col items-center">
+      <div id="card-3" class="promo-card">
+        <!-- Giant Backdrop Number -->
+        <div class="absolute top-12 left-1/2 -translate-x-1/2 text-[300px] font-black text-blue-100/30 select-none pointer-events-none z-0 leading-none">3</div>
+        
+        <!-- Header Text -->
+        <div class="text-center z-10">
+          <h2 class="text-[#1A202C] text-4xl font-black tracking-wider mb-3">官方答题公式特训</h2>
+          <p class="text-[#4A5568] text-base leading-relaxed max-w-[500px] mx-auto font-medium">
+            化繁为简，消除面对空白文档 of 恐惧。将官方 Rubric 拆解为可操作的公式框架。
+          </p>
+        </div>
+
+        <!-- Center UI: Drag and Drop Puzzle Writing Mockup -->
+        <div class="w-full bg-white rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden flex flex-col z-10 my-4 grow max-h-[460px]">
+          <!-- Browser Header -->
+          <div class="bg-slate-50 border-b border-slate-100 px-4 py-3 flex items-center justify-between font-sans">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-400"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+              <span class="w-3 h-3 rounded-full bg-green-400"></span>
+            </div>
+            <!-- Mode Switcher (matches SAQExercise) -->
+            <div class="flex gap-1.5 text-[10px]">
+              <span class="bg-emerald-500 text-white shadow rounded-full px-3 py-1 font-semibold">🧩 匹配模式</span>
+              <span class="bg-slate-100 text-slate-400 rounded-full px-3 py-1 font-semibold">✏️ 填空模式</span>
+              <span class="bg-slate-100 text-slate-400 rounded-full px-3 py-1 font-semibold">💬 自由模式</span>
+            </div>
+          </div>
+
+          <!-- Split Workspace Layout -->
+          <div class="flex-1 flex flex-col p-4 gap-3">
+            <!-- Question text -->
+            <div class="text-[11px] font-bold text-slate-800">
+              Q: Explain the impact of British mercantilist policies on American colonies.
+            </div>
+
+            <!-- Sentence Blank Matching Box -->
+            <div class="border border-emerald-100 bg-emerald-50/50 rounded-xl p-3 text-[11px] leading-relaxed text-slate-800">
+              <span>During the 17th and 18th centuries, Britain enforced the </span>
+              <!-- Filled slot -->
+              <span class="mx-1 inline-flex items-center justify-center rounded-full border border-emerald-500 bg-white text-emerald-600 px-2.5 py-0.5 font-bold">
+                 Navigation Acts
+              </span>
+              <span> to restrict colonial trade, which ultimately </span>
+              <!-- Active slot -->
+              <span class="mx-1 inline-flex items-center justify-center rounded-full border border-dashed border-emerald-400 bg-white/70 text-emerald-600 px-2.5 py-0.5 font-semibold animate-pulse">
+                 _____
+              </span>
+              <span> economic tensions between the colonists and the crown.</span>
+            </div>
+
+            <!-- Answer Bank -->
+            <div>
+              <p class="mb-1.5 text-[9px] font-extrabold uppercase tracking-wider text-slate-400">Answer Bank</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="rounded-full border border-slate-200 bg-slate-100 text-slate-400 px-2.5 py-1 text-[9px] font-semibold">Navigation Acts</span>
+                <span class="rounded-full border border-slate-300 bg-white text-slate-700 hover:border-emerald-400 hover:text-emerald-600 px-2.5 py-1 text-[9px] font-semibold cursor-pointer">fueled</span>
+                <span class="rounded-full border border-slate-300 bg-white text-slate-700 hover:border-emerald-400 hover:text-emerald-600 px-2.5 py-1 text-[9px] font-semibold cursor-pointer">Stamp Act</span>
+                <span class="rounded-full border border-slate-300 bg-white text-slate-700 hover:border-emerald-400 hover:text-emerald-600 px-2.5 py-1 text-[9px] font-semibold cursor-pointer">resolved</span>
+              </div>
+            </div>
+
+            <!-- Feedback Block -->
+            <div class="border border-dashed border-emerald-200 bg-emerald-50 rounded-xl p-2.5 text-center text-emerald-700 text-[10px] font-bold flex justify-center items-center gap-1.5 mt-auto">
+              <span>🎉 Excellent! You’ve mastered this SAQ step!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Dual Features Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex gap-6 z-10">
+          <!-- Left Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Puzzle Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">交互式拼图输入</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">拖拽式组装逻辑块，快速建立官方高分答题的肌肉记忆。</p>
+            </div>
+          </div>
+          <!-- Divider -->
+          <div class="w-px bg-slate-100 self-stretch"></div>
+          <!-- Right Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Steps/Ladder Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">三阶进阶体系</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">匹配 ➔ 填空 ➔ 自由输出，层层递进，新手也能轻松上手。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button onclick="downloadCard('card-3', '03_官方答题公式特训')" class="mt-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-5 py-2 rounded-lg transition shadow-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        导出此张图片
+      </button>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="flex flex-col items-center">
+      <div id="card-4" class="promo-card">
+        <!-- Giant Backdrop Number -->
+        <div class="absolute top-12 left-1/2 -translate-x-1/2 text-[300px] font-black text-blue-100/30 select-none pointer-events-none z-0 leading-none">4</div>
+        
+        <!-- Header Text -->
+        <div class="text-center z-10">
+          <h2 class="text-[#1A202C] text-4xl font-black tracking-wider mb-3">智能错题归档系统</h2>
+          <p class="text-[#4A5568] text-base leading-relaxed max-w-[500px] mx-auto font-medium">
+            告别低效的手动抄录。错题自动按 Unit 收集，一键生成专属靶向重考卷。
+          </p>
+        </div>
+
+        <!-- Center UI: Wrong Notebook Mockup Layout -->
+        <div class="w-full bg-white rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden flex flex-col z-10 my-4 grow p-4 justify-between max-h-[460px]">
+          <!-- Browser Top bar -->
+          <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2 flex-shrink-0">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-400"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+              <span class="w-3 h-3 rounded-full bg-green-400"></span>
+            </div>
+            <span class="text-[10px] font-bold text-midnight">错题本 / Wrong Notebook</span>
+          </div>
+
+          <!-- Wrong Stats Grid (matches WrongNotebookView stats section) -->
+          <div class="grid grid-cols-3 gap-2 mb-3 flex-shrink-0">
+            <div class="rounded-xl border border-gray-200 bg-slate-50/50 p-2 text-center">
+              <p class="text-[8px] font-bold text-gray-500">积累错题</p>
+              <p class="text-base font-black text-rose-500">12</p>
+            </div>
+            <div class="rounded-xl border border-gray-200 bg-slate-50/50 p-2 text-center">
+              <p class="text-[8px] font-bold text-gray-500">涉及考点</p>
+              <p class="text-base font-black text-midnight">4 Topics</p>
+            </div>
+            <div class="rounded-xl border border-gray-200 bg-slate-50/50 p-2 text-center">
+              <p class="text-[8px] font-bold text-gray-500">最弱考点</p>
+              <p class="text-[10px] font-bold text-midnight truncate mt-1">Topic 3.3</p>
+            </div>
+          </div>
+
+          <!-- Wrong Question Details (matches WrongNotebookView card design) -->
+          <div class="flex-1 border border-gray-200 rounded-xl p-3 bg-white space-y-2 text-[10px] overflow-hidden">
+            <div class="flex items-center gap-2 text-[9px] text-gray-500 border-b border-gray-100 pb-1.5">
+              <span class="rounded-full bg-gray-100 px-2 py-0.5 font-bold text-gray-700">Topic 3.3 Taxation Without Representation</span>
+              <span>错题次数：3</span>
+            </div>
+            
+            <h4 class="font-bold text-gray-900 leading-snug">
+              Which of the following describes the key proposal of Henry Clay's "American System"?
+            </h4>
+            
+            <ul class="space-y-1 pl-3 list-disc text-gray-600">
+              <li class="text-rose-600 font-medium font-semibold">Reduction of protective tariffs (你的选择 ✗)</li>
+              <li class="text-emerald-700 font-bold">Federal funding for internal improvements (正确答案 ✓)</li>
+            </ul>
+
+            <div class="flex gap-2 pt-1.5 border-t border-gray-100">
+              <span class="inline-flex items-center gap-1 border border-gray-300 px-2 py-1 rounded-full font-semibold text-[8px] text-gray-600 cursor-pointer hover:bg-slate-50">
+                ✓ 标记已掌握
+              </span>
+              <span class="inline-flex items-center gap-1 border border-gray-950 bg-gray-950 text-white px-2.5 py-1 rounded-full font-bold text-[8px] cursor-pointer hover:bg-gray-800">
+                🎯 前往考点练习
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Dual Features Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex gap-6 z-10">
+          <!-- Left Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Folder Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">单元标签化管理</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">错题自动收集并分类，清晰暴露出你的薄弱章节。</p>
+            </div>
+          </div>
+          <!-- Divider -->
+          <div class="w-px bg-slate-100 self-stretch"></div>
+          <!-- Right Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Crosshair Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 0v4m0-4h4m-4 0H8m12 0a8 8 0 11-16 0 8 8 0 0116 0z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">考前靶向冲刺</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">将精力全部留给薄弱项，大幅提升最后阶段的提分效率。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button onclick="downloadCard('card-4', '04_智能错题归档系统')" class="mt-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-5 py-2 rounded-lg transition shadow-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        导出此张图片
+      </button>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="flex flex-col items-center">
+      <div id="card-5" class="promo-card">
+        <!-- Giant Backdrop Number -->
+        <div class="absolute top-12 left-1/2 -translate-x-1/2 text-[300px] font-black text-blue-100/30 select-none pointer-events-none z-0 leading-none">5</div>
+        
+        <!-- Header Text -->
+        <div class="text-center z-10">
+          <h2 class="text-[#1A202C] text-4xl font-black tracking-wider mb-3">Unit 1 免费开放体验</h2>
+          <p class="text-[#4A5568] text-base leading-relaxed max-w-[500px] mx-auto font-medium">
+            把握暑期转轨衔接黄金期。无需盲目购买，免费畅享 Unit 1 的完整交互特训。
+          </p>
+        </div>
+
+        <!-- Center UI: Console / Dashboard Unlock (matches Study Guide console look) -->
+        <div class="w-full bg-white rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden flex flex-col z-10 my-4 grow p-4 justify-between max-h-[460px]">
+          <!-- Header details -->
+          <div>
+            <div class="flex justify-between items-center mb-2.5">
+              <span class="text-midnight text-[9px] font-black tracking-wider">STUDY DASHBOARD</span>
+              <span class="bg-emerald-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-full">100% Free Access</span>
+            </div>
+            
+            <!-- Unit Progress Block -->
+            <div class="border border-midnight/10 bg-slate-50/50 rounded-xl p-3">
+              <div class="flex justify-between items-center mb-1.5">
+                <h4 class="text-midnight text-[11px] font-bold">Unit 1: 1491 - 1607 (Period 1)</h4>
+                <span class="text-emerald-600 text-[10px] font-bold">Unlocked</span>
+              </div>
+              <div class="h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                <div class="w-full h-full bg-emerald-500 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unlocked Modules Checklist -->
+          <div class="space-y-2 my-2">
+            <!-- Module 1 -->
+            <div class="flex items-center justify-between border border-emerald-100 bg-emerald-50/30 rounded-lg p-2 text-[10px]">
+              <div class="flex items-center gap-1.5">
+                <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px]">✓</span>
+                <span class="text-slate-800 font-semibold">Video Lessons (海内外双源导学)</span>
+              </div>
+              <span class="text-[9px] text-emerald-600 font-bold hover:underline cursor-pointer">进入学习 &rarr;</span>
+            </div>
+            <!-- Module 2 -->
+            <div class="flex items-center justify-between border border-emerald-100 bg-emerald-50/30 rounded-lg p-2 text-[10px]">
+              <div class="flex items-center gap-1.5">
+                <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px]">✓</span>
+                <span class="text-slate-800 font-semibold">Chapter Quizzes (随堂即时真题测)</span>
+              </div>
+              <span class="text-[9px] text-emerald-600 font-bold hover:underline cursor-pointer">进入练习 &rarr;</span>
+            </div>
+            <!-- Module 3 -->
+            <div class="flex items-center justify-between border border-emerald-100 bg-emerald-50/30 rounded-lg p-2 text-[10px]">
+              <div class="flex items-center gap-1.5">
+                <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px]">✓</span>
+                <span class="text-slate-800 font-semibold">SAQ Formula Practice (答题公式特训)</span>
+              </div>
+              <span class="text-[9px] text-emerald-600 font-bold hover:underline cursor-pointer">开始特训 &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Activation Code Box (matches Premium sidebar unlock look) -->
+          <div class="border-t border-slate-100 pt-3 flex gap-1.5">
+            <input type="text" placeholder="输入激活码解锁 Period 2-9 全库..." disabled class="flex-1 bg-slate-50 border border-slate-200 text-[10px] px-2.5 py-1.5 rounded-lg text-slate-400">
+            <button class="bg-[#1F2131] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+              </svg>
+              立即激活
+            </button>
+          </div>
+        </div>
+
+
+        <!-- Bottom Dual Features Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex gap-6 z-10">
+          <!-- Left Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Brain Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-2.243a5 5 0 013.536 0z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">符合教育心理学</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">基于主动检索与间隔重复设计，反抗枯燥记忆。</p>
+            </div>
+          </div>
+          <!-- Divider -->
+          <div class="w-px bg-slate-100 self-stretch"></div>
+          <!-- Right Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Rocket Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">平滑升级全库</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">体验满意后，输入激活码即刻解锁 Period 2-9 全库与专属错题本。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button onclick="downloadCard('card-5', '05_Unit1免费体验')" class="mt-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-5 py-2 rounded-lg transition shadow-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        导出此张图片
+      </button>
+    </div>
+
+  </div>
+
+  <footer class="mt-20 text-center text-slate-400 text-sm pb-12">
+    <p>APUSH Classroom &copy; 2026. Made with &hearts; for APUSH Students.</p>
+  </footer>
+
+  <script>
+    // Download single card as image
+    function downloadCard(cardId, fileName) {
+      const card = document.getElementById(cardId);
+      
+      // Select the button and hide it temporarily during screenshot if it is inside (not the case here, but good practice)
+      // Call html2canvas
+      html2canvas(card, {
+        scale: 3, // High quality scale
+        useCORS: true,
+        backgroundColor: '#F8F9FA'
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = fileName + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }).catch(err => {
+        console.error('Error generating image:', err);
+        alert('导出图片失败，请重试或在此页直接截图。');
+      });
+    }
+
+    // Download all cards sequentially
+    async function downloadAll() {
+      const cards = [
+        { id: 'card-1', name: '01_沉浸式双源导学' },
+        { id: 'card-2', name: '02_视频随堂即时测' },
+        { id: 'card-3', name: '03_官方答题公式特训' },
+        { id: 'card-4', name: '04_智能错题归档系统' },
+        { id: 'card-5', name: '05_Unit1免费体验' }
+      ];
+
+      for (const item of cards) {
+        downloadCard(item.id, item.name);
+        // Add small delay to avoid browser blocking multiple downloads
+        await new Promise(resolve => setTimeout(resolve, 800));
+      }
+    }
+  </script>
+</body>
+</html>

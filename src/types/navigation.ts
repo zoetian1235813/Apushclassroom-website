@@ -9,4 +9,6 @@ export type View =
   | "pastExams"
   | "frqPractice"
   | "wrongNotebook"
-  | "adminDashboard";
+  | "adminDashboard"
+  | "promoVideo";
+

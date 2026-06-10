@@ -36,6 +36,7 @@ interface AdminUser {
   lastLoginAt: string | null;
   progressCount: number;
   mistakeCount: number;
+  subscriptionExpiresAt?: string | null;
 }
 
 interface ActivationCode {
@@ -78,6 +79,12 @@ export const AdminDashboardView = () => {
   const [batchCount, setBatchCount] = useState(5);
   const [batchPrefix, setBatchPrefix] = useState("APUSH-");
 
+  // Promo Account Generation state
+  const [promoPrefix, setPromoPrefix] = useState("apush");
+  const [promoCount, setPromoCount] = useState(5);
+  const [generatedPromoAccounts, setGeneratedPromoAccounts] = useState<string[]>([]);
+  const [isGeneratingPromo, setIsGeneratingPromo] = useState(false);
+
   // Student Detail Modal state
   const [selectedStudent, setSelectedStudent] = useState<AdminUser | null>(null);
   const [studentDetail, setStudentDetail] = useState<StudentDetail | null>(null);
@@ -86,7 +93,7 @@ export const AdminDashboardView = () => {
   const fetchStats = async () => {
     if (!token) return;
     try {
-      const data = await apiRequest<AdminStats>("/admin/stats", { token });
+      const data = await apiRequest<AdminStats>("/api/admin/stats", { token });
       setStats(data);
     } catch (err: any) {
       console.error(err);
@@ -97,7 +104,7 @@ export const AdminDashboardView = () => {
   const fetchUsers = async () => {
     if (!token) return;
     try {
-      const data = await apiRequest<{ users: AdminUser[] }>("/admin/users", { token });
+      const data = await apiRequest<{ users: AdminUser[] }>("/api/admin/users", { token });
       setUsers(data.users);
     } catch (err: any) {
       console.error(err);
@@ -108,7 +115,7 @@ export const AdminDashboardView = () => {
   const fetchCodes = async () => {
     if (!token) return;
     try {
-      const data = await apiRequest<{ codes: ActivationCode[] }>("/admin/codes", { token });
+      const data = await apiRequest<{ codes: ActivationCode[] }>("/api/admin/codes", { token });
       setCodes(data.codes);
     } catch (err: any) {
       console.error(err);
@@ -133,7 +140,7 @@ export const AdminDashboardView = () => {
     setErrorMessage(null);
     setStatusMessage(null);
     try {
-      await apiRequest(`/admin/users/${userId}/subscription`, {
+      await apiRequest(`/api/admin/users/${userId}/subscription`, {
         method: "PATCH",
         token,
         body: JSON.stringify({ subscriptionStatus, accountType }),
@@ -155,7 +162,7 @@ export const AdminDashboardView = () => {
     setErrorMessage(null);
     setStatusMessage(null);
     try {
-      await apiRequest(`/admin/users/${userId}`, {
+      await apiRequest(`/api/admin/users/${userId}`, {
         method: "DELETE",
         token,
       });
@@ -174,7 +181,7 @@ export const AdminDashboardView = () => {
     setStatusMessage(null);
     try {
       if (customCode.trim()) {
-        await apiRequest("/admin/codes", {
+        await apiRequest("/api/admin/codes", {
           method: "POST",
           token,
           body: JSON.stringify({ code: customCode }),
@@ -182,7 +189,7 @@ export const AdminDashboardView = () => {
         setStatusMessage(`自定义激活码 ${customCode.toUpperCase()} 创建成功！`);
         setCustomCode("");
       } else {
-        await apiRequest("/admin/codes", {
+        await apiRequest("/api/admin/codes", {
           method: "POST",
           token,
           body: JSON.stringify({ count: batchCount, prefix: batchPrefix }),
@@ -202,7 +209,7 @@ export const AdminDashboardView = () => {
     setErrorMessage(null);
     setStatusMessage(null);
     try {
-      await apiRequest(`/admin/codes/${code}`, {
+      await apiRequest(`/api/admin/codes/${code}`, {
         method: "DELETE",
         token,
       });
@@ -214,13 +221,36 @@ export const AdminDashboardView = () => {
     }
   };
 
+  const handleGeneratePromoAccounts = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!token) return;
+    setErrorMessage(null);
+    setStatusMessage(null);
+    setIsGeneratingPromo(true);
+    try {
+      const data = await apiRequest<{ success: boolean; accounts: string[] }>("/api/admin/generate-promo-accounts", {
+        method: "POST",
+        token,
+        body: JSON.stringify({ count: promoCount, prefix: promoPrefix }),
+      });
+      setGeneratedPromoAccounts(data.accounts);
+      setStatusMessage(`成功生成 ${data.accounts.length} 个推广账号！`);
+      await loadDashboardData();
+    } catch (err: any) {
+      console.error(err);
+      setErrorMessage(err.message || "Failed to generate promo accounts");
+    } finally {
+      setIsGeneratingPromo(false);
+    }
+  };
+
   const handleViewStudentDetails = async (student: AdminUser) => {
     if (!token) return;
     setSelectedStudent(student);
     setIsDetailLoading(true);
     setStudentDetail(null);
     try {
-      const data = await apiRequest<StudentDetail>(`/admin/users/${student.id}/progress`, { token });
+      const data = await apiRequest<StudentDetail>(`/api/admin/users/${student.id}/progress`, { token });
       setStudentDetail(data);
     } catch (err: any) {
       console.error(err);
@@ -468,17 +498,24 @@ export const AdminDashboardView = () => {
                               </div>
                             </td>
                             <td className="px-6 py-4">
-                              <span
-                                className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold ${
-                                  item.subscriptionStatus === "active"
-                                    ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                                    : item.subscriptionStatus === "pending"
-                                      ? "bg-amber-50 text-amber-700 border border-amber-200 animate-pulse"
-                                      : "bg-midnight/5 text-midnight/65 border border-midnight/10"
-                                }`}
-                              >
-                                {item.accountType === "admin" ? "ADMIN" : item.subscriptionStatus.toUpperCase()}
-                              </span>
+                              <div className="flex flex-col gap-0.5">
+                                <span
+                                  className={`inline-flex w-fit rounded-full px-2.5 py-1 text-[10px] font-bold ${
+                                    item.subscriptionStatus === "active"
+                                      ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                                      : item.subscriptionStatus === "pending"
+                                        ? "bg-amber-50 text-amber-700 border border-amber-200 animate-pulse"
+                                        : "bg-midnight/5 text-midnight/65 border border-midnight/10"
+                                  }`}
+                                >
+                                  {item.accountType === "admin" ? "ADMIN" : item.subscriptionStatus.toUpperCase()}
+                                </span>
+                                {item.subscriptionExpiresAt && (
+                                  <span className="text-[9px] text-gray-500 font-medium font-mono">
+                                    至: {new Date(item.subscriptionExpiresAt).toLocaleDateString()}
+                                  </span>
+                                )}
+                              </div>
                             </td>
                             <td className="px-6 py-4">
                               <span className="text-xs uppercase bg-white border border-midnight/10 rounded-full px-2.5 py-0.5 text-midnight/70">
@@ -599,6 +636,74 @@ export const AdminDashboardView = () => {
                     🚀 立即将激活码存储到 SQLite 中
                   </button>
                 </form>
+              </div>
+
+              {/* Box 1.5: Promo Account Generator */}
+              <div className="glass-panel p-5 border border-white/25 h-fit space-y-5 mt-6">
+                <div className="flex items-center gap-2 border-b border-midnight/5 pb-3">
+                  <Users className="h-5 w-5 text-emerald-500" />
+                  <h4 className="text-lg font-bold text-midnight">推广账号一键生成器</h4>
+                </div>
+                <form onSubmit={handleGeneratePromoAccounts} className="space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-midnight/65 block">
+                        账号前缀
+                      </label>
+                      <input
+                        type="text"
+                        value={promoPrefix}
+                        onChange={(e) => setPromoPrefix(e.target.value)}
+                        className="w-full rounded-full border border-midnight/10 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-midnight/10 font-bold"
+                        placeholder="如: apush"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-midnight/65 block">
+                        生成个数
+                      </label>
+                      <input
+                        type="number"
+                        min="1"
+                        max="20"
+                        value={promoCount}
+                        onChange={(e) => setPromoCount(Number.parseInt(e.target.value, 10))}
+                        className="w-full rounded-full border border-midnight/10 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-midnight/10 font-bold"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-emerald-600 hover:bg-emerald-700 py-2.5 text-sm font-bold text-white shadow-glow transition hover:-translate-y-0.5"
+                    disabled={isGeneratingPromo}
+                  >
+                    {isGeneratingPromo ? "生成中..." : "👥 立即批量生成推广账号"}
+                  </button>
+                </form>
+
+                {generatedPromoAccounts.length > 0 && (
+                  <div className="space-y-2 rounded-2xl bg-emerald-50/50 p-4 border border-emerald-100 text-xs">
+                    <div className="font-bold text-emerald-800">成功生成以下账号 (密码: 123456)：</div>
+                    <div className="max-h-28 overflow-y-auto font-mono bg-white p-2 rounded-lg border border-emerald-150 space-y-1">
+                      {generatedPromoAccounts.map((acc, idx) => (
+                        <div key={idx} className="flex justify-between items-center text-midnight font-bold">
+                          <span>{acc}</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              navigator.clipboard.writeText(acc);
+                              setStatusMessage(`已复制账号: ${acc}`);
+                            }}
+                            className="text-[10px] text-emerald-600 hover:underline"
+                          >
+                            复制
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Box 2: Codes List */}
@@ -733,6 +838,11 @@ export const AdminDashboardView = () => {
                   <span className="font-bold text-midnight block uppercase">
                     {selectedStudent.subscriptionStatus}
                   </span>
+                  {selectedStudent.subscriptionExpiresAt && (
+                    <span className="text-[10px] text-gray-500 font-mono block mt-0.5">
+                      有效期至: {new Date(selectedStudent.subscriptionExpiresAt).toLocaleDateString()}
+                    </span>
+                  )}
                 </div>
                 <div className="border-l border-midnight/10 pl-3 ml-2 flex gap-1">
                   {selectedStudent.subscriptionStatus !== "active" ? (

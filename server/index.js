@@ -200,6 +200,7 @@ const selectAdminUsersStmt = db.prepare(`
     subscription_status,
     content_region,
     subscription_updated_at,
+    subscription_expires_at,
     created_at,
     updated_at,
     last_login_at
@@ -284,20 +285,26 @@ const mapWrongQuestion = (row) => {
   };
 };
 
-const mapUser = (user) => ({
-  id: user.id,
-  email: user.email,
-  displayName: user.display_name,
-  avatarUrl: user.avatar_url,
-  wechatOpenId: user.wechat_openid,
-  accountType: user.account_type || "registered",
-  subscriptionStatus: user.subscription_status || "free",
-  contentRegion: user.content_region || "overseas",
-  subscriptionUpdatedAt: user.subscription_updated_at,
-  createdAt: user.created_at,
-  updatedAt: user.updated_at,
-  lastLoginAt: user.last_login_at,
-});
+const mapUser = (user) => {
+  if (!user) return null;
+  const now = new Date();
+  const isExpired = user.subscription_expires_at && new Date(user.subscription_expires_at) < now;
+  return {
+    id: user.id,
+    email: user.email,
+    displayName: user.display_name,
+    avatarUrl: user.avatar_url,
+    wechatOpenId: user.wechat_openid,
+    accountType: user.account_type || "registered",
+    subscriptionStatus: isExpired ? "free" : (user.subscription_status || "free"),
+    contentRegion: user.content_region || "overseas",
+    subscriptionUpdatedAt: user.subscription_updated_at,
+    subscriptionExpiresAt: user.subscription_expires_at,
+    createdAt: user.created_at,
+    updatedAt: user.updated_at,
+    lastLoginAt: user.last_login_at,
+  };
+};
 
 const validContentRegions = new Set(["china", "overseas"]);
 const validSubscriptionStatuses = new Set(["free", "pending", "active"]);
@@ -350,6 +357,51 @@ app.post("/auth/email/verify", (req, res) => {
   const normalizedEmail = email.toLowerCase().trim();
   const normalizedCode = code.trim();
 
+  // Promo Account Bypass (e.g. apush101 with code 123456)
+  const isPromoPattern = /^apush\d+$/.test(normalizedEmail);
+  if (isPromoPattern && normalizedCode === "123456") {
+    const now = isoNow();
+    const nextYearExamEnd = "2027-06-30T23:59:59.999Z";
+    let user = getUserByEmailStmt.get(normalizedEmail);
+
+    if (!user) {
+      const newUser = {
+        id: uuidv4(),
+        email: normalizedEmail,
+        display_name: normalizedEmail.toUpperCase(),
+        created_at: now,
+        updated_at: now,
+        last_login_at: now,
+      };
+      upsertUserByEmailStmt.run(newUser);
+      
+      // Set to active premium with expiration
+      db.prepare(`
+        UPDATE users 
+        SET subscription_status = 'active', subscription_expires_at = ?, subscription_updated_at = ?
+        WHERE id = ?
+      `).run(nextYearExamEnd, now, newUser.id);
+      
+      user = getUserByEmailStmt.get(normalizedEmail);
+    } else {
+      // Force set to active premium and update login timestamp
+      db.prepare(`
+        UPDATE users 
+        SET subscription_status = 'active', subscription_expires_at = ?, subscription_updated_at = ?, last_login_at = ?, updated_at = ?
+        WHERE id = ?
+      `).run(nextYearExamEnd, now, now, now, user.id);
+      
+      user = getUserByEmailStmt.get(normalizedEmail);
+    }
+
+    const token = signToken({ sub: user.id, provider: "email" });
+
+    return res.json({
+      token,
+      user: mapUser(user),
+    });
+  }
+
   // Admin Account and Password Bypass
   if (
     (normalizedEmail === adminEmail || normalizedEmail === "admin" || normalizedEmail === "admin@apush.com") &&
@@ -359,8 +411,9 @@ app.post("/auth/email/verify", (req, res) => {
     const activeAdminEmail = normalizedEmail === "admin" ? adminEmail : normalizedEmail;
     let user = getUserByEmailStmt.get(activeAdminEmail);
     if (!user) {
+      const adminUserId = uuidv4();
       const newUser = {
-        id: "admin-user-id",
+        id: adminUserId,
         email: activeAdminEmail,
         display_name: "Admin",
         created_at: now,
@@ -370,8 +423,8 @@ app.post("/auth/email/verify", (req, res) => {
       upsertUserByEmailStmt.run(newUser);
       
       // Force set to admin and active premium
-      updateSubscriptionStmt.run("active", now, now, "admin-user-id");
-      db.prepare(`UPDATE users SET account_type = 'admin' WHERE id = 'admin-user-id'`).run();
+      updateSubscriptionStmt.run("active", now, now, adminUserId);
+      db.prepare(`UPDATE users SET account_type = 'admin' WHERE id = ?`).run(adminUserId);
       
       user = getUserByEmailStmt.get(activeAdminEmail);
     } else {
@@ -615,6 +668,7 @@ app.get("/admin/users", requireAdmin, (_req, res) => {
     subscriptionStatus: user.subscription_status,
     contentRegion: user.content_region,
     subscriptionUpdatedAt: user.subscription_updated_at,
+    subscriptionExpiresAt: user.subscription_expires_at,
     createdAt: user.created_at,
     updatedAt: user.updated_at,
     lastLoginAt: user.last_login_at,
@@ -968,7 +1022,8 @@ app.get("/api/admin/users", requireAdmin, (req, res) => {
         createdAt: user.created_at,
         lastLoginAt: user.last_login_at,
         progressCount,
-        mistakeCount
+        mistakeCount,
+        subscriptionExpiresAt: user.subscription_expires_at
       };
     });
 
@@ -982,7 +1037,7 @@ app.get("/api/admin/users", requireAdmin, (req, res) => {
 // 3. PATCH /api/admin/users/:id/subscription - Change user status or upgrade
 app.patch("/api/admin/users/:id/subscription", requireAdmin, (req, res) => {
   const { id } = req.params;
-  const { subscriptionStatus, accountType } = req.body ?? {};
+  const { subscriptionStatus, accountType, subscriptionExpiresAt } = req.body ?? {};
   
   try {
     const user = db.prepare("SELECT * FROM users WHERE id = ?").get(id);
@@ -993,12 +1048,14 @@ app.patch("/api/admin/users/:id/subscription", requireAdmin, (req, res) => {
     const updatedAt = new Date().toISOString();
     const updatedSubStatus = subscriptionStatus || user.subscription_status;
     const updatedAccountType = accountType || user.account_type;
+    const nextYearExamEnd = "2027-06-30T23:59:59.999Z";
+    const updatedSubExpiresAt = subscriptionExpiresAt !== undefined ? subscriptionExpiresAt : (updatedSubStatus === "active" && !user.subscription_expires_at ? nextYearExamEnd : user.subscription_expires_at);
 
     db.prepare(`
       UPDATE users 
-      SET subscription_status = ?, account_type = ?, updated_at = ?, subscription_updated_at = ?
+      SET subscription_status = ?, account_type = ?, updated_at = ?, subscription_updated_at = ?, subscription_expires_at = ?
       WHERE id = ?
-    `).run(updatedSubStatus, updatedAccountType, updatedAt, updatedAt, id);
+    `).run(updatedSubStatus, updatedAccountType, updatedAt, updatedAt, updatedSubExpiresAt, id);
 
     const updatedUser = db.prepare("SELECT * FROM users WHERE id = ?").get(id);
     return res.json({ success: true, user: updatedUser });
@@ -1085,6 +1142,54 @@ app.delete("/api/admin/codes/:code", requireAdmin, (req, res) => {
   } catch (err) {
     console.error("[Admin Revoke Code Error]:", err);
     return res.status(500).json({ error: "Failed to delete activation code" });
+  }
+});
+
+// 9. POST /api/admin/generate-promo-accounts - Create a batch of apush+number accounts
+app.post("/api/admin/generate-promo-accounts", requireAdmin, (req, res) => {
+  const { count, prefix } = req.body ?? {};
+  const now = isoNow();
+  const nextYearExamEnd = "2027-06-30T23:59:59.999Z";
+
+  try {
+    const generated = [];
+    const batchPrefix = (prefix || "apush").toLowerCase().trim();
+    const batchCount = count || 5;
+
+    // Get existing emails that start with the prefix
+    const allEmails = db.prepare("SELECT email FROM users WHERE email LIKE ?").all(`${batchPrefix}%`).map(u => u.email);
+
+    let currentNum = 101;
+    for (let i = 0; i < batchCount; i++) {
+      while (allEmails.includes(`${batchPrefix}${currentNum}`)) {
+        currentNum++;
+      }
+      const email = `${batchPrefix}${currentNum}`;
+      const newUser = {
+        id: uuidv4(),
+        email,
+        display_name: email.toUpperCase(),
+        account_type: 'registered',
+        subscription_status: 'active',
+        subscription_expires_at: nextYearExamEnd,
+        created_at: now,
+        updated_at: now,
+        last_login_at: null,
+      };
+
+      db.prepare(`
+        INSERT INTO users (id, email, display_name, account_type, subscription_status, subscription_expires_at, created_at, updated_at, last_login_at)
+        VALUES (@id, @email, @display_name, @account_type, @subscription_status, @subscription_expires_at, @created_at, @updated_at, @last_login_at)
+      `).run(newUser);
+
+      generated.push(email);
+      currentNum++;
+    }
+
+    return res.json({ success: true, accounts: generated });
+  } catch (err) {
+    console.error("[Admin Generate Promo Accounts Error]:", err);
+    return res.status(500).json({ error: "Failed to generate promo accounts" });
   }
 });
 

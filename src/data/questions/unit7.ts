@@ -1,5 +1,4 @@
-﻿
-import { TopicQuestionBank } from "../../types/questions";
+﻿import { TopicQuestionBank } from "../../types/questions";
 
 const doubleVCampaignExcerpt = `
 <p><em>Henry Louis Gates Jr., historian, "How Was Black Support Enlisted for World War II, When the Armed Services Were Segregated?", 2017</em></p>

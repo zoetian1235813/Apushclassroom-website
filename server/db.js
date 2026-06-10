@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
   subscription_status TEXT NOT NULL DEFAULT 'free',
   content_region TEXT NOT NULL DEFAULT 'overseas',
   subscription_updated_at TEXT,
+  subscription_expires_at TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
   last_login_at TEXT
@@ -103,6 +104,7 @@ const ensureColumn = (table, column, definition) => {
 ensureColumn("users", "subscription_status", "TEXT NOT NULL DEFAULT 'free'");
 ensureColumn("users", "content_region", "TEXT NOT NULL DEFAULT 'overseas'");
 ensureColumn("users", "subscription_updated_at", "TEXT");
+ensureColumn("users", "subscription_expires_at", "TEXT");
 ensureColumn("users", "account_type", "TEXT NOT NULL DEFAULT 'registered'");
 
 export default db;

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APUSH 暑期双月「极速筑基」通关打卡日历 (U1-U5)</title>
+    <!-- 引入高档 Google 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --accent-blue: #2563eb;
+            --accent-cyan: #0ea5e9;
+            --accent-light-blue: #eff6ff;
+            --calendar-border: #e2e8f0;
+            --bg-accent-light: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', 'Noto Sans SC', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #f0f6ff 0%, #f8fafc 100%);
+            color: var(--text-main);
+            padding: 50px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 横版日历海报容器 */
+        .poster-container {
+            width: 100%;
+            max-width: 1720px;
+            background: var(--bg-color);
+            border: 1px solid rgba(37, 99, 235, 0.12);
+            border-radius: 32px;
+            padding: 48px;
+            box-shadow: 0 25px 60px -15px rgba(37, 99, 235, 0.08), 0 0 1px rgba(37, 99, 235, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        /* 顶部横幅 */
+        .poster-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 28px;
+        }
+
+        .title-area h1 {
+            font-size: 44px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .title-area p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .title-area p span {
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        .mbti-badge {
+            border: 1px solid #bfdbfe;
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 10px 22px;
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 9999px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 双月份并排网格 */
+        .months-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        @media (max-width: 1350px) {
+            .months-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 单个日历样式 */
+        .calendar-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .month-name {
+            font-size: 32px;
+            font-weight: 900;
+            color: #1e3a8a;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        /* 日历网格 */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        /* 星期头 */
+        .weekday-header {
+            grid-column: span 7;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 4px;
+        }
+
+        .weekday-cell {
+            padding: 14px 0;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 800;
+            color: #475569;
+            letter-spacing: 0.5px;
+        }
+
+        /* 单个日期单元格 */
+        .day-cell {
+            min-height: 148px;
+            border: 1px solid var(--calendar-border);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: #fff;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.01);
+        }
+
+        .day-cell:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -10px rgba(37, 99, 235, 0.15), 0 0 1px rgba(37, 99, 235, 0.2);
+            border-color: #93c5fd;
+        }
+
+        /* 空白单元格 */
+        .day-cell.empty {
+            background-color: #f8fafc;
+            border: 1px dashed #e2e8f0;
+            opacity: 0.5;
+            box-shadow: none;
+        }
+        
+        .day-cell.empty:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #e2e8f0;
+        }
+
+        /* 日期数字 */
+        .day-number {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .day-cell.empty .day-number {
+            color: #cbd5e1;
+        }
+
+        /* 知识点内容样式 */
+        .knowledge-text {
+            font-size: 12px;
+            line-height: 1.45;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        /* 阶段节点提示 */
+        .stage-banner {
+            font-size: 10px;
+            font-weight: 800;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 3px 8px;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-bottom: 8px;
+            width: fit-content;
+        }
+
+        /* 阶段复习高亮日 */
+        .day-cell.review-day {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+            border-color: #93c5fd;
+        }
+        .day-cell.review-day:hover {
+            border-color: #60a5fa;
+            box-shadow: 0 12px 24px -10px rgba(37, 99, 235, 0.2), 0 0 1px rgba(37, 99, 235, 0.3);
+        }
+        .day-cell.review-day .knowledge-text {
+            color: #1e40af;
+            font-weight: 700;
+        }
+
+        /* 重点扫盲/自测日 */
+        .day-cell.test-day {
+            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+            border-color: #fca5a5;
+        }
+        .day-cell.test-day:hover {
+            border-color: #f87171;
+            box-shadow: 0 12px 24px -10px rgba(225, 29, 72, 0.15), 0 0 1px rgba(225, 29, 72, 0.25);
+        }
+        .day-cell.test-day .knowledge-text {
+            color: #9f1239;
+            font-weight: 700;
+        }
+
+        /* 完美通关结营日 */
+        .day-cell.wrap-up-day {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-color: #86efac;
+        }
+        .day-cell.wrap-up-day:hover {
+            border-color: #4ade80;
+            box-shadow: 0 12px 24px -10px rgba(22, 163, 74, 0.15), 0 0 1px rgba(22, 163, 74, 0.25);
+        }
+        .day-cell.wrap-up-day .knowledge-text {
+            color: #166534;
+            font-weight: 700;
+        }
+
+        /* 底部陪跑营引流 Card */
+        .poster-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #bfdbfe;
+            background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+            border-radius: 24px;
+            padding: 32px 40px;
+            margin-top: 12px;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.03);
+        }
+
+        .footer-left {
+            max-width: 75%;
+        }
+
+        .footer-left h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-left h2::before {
+            content: '⚡';
+            color: var(--accent-blue);
+        }
+
+        .footer-left p {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .footer-left p strong {
+            color: #1e40af;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .cta-box {
+            text-align: right;
+        }
+
+        .cta-box h3 {
+            font-size: 17px;
+            font-weight: 800;
+            color: #1e3a8a;
+        }
+
+        .cta-box p {
+            font-size: 13px;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        .qr-box {
+            width: 84px;
+            height: 84px;
+            border: 1px solid #bfdbfe;
+            padding: 6px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.05);
+        }
+
+        .qr-box svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="poster-container">
+        <!-- 头部 -->
+        <div class="poster-header">
+            <div class="title-area">
+                <h1>APUSH First-Semester Calendar</h1>
+                <p>暑期双月极速狂飙计划 • 预习直达第一学期期末考点 <span>(Unit 1 - Unit 5)</span></p>
+            </div>
+            <div class="mbti-badge">
+                📅 J-人高自律通关日程表
+            </div>
+        </div>
+
+        <!-- 双月网格 -->
+        <div class="months-wrapper">
+
+            <!-- ================= JULY 2026 ================= -->
+            <div class="calendar-section">
+                <div class="month-name">July 2026</div>
+                <div class="calendar-grid">
+                    <!-- 星期头 -->
+                    <div class="weekday-header">
+                        <div class="weekday-cell">SUN</div>
+                        <div class="weekday-cell">MON</div>
+                        <div class="weekday-cell">TUES</div>
+                        <div class="weekday-cell">WED</div>
+                        <div class="weekday-cell">THURS</div>
+                        <div class="weekday-cell">FRI</div>
+                        <div class="weekday-cell">SAT</div>
+                    </div>
+
+                    <!-- 7月1日是周三，前有3个空位 -->
+                    <div class="day-cell empty"><span class="day-number">28</span></div>
+                    <div class="day-cell empty"><span class="day-number">29</span></div>
+                    <div class="day-cell empty"><span class="day-number">30</span></div>
+                    
+                    <!-- 7月1日 -->
+                    <div class="day-cell">
+                        <span class="day-number">1</span>
+                        <span class="stage-banner">Unit 1 开启</span>
+                        <span class="knowledge-text">原住民文化、社会形态与其地理分布特征</span>
+                    </div>
+                    <!-- 7月2日 -->
+                    <div class="day-cell">
+                        <span class="day-number">2</span>
+                        <span class="knowledge-text">欧洲探险早期 3G 动机及其带来的双向大冲击</span>
+                    </div>
+                    <!-- 7月3日 -->
+                    <div class="day-cell">
+                        <span class="day-number">3</span>
+                        <span class="knowledge-text">哥伦布大交换 (Columbian Exchange) 双向流动影响</span>
+                    </div>
+                    <!-- 7月4日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">4</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 归纳美洲早期原住民社会核心特征</span>
+                    </div>
+                    <!-- 7月5日 -->
+                    <div class="day-cell">
+                        <span class="day-number">5</span>
+                        <span class="knowledge-text">委任监护制 (Encomienda System) 运作及劳动力转型</span>
+                    </div>
+                    <!-- 7月6日 -->
+                    <div class="day-cell">
+                        <span class="day-number">6</span>
+                        <span class="stage-banner">Unit 2 开启</span>
+                        <span class="knowledge-text">北美十三殖民地三大区域地理与经济差异对比</span>
+                    </div>
+                    <!-- 7月7日 -->
+                    <div class="day-cell">
+                        <span class="day-number">7</span>
+                        <span class="knowledge-text">普利茅斯清教徒神权社会 vs. 詹姆斯敦烟草庄园</span>
+                    </div>
+                    <!-- 7月8日 -->
+                    <div class="day-cell">
+                        <span class="day-number">8</span>
+                        <span class="knowledge-text">第一次大觉醒运动与欧洲启盟运动思想的本土化</span>
+                    </div>
+                    <!-- 7月9日 -->
+                    <div class="day-cell">
+                        <span class="day-number">9</span>
+                        <span class="knowledge-text">重商主义 (Mercantilism) 运作与航海条例的影响</span>
+                    </div>
+                    <!-- 7月10日 -->
+                    <div class="day-cell">
+                        <span class="day-number">10</span>
+                        <span class="knowledge-text">三角贸易大循环与契约奴 (Indentured Servitude) 衰落</span>
+                    </div>
+                    <!-- 7月11日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">11</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 梳理 17-18 世纪殖民地阶层与社会结构</span>
+                    </div>
+                    <!-- 7月12日 -->
+                    <div class="day-cell test-day">
+                        <span class="day-number">12</span>
+                        <span class="knowledge-text">重难点扫盲: 解决 Unit 1 & 2 殖民地时期高频疑难考点</span>
+                    </div>
+                    <!-- 7月13日 -->
+                    <div class="day-cell">
+                        <span class="day-number">13</span>
+                        <span class="stage-banner">Unit 3 开启</span>
+                        <span class="knowledge-text">七年战争对英美关系、帝国税收及财政政策的转折</span>
+                    </div>
+                    <!-- 7月14日 -->
+                    <div class="day-cell">
+                        <span class="day-number">14</span>
+                        <span class="knowledge-text">1763年宣告线 (Proclamation of 1763) 与西部扩张冲突</span>
+                    </div>
+                    <!-- 7月15日 -->
+                    <div class="day-cell">
+                        <span class="day-number">15</span>
+                        <span class="knowledge-text">印花税法案 (Stamp Act) 与殖民地“无代表不纳税”抵抗</span>
+                    </div>
+                    <!-- 7月16日 -->
+                    <div class="day-cell">
+                        <span class="day-number">16</span>
+                        <span class="knowledge-text">潘恩《常识 (Common Sense)》与《独立宣言》核心逻辑</span>
+                    </div>
+                    <!-- 7月17日 -->
+                    <div class="day-cell">
+                        <span class="day-number">17</span>
+                        <span class="knowledge-text">独立战争重大战役发展与萨拉托加战役的外交转折</span>
+                    </div>
+                    <!-- 7月18 -->
+                    <div class="day-cell">
+                        <span class="day-number">18</span>
+                        <span class="knowledge-text">美国首部宪法《邦联条例 (Articles of Confed.)》缺陷</span>
+                    </div>
+                    <!-- 7月19日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">19</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 梳理英美冲突至走向独立的关键时间线</span>
+                    </div>
+                    <!-- 7月20日 -->
+                    <div class="day-cell">
+                        <span class="day-number">20</span>
+                        <span class="knowledge-text">制宪会议: 弗吉尼亚与新泽西方案妥协 (Great Compromise)</span>
+                    </div>
+                    <!-- 7月21日 -->
+                    <div class="day-cell">
+                        <span class="day-number">21</span>
+                        <span class="knowledge-text">联邦党人 vs. 反联邦党人辩论与《权利法案》妥协</span>
+                    </div>
+                    <!-- 7月22日 -->
+                    <div class="day-cell">
+                        <span class="day-number">22</span>
+                        <span class="knowledge-text">华盛顿内阁建立与汉密尔顿国家银行 (Bank of US) 财政争端</span>
+                    </div>
+                    <!-- 7月23日 -->
+                    <div class="day-cell">
+                        <span class="day-number">23</span>
+                        <span class="knowledge-text">华盛顿告别演说中的孤立主义外交核心原则与两党雏形</span>
+                    </div>
+                    <!-- 7月24日 -->
+                    <div class="day-cell">
+                        <span class="day-number">24</span>
+                        <span class="knowledge-text">阿当斯政府《异端煽动法 (Alien & Sedition Acts)》冲突</span>
+                    </div>
+                    <!-- 7月25日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">25</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 深度对比建国初期两大政党的外交与宪法分歧</span>
+                    </div>
+                    <!-- 7月26日 -->
+                    <div class="day-cell test-day">
+                        <span class="day-number">26</span>
+                        <span class="knowledge-text">重难点扫盲: 突破 Unit 3 制宪争端与联邦妥协高分大题</span>
+                    </div>
+                    <!-- 7月27日 -->
+                    <div class="day-cell">
+                        <span class="day-number">27</span>
+                        <span class="stage-banner">Unit 4 开启</span>
+                        <span class="knowledge-text">杰斐逊民主理念、路易斯安那购地案与马伯里案司法审查</span>
+                    </div>
+                    <!-- 7月28日 -->
+                    <div class="day-cell">
+                        <span class="day-number">28</span>
+                        <span class="knowledge-text">1812年英美战争与战后“好感时代 (Era of Good Feelings)”</span>
+                    </div>
+                    <!-- 7月29日 -->
+                    <div class="day-cell">
+                        <span class="day-number">29</span>
+                        <span class="knowledge-text">密苏里妥协案 (Missouri Compromise) 与早期奴隶制界线</span>
+                    </div>
+                    <!-- 7月30日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">30</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 1800-1820年领土扩张与最高法院司法权力扩张</span>
+                    </div>
+                    <!-- 7月31日 -->
+                    <div class="day-cell test-day">
+                        <span class="day-number">31</span>
+                        <span class="knowledge-text">月度自测: Unit 1 - Unit 3 阶段主线基础知识网络诊断</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= AUGUST 2026 ================= -->
+            <div class="calendar-section">
+                <div class="month-name">August 2026</div>
+                <div class="calendar-grid">
+                    <!-- 星期头 -->
+                    <div class="weekday-header">
+                        <div class="weekday-cell">SUN</div>
+                        <div class="weekday-cell">MON</div>
+                        <div class="weekday-cell">TUES</div>
+                        <div class="weekday-cell">WED</div>
+                        <div class="weekday-cell">THURS</div>
+                        <div class="weekday-cell">FRI</div>
+                        <div class="weekday-cell">SAT</div>
+                    </div>
+
+                    <!-- 8月1日是周六，前有6个空位 -->
+                    <div class="day-cell empty"><span class="day-number">26</span></div>
+                    <div class="day-cell empty"><span class="day-number">27</span></div>
+                    <div class="day-cell empty"><span class="day-number">28</span></div>
+                    <div class="day-cell empty"><span class="day-number">29</span></div>
+                    <div class="day-cell empty"><span class="day-number">30</span></div>
+                    <div class="day-cell empty"><span class="day-number">31</span></div>
+                    
+                    <!-- 8月1日 -->
+                    <div class="day-cell">
+                        <span class="day-number">1</span>
+                        <span class="knowledge-text">门罗主义 (Monroe Doctrine) 外交核心理念及对拉美影响</span>
+                    </div>
+                    <!-- 8月2日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">2</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 19世纪初期外交框架与民族国家意识构建</span>
+                    </div>
+                    <!-- 8月3日 -->
+                    <div class="day-cell">
+                        <span class="day-number">3</span>
+                        <span class="knowledge-text">市场革命 (Market Revolution): 运河、铁路与交通网络大发展</span>
+                    </div>
+                    <!-- 8月4日 -->
+                    <div class="day-cell">
+                        <span class="day-number">4</span>
+                        <span class="knowledge-text">早期工业化生产方式变革与罗威尔女工 (Lowell Girls) 社会地位</span>
+                    </div>
+                    <!-- 8月5日 -->
+                    <div class="day-cell">
+                        <span class="day-number">5</span>
+                        <span class="knowledge-text">杰克逊民主 (Jacksonian Democracy): 普通人普选权与猎官制</span>
+                    </div>
+                    <!-- 8月6日 -->
+                    <div class="day-cell">
+                        <span class="day-number">6</span>
+                        <span class="knowledge-text">印第安人强制西迁 (Trail of Tears) 与第二联邦银行争端</span>
+                    </div>
+                    <!-- 8月7日 -->
+                    <div class="day-cell">
+                        <span class="day-number">7</span>
+                        <span class="knowledge-text">第二次大觉醒运动与各类社会改良运动（教育、禁酒、监狱）</span>
+                    </div>
+                    <!-- 8月8日 -->
+                    <div class="day-cell">
+                        <span class="day-number">8</span>
+                        <span class="knowledge-text">废奴运动崛起（加里森、道格拉斯）与塞内卡凡尔斯女权宣言</span>
+                    </div>
+                    <!-- 8月9日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">9</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 梳理 19 世纪上半叶社会变革与改良运动主线</span>
+                    </div>
+                    <!-- 8月10日 -->
+                    <div class="day-cell">
+                        <span class="day-number">10</span>
+                        <span class="stage-banner">Unit 5 开启</span>
+                        <span class="knowledge-text">昭昭天命 (Manifest Destiny) 思想狂热与西部拓荒运动</span>
+                    </div>
+                    <!-- 8月11日 -->
+                    <div class="day-cell">
+                        <span class="day-number">11</span>
+                        <span class="knowledge-text">德克萨斯共和国合并冲突与美墨战争 (Mexican-American War)</span>
+                    </div>
+                    <!-- 8月12日 -->
+                    <div class="day-cell">
+                        <span class="day-number">12</span>
+                        <span class="knowledge-text">威尔莫特条款 (Wilmot Proviso) 与 1850年妥协案细则</span>
+                    </div>
+                    <!-- 8月13日 -->
+                    <div class="day-cell">
+                        <span class="day-number">13</span>
+                        <span class="knowledge-text">《逃奴法案 (Fugitive Slave Act)》执行与北方废奴舆论高涨</span>
+                    </div>
+                    <!-- 8月14日 -->
+                    <div class="day-cell">
+                        <span class="day-number">14</span>
+                        <span class="knowledge-text">堪萨斯-内布拉斯加法案与两党重组（共和党诞生）、流血堪萨斯</span>
+                    </div>
+                    <!-- 8月15日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">15</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 横向剖析 1820-1854 三次奴隶制重大妥协演变</span>
+                    </div>
+                    <!-- 8月16日 -->
+                    <div class="day-cell test-day">
+                        <span class="day-number">16</span>
+                        <span class="knowledge-text">重难点扫盲: 扫清 Unit 4 市场革命与社会改良所有真题错题</span>
+                    </div>
+                    <!-- 8月17日 -->
+                    <div class="day-cell">
+                        <span class="day-number">17</span>
+                        <span class="knowledge-text">Dred Scott 司法裁决（黑人非公民）与林肯-道格拉斯辩论</span>
+                    </div>
+                    <!-- 8月18日 -->
+                    <div class="day-cell">
+                        <span class="day-number">18</span>
+                        <span class="knowledge-text">约翰·布朗袭库事件与 1860年林肯总统当选、南方各州退出联邦</span>
+                    </div>
+                    <!-- 8月19日 -->
+                    <div class="day-cell">
+                        <span class="day-number">19</span>
+                        <span class="knowledge-text">南北战争爆发: 南北双方实力、战术、动员对比与外交对峙</span>
+                    </div>
+                    <!-- 8月20日 -->
+                    <div class="day-cell">
+                        <span class="day-number">20</span>
+                        <span class="knowledge-text">林肯发布《解放黑奴宣言》与葛底斯堡演讲历史深远意义</span>
+                    </div>
+                    <!-- 8月21日 -->
+                    <div class="day-cell">
+                        <span class="day-number">21</span>
+                        <span class="knowledge-text">谢尔曼向大海进军、南北战争终结与战后建国初期宪政危机</span>
+                    </div>
+                    <!-- 8月22日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">22</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 分析南北战争对美国联邦宪法与政权的深层重塑</span>
+                    </div>
+                    <!-- 8月23日 -->
+                    <div class="day-cell test-day">
+                        <span class="day-number">23</span>
+                        <span class="knowledge-text">重难点扫盲: 突破南北战争前后时期各种高频真题选择题</span>
+                    </div>
+                    <!-- 8月24日 -->
+                    <div class="day-cell">
+                        <span class="day-number">24</span>
+                        <span class="knowledge-text">战后重建三大修正案 (13th, 14th, 15th Amendments) 特征</span>
+                    </div>
+                    <!-- 8月25日 -->
+                    <div class="day-cell">
+                        <span class="day-number">25</span>
+                        <span class="knowledge-text">总统重建路线（林肯/约翰逊）与国会激进派重建路线之争</span>
+                    </div>
+                    <!-- 8月26日 -->
+                    <div class="day-cell">
+                        <span class="day-number">26</span>
+                        <span class="knowledge-text">分享佃农制 (Sharecropping) 演变与吉姆·克劳种族隔离法的兴起</span>
+                    </div>
+                    <!-- 8月27日 -->
+                    <div class="day-cell">
+                        <span class="day-number">27</span>
+                        <span class="knowledge-text">1877年妥协 (Compromise of 1877) 达成与战后联邦重建的终结</span>
+                    </div>
+                    <!-- 8月28日 -->
+                    <div class="day-cell review-day">
+                        <span class="day-number">28</span>
+                        <span class="knowledge-text">⭐ 阶段复习: 纵向对比分析战后重建运动在民权与宪政层面的成败</span>
+                    </div>
+                    <!-- 8月29日 -->
+                    <div class="day-cell test-day">
+                        <span class="day-number">29</span>
+                        <span class="knowledge-text">🏆 暑期巅峰结营大模拟: 挑战 Unit 1 - Unit 5 闭卷真题联测</span>
+                    </div>
+                    <!-- 8月30日 -->
+                    <div class="day-cell test-day">
+                        <span class="day-number">30</span>
+                        <span class="knowledge-text">分析巅峰测试学业雷达图，导出并打包全暑期错题本</span>
+                    </div>
+                    <!-- 8月31日 -->
+                    <div class="day-cell wrap-up-day">
+                        <span class="day-number">31</span>
+                        <span class="knowledge-text">🎉 暑期通关！完美衔接秋季学期第一学期期末考点</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 页脚说明 -->
+        <div class="poster-footer">
+            <div class="footer-left">
+                <h2>线上全程陪跑跟踪打卡营 专属权益解锁</h2>
+                <p>
+                    💡 <strong>使用说明</strong>：本月历为暑期自主预习知识大纲。
+                    加入【APUSH 线上全程陪跑营】可立刻解锁本月历所有知识点对应的：<strong>① 交互式防挂机视频网课</strong>、<strong>② 智能随堂选择题库</strong>、<strong>③ AI 主观题（SAQ/FRQ）自动评分及逐字修改意见系统（对照CB Rubric评分）</strong>、以及 <strong>④ 智能错题归纳本</strong>。让备考事半功倍！
+                </p>
+            </div>
+            
+            <div class="footer-right">
+                <div class="cta-box">
+                    <h3>扫码加入全程陪跑打卡营</h3>
+                    <p>领取高清大图及每日打卡提醒</p>
+                </div>
+                <div class="qr-box">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5,5 h30 v30 h-30 z M15,15 h10 v10 h-10 z M65,5 h30 v30 h-30 z M75,15 h10 v10 h-10 z M5,65 h30 v30 h-30 z M15,75 h10 v10 h-10 z M45,45 h10 v10 h-10 z M45,15 h10 v10 h-10 z M45,75 h10 v10 h-10 z M75,45 h10 v10 h-10 z M15,45 h10 v10 h-10 z" fill="#2563eb"/>
+                        <path d="M40,5 h5 v5 h-5 z M55,5 h5 v5 h-5 z M50,20 h5 v5 h-5 z M40,30 h5 v5 h-5 z M60,30 h5 v5 h-5 z M45,40 h5 v5 h-5 z M55,40 h5 v5 h-5 z M35,50 h5 v5 h-5 z M65,50 h5 v5 h-5 z M40,60 h5 v5 h-5 z M60,60 h5 v5 h-5 z M50,65 h5 v5 h-5 z M35,70 h5 v5 h-5 z M65,70 h5 v5 h-5 z M45,85 h5 v5 h-5 z M55,85 h5 v5 h-5 z" fill="#2563eb"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
