@@ -275,25 +275,29 @@ export const Sidebar = ({
           <span className="flex-1">暑期自学日历</span>
         </a>
 
-        <a
-          href="/promo.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-blue-700 hover:to-indigo-700"
-          onClick={() => onToggleMobile(false)}
-        >
-          <span className="text-lg">🎨</span>
-          <span className="flex-1">宣传组图导出</span>
-        </a>
+        {isAdmin && (
+          <>
+            <a
+              href="/promo.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-blue-700 hover:to-indigo-700"
+              onClick={() => onToggleMobile(false)}
+            >
+              <span className="text-lg">🎨</span>
+              <span className="flex-1">宣传组图导出</span>
+            </a>
 
-        <button
-          type="button"
-          className="group flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-indigo-600 hover:to-purple-700"
-          onClick={() => handleNavClick("promoVideo")}
-        >
-          <span className="text-lg">🎬</span>
-          <span className="flex-1">宣传视频预览</span>
-        </button>
+            <button
+              type="button"
+              className="group flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-indigo-600 hover:to-purple-700"
+              onClick={() => handleNavClick("promoVideo")}
+            >
+              <span className="text-lg">🎬</span>
+              <span className="flex-1">宣传视频预览</span>
+            </button>
+          </>
+        )}
 
 
 

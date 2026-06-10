@@ -189,7 +189,7 @@ function App() {
       "pastExams",
       "wrongNotebook",
     ];
-    if (view === "adminDashboard" && user?.accountType !== "admin") {
+    if ((view === "adminDashboard" || view === "promoVideo") && user?.accountType !== "admin") {
       setCurrentView("home");
       return;
     }
