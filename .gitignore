@@ -32,7 +32,7 @@ CON
 tsconfig.tsbuildinfo
 
 # Database and data folders
-data/
+/data/
 *.db
 *.db-shm
 *.db-wal
