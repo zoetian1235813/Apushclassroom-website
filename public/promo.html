@@ -68,7 +68,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         </svg>
-        打包导出全部 5 张
+        打包导出全部 8 张
       </button>
       <a href="/" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-6 py-3 rounded-full transition flex items-center gap-2">
         返回平台首页
@@ -662,6 +662,370 @@
       </button>
     </div>
 
+    <!-- Card 6 -->
+    <div class="flex flex-col items-center">
+      <div id="card-6" class="promo-card">
+        <!-- Giant Backdrop Number -->
+        <div class="absolute top-12 left-1/2 -translate-x-1/2 text-[300px] font-black text-blue-100/30 select-none pointer-events-none z-0 leading-none">6</div>
+        
+        <!-- Header Text -->
+        <div class="text-center z-10">
+          <h2 class="text-[#1A202C] text-4xl font-black tracking-wider mb-3">暑期双月自学规划</h2>
+          <p class="text-[#4A5568] text-base leading-relaxed max-w-[500px] mx-auto font-medium">
+            合理规划每一天。Unit 1-5 暑期自学营全天候切片，自制力弱同学的自学破局神器。
+          </p>
+        </div>
+
+        <!-- Center UI: Calendar View Mockup -->
+        <div class="w-full bg-white rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden flex flex-col z-10 my-4 grow max-h-[460px]">
+          <!-- Browser Header -->
+          <div class="bg-slate-50 border-b border-slate-100 px-4 py-3 flex items-center justify-between font-sans">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-400"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+              <span class="w-3 h-3 rounded-full bg-green-400"></span>
+            </div>
+            <!-- Month Toggle indicator -->
+            <div class="flex gap-1 border border-slate-200 bg-white rounded-lg p-0.5 text-[10px]">
+              <span class="bg-midnight text-white px-2 py-0.5 rounded font-bold">7月营</span>
+              <span class="text-slate-400 px-2 py-0.5 rounded font-medium">8月营</span>
+            </div>
+          </div>
+
+          <!-- Calendar Grid mockup -->
+          <div class="flex-1 flex flex-col p-4 bg-slate-50/30">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-sm font-black text-midnight">July 2026</span>
+              <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">已打卡 12 天 / 31 天</span>
+            </div>
+            <!-- Week headers -->
+            <div class="grid grid-cols-7 gap-1.5 text-center text-[8px] font-black text-slate-400 mb-2">
+              <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+            </div>
+            <!-- Days grid -->
+            <div class="grid grid-cols-7 gap-2 flex-1">
+              <!-- Week 1 empty padding -->
+              <span class="bg-slate-100/40 rounded-lg"></span>
+              <span class="bg-slate-100/40 rounded-lg"></span>
+              <span class="bg-slate-100/40 rounded-lg"></span>
+              <!-- Day 1-6 (Completed) -->
+              <div class="border border-emerald-200 bg-emerald-50/50 rounded-xl p-1.5 flex flex-col justify-between items-center text-center">
+                <span class="text-[9px] font-bold text-emerald-700">1</span>
+                <span class="text-[8px] text-emerald-600 font-bold">✓</span>
+              </div>
+              <div class="border border-emerald-200 bg-emerald-50/50 rounded-xl p-1.5 flex flex-col justify-between items-center text-center">
+                <span class="text-[9px] font-bold text-emerald-700">2</span>
+                <span class="text-[8px] text-emerald-600 font-bold">✓</span>
+              </div>
+              <div class="border border-emerald-200 bg-emerald-50/50 rounded-xl p-1.5 flex flex-col justify-between items-center text-center">
+                <span class="text-[9px] font-bold text-emerald-700">3</span>
+                <span class="text-[8px] text-emerald-600 font-bold">✓</span>
+              </div>
+              <div class="border border-emerald-200 bg-emerald-50/50 rounded-xl p-1.5 flex flex-col justify-between items-center text-center">
+                <span class="text-[9px] font-bold text-emerald-700">4</span>
+                <span class="text-[8px] text-emerald-600 font-bold">✓</span>
+              </div>
+              <!-- Row 2 -->
+              <div class="border border-emerald-200 bg-emerald-50/50 rounded-xl p-1.5 flex flex-col justify-between items-center text-center">
+                <span class="text-[9px] font-bold text-emerald-700">5</span>
+                <span class="text-[8px] text-emerald-600 font-bold">✓</span>
+              </div>
+              <div class="border border-emerald-200 bg-emerald-50/50 rounded-xl p-1.5 flex flex-col justify-between items-center text-center">
+                <span class="text-[9px] font-bold text-emerald-700">6</span>
+                <span class="text-[8px] text-emerald-600 font-bold">✓</span>
+              </div>
+              <!-- Day 7 Active -->
+              <div class="border-2 border-blue-500 bg-blue-50 rounded-xl p-1.5 flex flex-col justify-between items-center text-center relative shadow-sm">
+                <span class="text-[9px] font-black text-blue-600">7</span>
+                <span class="text-[8px] text-blue-500 font-black">Today</span>
+                <!-- Mini dots -->
+                <div class="flex gap-0.5 justify-center w-full mt-1">
+                  <span class="w-1 h-1 rounded-full bg-blue-500"></span>
+                  <span class="w-1 h-1 rounded-full bg-emerald-500"></span>
+                  <span class="w-1 h-1 rounded-full bg-purple-500"></span>
+                </div>
+              </div>
+              <div class="border border-slate-200 bg-white rounded-xl p-1.5 flex flex-col justify-between items-center text-center hover:bg-slate-50">
+                <span class="text-[9px] font-bold text-slate-700">8</span>
+                <div class="flex gap-0.5 justify-center w-full mt-1">
+                  <span class="w-1 h-1 rounded-full bg-blue-400"></span>
+                  <span class="w-1 h-1 rounded-full bg-amber-400"></span>
+                </div>
+              </div>
+              <div class="border border-slate-200 bg-white rounded-xl p-1.5 flex flex-col justify-between items-center text-center hover:bg-slate-50">
+                <span class="text-[9px] font-bold text-slate-700">9</span>
+                <div class="flex gap-0.5 justify-center w-full mt-1">
+                  <span class="w-1 h-1 rounded-full bg-purple-400"></span>
+                </div>
+              </div>
+              <div class="border border-slate-200 bg-white rounded-xl p-1.5 flex flex-col justify-between items-center text-center hover:bg-slate-50">
+                <span class="text-[9px] font-bold text-slate-700">10</span>
+                <div class="flex gap-0.5 justify-center w-full mt-1">
+                  <span class="w-1 h-1 rounded-full bg-blue-400"></span>
+                  <span class="w-1 h-1 rounded-full bg-rose-400"></span>
+                </div>
+              </div>
+              <div class="border border-slate-200 bg-white rounded-xl p-1.5 flex flex-col justify-between items-center text-center hover:bg-slate-50">
+                <span class="text-[9px] font-bold text-slate-700">11</span>
+                <div class="flex gap-0.5 justify-center w-full mt-1">
+                  <span class="w-1 h-1 rounded-full bg-emerald-400"></span>
+                </div>
+              </div>
+            </div>
+            <!-- Task Roadmap guide -->
+            <div class="mt-3 bg-white border border-slate-100 rounded-xl p-2.5 flex items-center justify-between text-[9px]">
+              <span class="text-slate-500 font-medium">📅 下一里程碑：完成第 14 天解锁「坚持达人」勋章</span>
+              <span class="text-blue-600 font-bold">14-Day Goal &rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Dual Features Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex gap-6 z-10">
+          <!-- Left Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Calendar Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">精细化结构自学</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">双月完美对标，每天的任务粒度细化至分钟，无需为计划挠头。</p>
+            </div>
+          </div>
+          <!-- Divider -->
+          <div class="w-px bg-slate-100 self-stretch"></div>
+          <!-- Right Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Map Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">打卡进度一目了然</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">直观的网格日历与精细的进度条展示，见证暑期的每一次跃升。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button onclick="downloadCard('card-6', '06_暑期双月自学规划')" class="mt-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-5 py-2 rounded-lg transition shadow-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        导出此张图片
+      </button>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="flex flex-col items-center">
+      <div id="card-7" class="promo-card">
+        <!-- Giant Backdrop Number -->
+        <div class="absolute top-12 left-1/2 -translate-x-1/2 text-[300px] font-black text-blue-100/30 select-none pointer-events-none z-0 leading-none">7</div>
+        
+        <!-- Header Text -->
+        <div class="text-center z-10">
+          <h2 class="text-[#1A202C] text-4xl font-black tracking-wider mb-3">多维交互任务闯关</h2>
+          <p class="text-[#4A5568] text-base leading-relaxed max-w-[500px] mx-auto font-medium">
+            告别单调阅读。视频、习题、复习、史料多轨交叉输入，打造高效心流自学链条。
+          </p>
+        </div>
+
+        <!-- Center UI: Day Detail Panel Mockup -->
+        <div class="w-full bg-white rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden flex flex-col z-10 my-4 grow justify-between max-h-[460px] p-4">
+          <!-- Banner Header -->
+          <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-3 text-white">
+            <div class="flex justify-between items-center text-[9px] opacity-85 font-semibold">
+              <span>UNIT 3 · 第 7 天自学计划</span>
+              <span>120 XP Reward</span>
+            </div>
+            <h3 class="text-sm font-black mt-1">Taxation Without Representation</h3>
+            <p class="text-[9px] opacity-90 leading-tight mt-1">
+              通过代表权之争探讨殖民地与英国本土的深刻矛盾。
+            </p>
+          </div>
+
+          <!-- Task checklist items -->
+          <div class="my-3 space-y-2 max-h-[200px] overflow-y-auto">
+            <!-- Task 1 (Done) -->
+            <div class="flex items-center gap-2.5 p-2.5 rounded-xl border border-emerald-200 bg-emerald-50/20 text-[10px]">
+              <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">✓</span>
+              <div class="flex-1">
+                <div class="font-bold text-emerald-800">📺 3.3 视频导学课 (15 min)</div>
+                <div class="text-emerald-700/70 text-[9px]">精听 Stamp Act 导学视频</div>
+              </div>
+              <span class="text-[8px] bg-emerald-500 text-white font-bold px-2 py-0.5 rounded shadow-sm">已完成</span>
+            </div>
+            <!-- Task 2 (Active) -->
+            <div class="flex items-center gap-2.5 p-2.5 rounded-xl border border-blue-200 bg-blue-50/10 text-[10px]">
+              <span class="w-4 h-4 rounded-full bg-white border border-blue-400 text-blue-500 flex items-center justify-center font-bold">▶</span>
+              <div class="flex-1">
+                <div class="font-bold text-slate-800">✏️ 随堂互动练习 (10 min)</div>
+                <div class="text-slate-500 text-[9px]">做完 5 道选择题巩固基础</div>
+              </div>
+              <button class="text-[8px] bg-midnight text-white font-bold px-2.5 py-0.5 rounded shadow-sm">开始</button>
+            </div>
+            <!-- Task 3 (Locked) -->
+            <div class="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-100 bg-slate-50/50 text-[10px] opacity-65">
+              <span class="w-4 h-4 rounded-full bg-white border border-slate-300 text-slate-400 flex items-center justify-center font-bold">?</span>
+              <div class="flex-1">
+                <div class="font-bold text-slate-600">💡 史料趣味冷知识 (3 min)</div>
+                <div class="text-slate-400 text-[9px]">阅读波士顿倾茶事件的非主流花边史</div>
+              </div>
+              <button disabled class="text-[8px] bg-slate-200 text-slate-400 font-bold px-2.5 py-0.5 rounded">锁住</button>
+            </div>
+          </div>
+
+          <!-- Bottom Button -->
+          <button class="w-full py-2.5 rounded-xl bg-midnight text-white text-xs font-black hover:bg-midnight/90 flex items-center justify-center gap-1.5 shadow-md mt-auto">
+            继续今日学习 ▶
+          </button>
+        </div>
+
+        <!-- Bottom Dual Features Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex gap-6 z-10">
+          <!-- Left Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Grid Icons -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">卡片化每日计划</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">拆碎沉重的章节。将每天学习目标整合为易完成的任务卡片。</p>
+            </div>
+          </div>
+          <!-- Divider -->
+          <div class="w-px bg-slate-100 self-stretch"></div>
+          <!-- Right Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Academic Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">学习心流设计</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">融合精听、精炼与泛读，打造沉浸式学习循环，拒绝疲劳。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button onclick="downloadCard('card-7', '07_多维交互任务闯关')" class="mt-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-5 py-2 rounded-lg transition shadow-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        导出此张图片
+      </button>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="flex flex-col items-center">
+      <div id="card-8" class="promo-card">
+        <!-- Giant Backdrop Number -->
+        <div class="absolute top-12 left-1/2 -translate-x-1/2 text-[300px] font-black text-blue-100/30 select-none pointer-events-none z-0 leading-none">8</div>
+        
+        <!-- Header Text -->
+        <div class="text-center z-10">
+          <h2 class="text-[#1A202C] text-4xl font-black tracking-wider mb-3">游戏化里程碑与成就</h2>
+          <p class="text-[#4A5568] text-base leading-relaxed max-w-[500px] mx-auto font-medium">
+            打卡得 XP，连胜得勋章。引入游戏化激励模型，让学习像打排位赛一样爽快。
+          </p>
+        </div>
+
+        <!-- Center UI: Milestone Unlock Modal Mockup -->
+        <div class="w-full bg-slate-900 rounded-2xl border border-slate-800 shadow-xl overflow-hidden flex flex-col z-10 my-4 grow relative min-h-[400px] p-4 justify-between">
+          <!-- Header (Dark) -->
+          <div class="flex justify-between items-center text-white/50 text-[9px] border-b border-white/5 pb-2">
+            <span>STREAK & ACHIEVEMENTS</span>
+            <div class="flex items-center gap-2 text-amber-500 font-bold">
+              <span>🔥 7 天连胜</span>
+              <span class="bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded text-[8px]">+350 XP</span>
+            </div>
+          </div>
+
+          <!-- Achievement Pop-up card in center -->
+          <div class="bg-white rounded-2xl p-5 shadow-2xl border border-slate-100 max-w-sm mx-auto my-auto text-center flex flex-col items-center gap-3">
+            <div class="text-5xl animate-bounce">🏆</div>
+            <div>
+              <span class="text-[9px] font-black tracking-widest text-blue-600 uppercase">Milestone Unlocked</span>
+              <h4 class="text-base font-black text-midnight mt-1">周冠军 (Weekly Champion)</h4>
+              <p class="text-xs text-slate-500 mt-1 font-semibold">
+                连续打卡 7 天，暑期自学第一周通关！
+              </p>
+            </div>
+            <!-- Rewards -->
+            <div class="bg-slate-50 border border-slate-100 rounded-xl px-4 py-2 flex items-center gap-3 mt-1 w-full justify-center">
+              <div class="text-center">
+                <span class="text-[9px] font-bold text-slate-400 block uppercase">Reward</span>
+                <span class="text-sm font-black text-amber-600">+100 XP</span>
+              </div>
+              <div class="w-px h-6 bg-slate-200"></div>
+              <div class="text-center">
+                <span class="text-[9px] font-bold text-slate-400 block uppercase">Badge</span>
+                <span class="text-sm font-black text-blue-600">🏅 Weekly</span>
+              </div>
+            </div>
+            <button class="bg-midnight hover:bg-slate-800 text-white text-[10px] font-bold px-5 py-2 rounded-full shadow transition-all w-full mt-2">
+              收下奖励，继续学习
+            </button>
+          </div>
+
+          <!-- Bottom progress indicator -->
+          <div class="flex items-center justify-between text-[8px] text-white/40 border-t border-white/5 pt-2">
+            <span>已收集勋章: 🌱 🔥 🏅 🔒 🔒 🔒</span>
+            <span>打卡里程碑进度: 30%</span>
+          </div>
+        </div>
+
+        <!-- Bottom Dual Features Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex gap-6 z-10">
+          <!-- Left Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Flame Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">打卡连胜激励</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">模拟游戏排位连胜加成，为枯燥的自学增添欲罢不能的连胜快感。</p>
+            </div>
+          </div>
+          <!-- Divider -->
+          <div class="w-px bg-slate-100 self-stretch"></div>
+          <!-- Right Column -->
+          <div class="flex gap-3.5 flex-1">
+            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <!-- Badge Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">里程碑解锁勋章</h4>
+              <p class="text-slate-500 text-xs leading-relaxed">内置 8 款精美勋章，记录从“第一天”到“通关自学营”的蜕变徽记。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button onclick="downloadCard('card-8', '08_游戏化里程碑与成就')" class="mt-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-5 py-2 rounded-lg transition shadow-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        导出此张图片
+      </button>
+    </div>
+
   </div>
 
   <footer class="mt-20 text-center text-slate-400 text-sm pb-12">
@@ -697,7 +1061,10 @@
         { id: 'card-2', name: '02_视频随堂即时测' },
         { id: 'card-3', name: '03_官方答题公式特训' },
         { id: 'card-4', name: '04_智能错题归档系统' },
-        { id: 'card-5', name: '05_Unit1免费体验' }
+        { id: 'card-5', name: '05_Unit1免费体验' },
+        { id: 'card-6', name: '06_暑期双月自学规划' },
+        { id: 'card-7', name: '07_多维交互任务闯关' },
+        { id: 'card-8', name: '08_游戏化里程碑与成就' }
       ];
 
       for (const item of cards) {
@@ -706,6 +1073,7 @@
         await new Promise(resolve => setTimeout(resolve, 800));
       }
     }
+```
   </script>
 </body>
 </html>
