@@ -1,3 +1,4 @@
+import { APVaultEmbed } from "../APVaultEmbed";
 import { useState } from "react";
 import {
   ChevronRight,
@@ -408,6 +409,8 @@ export const StepView = ({
           )}
         </div>
       </div>
+
+      <APVaultEmbed unitId={selectedUnit.id} topicTitle={`${selectedTopic.id} ${selectedTopic.title}`} />
 
       {allStepsCompleted && (
         <button

@@ -76,3 +76,9 @@ The server exports the Express instance by default, so tests or serverless adapt
 
 Feel free to extend this README with deployment-specific notes (Render disks, Fly `fly.toml`, Dockerfile, etc.) as you move to production.
 "# -apush-super" 
+
+## AP Vault embedded practice
+
+The home page and lesson steps now include an on-demand AP Vault iframe below the course content. The default target is the homepage registered on the AP Vault repository: `https://ap-us-30-days-counting-down.vercel.app`. Override it at build time with `VITE_AP_VAULT_URL` (HTTPS only). The frame has a descriptive title, expand/reload controls, and a permanent external link for browsers that restrict embedded sign-in. Loading is user-initiated to avoid slowing the course landing page.
+
+AP Vault authentication, subscription entitlements and progress remain independent. No tokens are passed between the sites, and the parent does not claim automatic unit filtering or completion synchronization. Students choose APUSH and their unit inside the frame. If the target later sets restrictive `frame-ancestors` or `X-Frame-Options`, adjust the target's embedding policy for the classroom origin or use the external link.

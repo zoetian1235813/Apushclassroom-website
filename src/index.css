@@ -138,3 +138,27 @@
     opacity: 0.4;
   }
 }
+
+/* Quiet, paper-inspired course shell. No remote font dependency. */
+.study-hero { padding: clamp(24px, 5vw, 56px); border: 1px solid #d9d0c0; border-radius: 20px; background: #f0ece1; }
+.editorial-label { color: #806347; font-size: 11px; font-weight: 700; letter-spacing: .18em; }
+.study-hero h2 { margin-top: 22px; font-family: "Playfair Display", Georgia, "Songti SC", serif; font-size: clamp(30px, 4vw, 49px); line-height: 1.3; color: #2b3a4d; }
+.study-hero h2 span { color: #806347; }
+.study-primary, .study-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 8px; padding: 12px 18px; font-size: 14px; font-weight: 600; }
+.study-primary { background: #2b3a4d; color: white; border: 1px solid #2b3a4d; }
+.study-primary:hover { background: #40546c; }
+.study-secondary { border: 1px solid #bdb3a1; color: #2b3a4d; background: #fffdf7; }
+.study-secondary:hover { background: #eee7da; }
+.hero-facts { display: flex; flex-wrap: wrap; gap: 12px 24px; border-top: 1px solid #d7cebd; margin-top: 32px; padding-top: 20px; color: #596372; font-size: 12px; }
+.path-card { text-align: left; padding: 24px; border: 1px solid #d9d0c0; border-radius: 16px; background: #fffdf7; color: #2b3a4d; }
+.path-card:hover { border-color: #806347; }
+.vault-section { border: 1px solid #c6bcab; border-radius: 18px; overflow: hidden; background: #fffdf7; }
+.vault-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; padding: 28px 24px 20px; }
+.vault-heading h2 { margin-top: 10px; font-size: 25px; color: #2b3a4d; }
+.vault-start { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; padding: 30px 24px; border-top: 1px solid #e1d9cc; background: #f0ece1; }
+.vault-start > div { flex: 1; min-width: 180px; }
+.vault-frame { width: 100%; height: 760px; border: 0; background: white; display: block; }
+.vault-frame-expanded { height: 92vh; min-height: 760px; }
+:focus-visible { outline: 3px solid #806347; outline-offset: 4px; }
+@media (max-width: 640px) { .vault-frame { height: 78vh; min-height: 560px; } .vault-frame-expanded { height: 110vh; } .vault-start .study-primary { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }

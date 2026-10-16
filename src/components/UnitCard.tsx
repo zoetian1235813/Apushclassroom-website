@@ -9,8 +9,8 @@ interface UnitCardProps {
 export const UnitCard = ({ unit, onClick, locked = false }: UnitCardProps) => (
   <button
     type="button"
-    className={`glass-card group flex h-full flex-col gap-4 overflow-hidden border border-white/25 px-5 py-6 text-left transition-transform hover:-translate-y-1 hover:shadow-glass ${
-      locked ? "opacity-60" : ""
+    className={`group flex h-full flex-col gap-4 overflow-hidden rounded-xl bg-[#fffdf7] border border-stone-300 px-5 py-6 text-left transition-colors hover:border-[#806347] ${
+      locked ? "" : "ring-1 ring-[#806347]/30"
     }`}
     onClick={() => onClick(unit)}
   >
@@ -22,14 +22,14 @@ export const UnitCard = ({ unit, onClick, locked = false }: UnitCardProps) => (
         Unit {unit.id}
       </span>
       <span className="text-xs uppercase tracking-[0.3em]">
-        {locked ? "Premium" : unit.period}
+        {locked ? unit.period : unit.period}
       </span>
     </div>
-    <h4 className="text-lg font-semibold text-midnight transition-colors group-hover:text-glow">
+    <h4 className="text-lg font-semibold text-midnight transition-colors group-hover:text-[#806347]">
       {unit.title}
     </h4>
     <p className="text-sm text-midnight/60">
-      {locked ? "付费版解锁完整内容" : `${unit.topics.length} 主题`}
+      {locked ? "完整课程 · 查看开通说明" : `${unit.topics.length} 主题`}
     </p>
   </button>
 );
