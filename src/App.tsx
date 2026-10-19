@@ -271,8 +271,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f3e9]">
-      <header className="bg-[#f7f3e9] border-t-8 border-t-[#2b3a4d] border-b border-stone-300 sticky top-0 z-50">
+    <div className="min-h-screen bg-[#f5f8fa]">
+      <header className="bg-white border-t-4 border-t-[#009fe8] border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -288,7 +288,7 @@ function App() {
                 )}
               </button>
               <div>
-                <button type="button" onClick={() => handleNavigate("home")} className="text-left"><h1 className="text-xl sm:text-3xl font-semibold text-[#2b3a4d]">APUSH Classroom</h1></button>
+                <button type="button" onClick={() => handleNavigate("home")} className="text-left"><h1 className="text-xl sm:text-3xl font-semibold text-[#007ebb]">APUSH Classroom</h1></button>
                 <p className="text-xs font-medium text-gray-500">
                   美国历史 · 全程学习与写作训练
                 </p>

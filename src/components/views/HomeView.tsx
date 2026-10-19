@@ -28,7 +28,7 @@ export const HomeView = ({ units, onNavigate, onUnitClick, canAccessUnit = () =>
       {[{ icon: BookOpen, n: "01", title: "理解知识", text: "观看微课，阅读笔记，整理事件与因果关系。", action: () => onNavigate("study"), label: "进入学习" },
         { icon: PenLine, n: "02", title: "应用证据", text: "在下方题库选择对应单元，先独立作答，再查看解析。", action: () => document.getElementById("ap-vault-practice")?.scrollIntoView({ behavior: "smooth" }), label: "开始练习" },
         { icon: RotateCcw, n: "03", title: "针对性复习", text: "回看课堂练习的错题，定位薄弱主题，再次尝试。", action: () => onNavigate("wrongNotebook"), label: "打开课堂错题本" }].map(item => <button type="button" key={item.n} onClick={item.action} className="path-card">
-          <div className="flex justify-between"><item.icon size={22} strokeWidth={1.5} /><span className="font-serif text-stone-400">{item.n}</span></div>
+          <div className="flex justify-between"><item.icon size={22} strokeWidth={1.5} /><span className="font-mono text-slate-400">{item.n}</span></div>
           <h3 className="mt-5 text-xl">{item.title}</h3><p className="mt-3 text-sm leading-7 text-slate-600">{item.text}</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold">{item.label}<ArrowRight size={15}/></span>
         </button>)}
     </section>
@@ -38,7 +38,7 @@ export const HomeView = ({ units, onNavigate, onUnitClick, canAccessUnit = () =>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{units.map(unit => <UnitCard key={unit.id} unit={unit} onClick={onUnitClick} locked={!canAccessUnit(unit)} />)}</div>
     </section>
     <APVaultEmbed />
-    <section className="rounded-2xl border border-stone-300 bg-white/60 p-6">
+    <section className="rounded-2xl border border-slate-200 bg-white p-6">
       <h2 className="text-xl">第一次来？先完成一个小循环。</h2>
       <p className="mt-3 text-sm leading-7 text-slate-600">选择 Unit 1 的一个主题 → 阅读笔记 → 在 AP Vault 完成一道练习 → 回到笔记补充缺失的证据。无需一次刷完整个单元。</p>
       <button className="study-secondary mt-4" type="button" onClick={() => onNavigate("userGuide")}>查看使用与账号说明</button>
