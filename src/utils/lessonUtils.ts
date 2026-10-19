@@ -1,3 +1,4 @@
+import { unit1Checks } from "../data/unit1VideoChecks";
 import type { LessonStep, Topic, Unit, VideoKnowledgeCheck } from "../types/lesson";
 
 export type ContentRegion = "china" | "overseas";
@@ -39,165 +40,6 @@ const bilibiliCrashCourse = (page: number) =>
 
 const youtubeVideo = (videoId: string) =>
   `https://www.youtube.com/watch?v=${videoId}&list=${unit1PlaylistId}`;
-
-const unit1Checks: Record<string, VideoKnowledgeCheck[]> = {
-  "1.1": [
-    {
-      id: "1.1-big-picture",
-      timestamp: 55,
-      question: "Unit 1 的核心背景最适合概括为哪一项？",
-      choices: [
-        { id: "a", text: "1491-1607 年间，美洲原住民社会、欧洲扩张和跨大西洋交流开始相互碰撞" },
-        { id: "b", text: "英属北美殖民地已经形成稳定的代议制政府" },
-        { id: "c", text: "美国开始建立联邦宪法秩序" },
-      ],
-      correctChoiceId: "a",
-      explanation: "Unit 1 关注 1491-1607：接触前的美洲社会、欧洲探索、哥伦布大交换和早期殖民互动。",
-    },
-    {
-      id: "1.1-causation",
-      timestamp: 188,
-      question: "分析 Unit 1 时，最常见的因果链是哪一条？",
-      choices: [
-        { id: "a", text: "工业化推动城市化，进而引发进步主义改革" },
-        { id: "b", text: "欧洲贸易和宗教动机推动探索，探索又触发疾病、作物、人口和劳役体系的变化" },
-        { id: "c", text: "冷战竞争推动美国国内民权运动" },
-      ],
-      correctChoiceId: "b",
-      explanation: "这一单元的核心是欧洲扩张与美洲接触造成的跨大西洋社会、经济和环境变化。",
-    },
-  ],
-  "1.2": [
-    {
-      id: "1.2-diversity",
-      timestamp: 58,
-      question: "接触前的美洲原住民社会为什么不能被当成单一群体理解？",
-      choices: [
-        { id: "a", text: "不同地区根据环境形成了渔猎、农业、游牧和城市文明等多种生活方式" },
-        { id: "b", text: "所有群体都使用同一种语言和政治制度" },
-        { id: "c", text: "所有群体都在欧洲到来后才形成复杂社会" },
-      ],
-      correctChoiceId: "a",
-      explanation: "地理和资源差异塑造了多样的政治、经济和社会组织，这是 APUSH 1.2 的重点。",
-    },
-    {
-      id: "1.2-maize",
-      timestamp: 205,
-      question: "玉米农业传播的重要影响是什么？",
-      choices: [
-        { id: "a", text: "削弱定居生活，使所有群体转向游牧" },
-        { id: "b", text: "支持人口增长、定居农业和更复杂的社会结构" },
-        { id: "c", text: "直接导致英国在北美建立十三殖民地" },
-      ],
-      correctChoiceId: "b",
-      explanation: "玉米种植扩散后，许多地区能维持更大人口和更复杂的社会分工。",
-    },
-  ],
-  "1.3": [
-    {
-      id: "1.3-motives",
-      timestamp: 42,
-      question: "欧洲国家开始远洋探索的主要动因组合是什么？",
-      choices: [
-        { id: "a", text: "人口恢复、中央集权加强、亚洲奢侈品需求和寻找海上贸易路线" },
-        { id: "b", text: "废奴主义、工业资本主义和铁路扩张" },
-        { id: "c", text: "美国独立、政党竞争和宪法修正案" },
-      ],
-      correctChoiceId: "a",
-      explanation: "黑死病后人口与经济恢复、强君主国家和亚洲贸易需求共同推动了探索。",
-    },
-    {
-      id: "1.3-portugal-spain",
-      timestamp: 108,
-      question: "葡萄牙和西班牙探索路线的关键差异是什么？",
-      choices: [
-        { id: "a", text: "葡萄牙沿非洲海岸建立贸易据点，西班牙资助哥伦布向西航行" },
-        { id: "b", text: "葡萄牙主要殖民新英格兰，西班牙主要殖民加拿大" },
-        { id: "c", text: "两国都拒绝使用航海技术" },
-      ],
-      correctChoiceId: "a",
-      explanation: "葡萄牙绕非洲进入印度洋贸易，西班牙则试图向西寻找通往亚洲的路线。",
-    },
-  ],
-  "1.4": [
-    {
-      id: "1.4-exchange",
-      timestamp: 75,
-      question: "哥伦布大交换不仅是商品交换，还包括什么？",
-      choices: [
-        { id: "a", text: "食物、动物、矿产、人口和疾病在美洲、欧洲、非洲之间流动" },
-        { id: "b", text: "只包括欧洲向美洲输入小麦" },
-        { id: "c", text: "只包括北美殖民地内部的税收变化" },
-      ],
-      correctChoiceId: "a",
-      explanation: "Columbian Exchange 是跨大西洋的生态、人口和经济重组，不只是贸易清单。",
-    },
-    {
-      id: "1.4-disease",
-      timestamp: 116,
-      question: "欧洲疾病对美洲原住民人口造成巨大破坏的主要原因是什么？",
-      choices: [
-        { id: "a", text: "原住民对天花等旧大陆疾病缺乏免疫力" },
-        { id: "b", text: "原住民拒绝种植任何粮食作物" },
-        { id: "c", text: "欧洲人完全没有进入人口密集地区" },
-      ],
-      correctChoiceId: "a",
-      explanation: "缺乏免疫力使天花等疾病成为征服和殖民扩张中的关键破坏因素。",
-    },
-  ],
-  "1.5": [
-    {
-      id: "1.5-labor",
-      timestamp: 82,
-      question: "欧洲介入非洲奴隶贸易后，奴役制度发生了什么变化？",
-      choices: [
-        { id: "a", text: "更趋向永久化、可继承化，并被种族化观念正当化" },
-        { id: "b", text: "立即在整个大西洋世界消失" },
-        { id: "c", text: "只用于短期学徒训练" },
-      ],
-      correctChoiceId: "a",
-      explanation: "欧洲殖民扩张把奴役制度推向更严酷的永久性、世袭性和种族化形式。",
-    },
-    {
-      id: "1.5-encomienda",
-      timestamp: 250,
-      question: "encomienda system 的本质是什么？",
-      choices: [
-        { id: "a", text: "以保护和传教为名，对原住民实施强迫劳动" },
-        { id: "b", text: "让原住民完全自治、免除殖民控制" },
-        { id: "c", text: "美国宪法中的分权制度" },
-      ],
-      correctChoiceId: "a",
-      explanation: "encomienda 以宗教和保护话语包装殖民剥削，是西班牙殖民经济的重要劳役体系。",
-    },
-  ],
-  "1.6": [
-    {
-      id: "1.6-missions",
-      timestamp: 70,
-      question: "1573 年后西班牙北扩的一个重要方式是什么？",
-      choices: [
-        { id: "a", text: "更多依靠 mission system，通过传教和定居点推进控制" },
-        { id: "b", text: "完全停止殖民活动" },
-        { id: "c", text: "把所有殖民地交给英国管理" },
-      ],
-      correctChoiceId: "a",
-      explanation: "西班牙扩张不只是军事征服，也通过传教体系重塑宗教、劳动和定居格局。",
-    },
-    {
-      id: "1.6-resistance",
-      timestamp: 236,
-      question: "Pueblo Revolt 说明了什么历史现象？",
-      choices: [
-        { id: "a", text: "原住民对宗教强制、劳役和殖民控制存在组织化反抗" },
-        { id: "b", text: "原住民社会没有回应欧洲殖民扩张" },
-        { id: "c", text: "西班牙从未尝试改变原住民文化" },
-      ],
-      correctChoiceId: "a",
-      explanation: "Pueblo Revolt 是 Unit 1 中理解文化冲突、殖民压力和原住民抵抗的关键案例。",
-    },
-  ],
-};
 
 const unit2Checks: Record<string, VideoKnowledgeCheck[]> = {
   "2.1": [
@@ -2894,7 +2736,7 @@ export const buildStepsForTopic = (
       id: `${topic.id}-step1`,
       label: "观看导学视频",
       type: "video",
-      description: "短片讲解重点脉络；视频会在关键时间点暂停，通过互动题检查理解质量。",
+      description: contentRegion === "china" ? "观看短片后手动暂停，点击检测点完成练习。" : "短片讲解重点脉络；使用检测题检查理解质量。",
       videoSrc: `/videos/unit${unit.id}/${baseId}-intro.mp4`,
       videoEmbedUrl: video?.embed,
       videoLinkUrl: video?.link,

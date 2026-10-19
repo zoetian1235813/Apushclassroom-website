@@ -76,3 +76,23 @@ The server exports the Express instance by default, so tests or serverless adapt
 
 Feel free to extend this README with deployment-specific notes (Render disks, Fly `fly.toml`, Dockerfile, etc.) as you move to production.
 "# -apush-super" 
+
+## AP Vault embedded practice
+
+The home page and lesson steps now include an on-demand AP Vault iframe below the course content. The default target is the homepage registered on the AP Vault repository: `https://ap-us-30-days-counting-down.vercel.app`. Override it at build time with `VITE_AP_VAULT_URL` (HTTPS only). The frame has a descriptive title, expand/reload controls, and a permanent external link for browsers that restrict embedded sign-in. Loading is user-initiated to avoid slowing the course landing page.
+
+AP Vault authentication, subscription entitlements and progress remain independent. No tokens are passed between the sites, and the parent does not claim automatic unit filtering or completion synchronization. Students choose APUSH and their unit inside the frame. If the target later sets restrictive `frame-ancestors` or `X-Frame-Options`, adjust the target's embedding policy for the classroom origin or use the external link.
+
+## Unit 1 required video banners
+
+Topics 1.1–1.6 use a ReactPlayer 3 player with two required English checkpoints and an original SAQ exit ticket per lesson. Questions, four answer choices, and explanations are original AP-style practice, not official College Board items. Checkpoints appear as a banner inside the video container, pause supported videos, and have no dismiss, skip, or replay bypass. Continue stays disabled until the learner selects and submits an answer; correctness is not required to continue. Retrying requires another submission. First attempts are preserved within the mounted lesson.
+
+Seeking forward opens the earliest overdue unanswered checkpoint; any remaining overdue checkpoints appear before playback resumes. Escape cannot dismiss the banner. The banner traps keyboard focus and scrolls on narrow screens. Bilibili remains explicitly labeled manual mode: its third-party iframe cannot enforce timed pauses, so required playback gating is only guaranteed by the controlled player integration. External video access and refresh are outside this classroom-session gate.
+
+SAQ drafts and self-assessment are session-only and do not represent automated AP scores. Authentication, subscriptions, and progress in AP Vault remain independent. Existing timestamps still require editorial calibration against each source video.
+
+Validation: production build, targeted ESLint, and `node --test tests/unit1-checkpoints.test.mjs`. A simulated-media DOM check verifies the submit gate, Escape handling, wrong-first retries, seek-ahead backlog, and resume behavior. Live video source availability and timestamp alignment require separate checks.
+
+### Playback continuity fix
+
+The Unit 1 player now keeps `controls` stable while showing questions. The installed YouTube media element reloads its iframe when `controls` changes, which previously reset playback on both opening and dismissing a checkpoint. The banner now blocks interaction without changing provider attributes, captures the exact paused time, and restores that position before resuming if the provider drifted. The media container also keeps a constant layout across question states. Shared surfaces, navigation, progress indicators and buttons use compact slate/navy styling.

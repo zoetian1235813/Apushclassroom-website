@@ -11,6 +11,7 @@ import {
   Square,
   CheckCircle,
   HelpCircle,
+  CalendarDays,
 } from "lucide-react";
 import { LessonStep, Topic, Unit } from "../types/lesson";
 import { View } from "../types/navigation";
@@ -37,7 +38,7 @@ interface SidebarProps {
 }
 
 const NAV_BUTTON_CLASS =
-  "group flex w-full items-center gap-3 rounded-2xl bg-midnight px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:bg-midnight/90";
+  "group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950";
 
 const CollapsedPanel = ({ onExpand }: { onExpand: () => void }) => (
   <div className="hidden h-full flex-col items-center justify-center gap-6 rounded-[26px] border border-white/35 bg-white/80 p-4 text-midnight shadow-glass backdrop-blur-glass lg:flex">
@@ -95,7 +96,7 @@ export const Sidebar = ({
           } ${locked ? "opacity-60" : ""}`}
         >
           <span className="flex items-center gap-3">
-            <span className="text-lg">📘</span>
+            <BookOpen className="h-4 w-4 shrink-0 text-slate-500" />
               <span>
                 Unit {unit.id}: {unit.title}
                 {locked ? " · Premium" : ""}
@@ -142,7 +143,7 @@ export const Sidebar = ({
                       </span>
                     </span>
                     {topicCompleted && (
-                      <CheckCircle className="h-4 w-4 text-moss" />
+                      <CheckCircle className="h-4 w-4 text-emerald-700" />
                     )}
                   </button>
 
@@ -185,7 +186,7 @@ export const Sidebar = ({
                               event.stopPropagation();
                               onToggleStepCompleted(step.id);
                             }}
-                            className="text-midnight/40 transition-colors hover:text-moss"
+                            className="text-midnight/40 transition-colors hover:text-emerald-700"
                             aria-label={completed ? "取消完成" : "标记完成"}
                           >
                             {completed ? (
@@ -226,7 +227,7 @@ export const Sidebar = ({
           className={NAV_BUTTON_CLASS}
           onClick={() => handleNavClick("home")}
         >
-          <BookOpen className="h-5 w-5 text-white" />
+          <BookOpen className="h-4 w-4 text-slate-500" />
           <span className="flex-1">主页导航</span>
         </button>
 
@@ -235,7 +236,7 @@ export const Sidebar = ({
           className={NAV_BUTTON_CLASS}
           onClick={() => handleNavClick("userGuide")}
         >
-          <HelpCircle className="h-5 w-5 text-white" />
+          <HelpCircle className="h-4 w-4 text-slate-500" />
           <span className="flex-1">使用指南 / 付费</span>
         </button>
 
@@ -244,7 +245,7 @@ export const Sidebar = ({
           className={NAV_BUTTON_CLASS}
           onClick={() => handleNavClick("questionTypes")}
         >
-          <Target className="h-5 w-5 text-white" />
+          <Target className="h-4 w-4 text-slate-500" />
           <span className="flex-1">题型特训</span>
         </button>
 
@@ -253,7 +254,7 @@ export const Sidebar = ({
           className={NAV_BUTTON_CLASS}
           onClick={() => handleNavClick("wrongNotebook")}
         >
-          <BookMarked className="h-5 w-5 text-white" />
+          <BookMarked className="h-4 w-4 text-slate-500" />
           <span className="flex-1">错题本</span>
         </button>
 
@@ -262,17 +263,17 @@ export const Sidebar = ({
           className={NAV_BUTTON_CLASS}
           onClick={() => handleNavClick("pastExams")}
         >
-          <FileText className="h-5 w-5 text-white" />
+          <FileText className="h-4 w-4 text-slate-500" />
           <span className="flex-1">历年真题</span>
         </button>
 
         <a
           href="/checkin"
-          className="group flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-sky-600 hover:to-blue-700"
+          className={NAV_BUTTON_CLASS}
           onClick={() => onToggleMobile(false)}
         >
-          <span className="text-lg">📅</span>
-          <span className="flex-1">暑期自学日历</span>
+          <CalendarDays className="h-4 w-4 text-slate-500" />
+          <span className="flex-1">学习日历</span>
         </a>
 
         {isAdmin && (
@@ -318,7 +319,7 @@ export const Sidebar = ({
           <h3 className="text-xs font-semibold uppercase tracking-[0.4em] text-midnight/60">
             Study by Unit
           </h3>
-          <span className="text-sm text-midnight/55">Notion × Duolingo 🤝</span>
+          <span className="text-sm text-midnight/55">课程目录</span>
         </div>
 
         <div className="space-y-3">{units.map((unit) => renderUnit(unit))}</div>

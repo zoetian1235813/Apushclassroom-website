@@ -1,7 +1,8 @@
-import { BookOpen, Target, Sparkles } from "lucide-react";
-import { Unit } from "../../types/lesson";
-import { View } from "../../types/navigation";
+import { ArrowRight, BookOpen, PenLine, RotateCcw } from "lucide-react";
+import type { Unit } from "../../types/lesson";
+import type { View } from "../../types/navigation";
 import { UnitCard } from "../UnitCard";
+import { APVaultEmbed } from "../APVaultEmbed";
 
 interface HomeViewProps {
   units: Unit[];
@@ -10,105 +11,37 @@ interface HomeViewProps {
   canAccessUnit?: (unit: Unit) => boolean;
 }
 
-export const HomeView = ({
-  units,
-  onNavigate,
-  onUnitClick,
-  canAccessUnit = () => true,
-}: HomeViewProps) => (
-  <div className="space-y-10">
-    <section className="relative overflow-hidden glass-panel px-6 py-8 sm:px-10 sm:py-12">
-      <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-white/60 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-48 w-48 translate-x-1/3 translate-y-1/3 rounded-full bg-white/40 blur-3xl" />
-
-      <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-5">
-          <span className="zen-chip text-xs uppercase tracking-[0.45em] text-midnight/60">
-            Study Assistant
-          </span>
-          <h2 className="text-4xl font-semibold text-midnight sm:text-5xl">
-            AP US History 学习总览
-          </h2>
-          <p className="max-w-xl text-sm leading-relaxed text-midnight/70 sm:text-base">
-            1491–1980 全九单元、86 个主题。集中查看任务、笔记与练习安排，清晰推进备考。
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <span className="zen-chip text-sm">86 Topics 📚</span>
-            <span className="zen-chip text-sm">9 Units 🗂️</span>
-            <span className="zen-chip text-sm">时间线 1491–1980 ⏳</span>
-          </div>
-        </div>
-
-        <div className="rounded-3xl border border-white/25 bg-white px-6 py-6 text-midnight shadow-glass sm:w-64">
-          <div className="text-xs uppercase tracking-[0.4em] text-midnight/55">
-            今日建议
-          </div>
-          <div className="mt-4 text-5xl">📘</div>
-          <p className="mt-4 text-sm leading-relaxed text-midnight/70">
-            查看今日安排，完成关键步骤后即可更新进度统计。
-          </p>
-        </div>
+export const HomeView = ({ units, onNavigate, onUnitClick, canAccessUnit = () => true }: HomeViewProps) => (
+  <div className="space-y-8">
+    <section className="study-hero">
+      <p className="editorial-label">THE APUSH CLASSROOM / 全程学习</p>
+      <h2>读懂美国历史，<br /><span>写出有证据的答案。</span></h2>
+      <p className="mt-6 max-w-xl text-base leading-8 text-slate-600">从单元知识到材料分析，再到 SAQ、DBQ 与 LEQ 写作。跟着课堂进度，一步步把“看懂了”变成“会作答”。</p>
+      <div className="mt-7 flex flex-wrap gap-3">
+        <button className="study-primary" type="button" onClick={() => units[0] && onUnitClick(units[0])}>免费开始 Unit 1 <ArrowRight size={17} /></button>
+        <a className="study-secondary" href="#ap-vault-practice">进入 AP Vault 练习</a>
       </div>
+      <div className="hero-facts"><span>9 个单元</span><span>{units.reduce((sum, unit) => sum + unit.topics.length, 0)} 个主题</span><span>1491–至今</span><span>中英双语学习</span></div>
     </section>
 
-    <section className="grid gap-5 md:grid-cols-2">
-      <div
-        className="glass-card group cursor-pointer overflow-hidden border border-white/25 px-6 py-7 transition-all hover:-translate-y-1 hover:shadow-glass"
-        onClick={() => onNavigate("study")}
-      >
-        <div className="flex items-start justify-between gap-4">
-          <div className="space-y-4">
-            <span className="zen-chip text-xs">Study Flow 📒</span>
-            <h3 className="text-2xl font-semibold text-midnight">Complete Study Guide</h3>
-            <p className="text-sm text-midnight/70">
-              覆盖 9 个单元的笔记与学习步骤，按顺序完成即可掌握核心知识点。
-            </p>
-            <span className="zen-chip text-sm">86 Topics 📚</span>
-          </div>
-          <div className="rounded-2xl bg-midnight/90 p-4 text-3xl text-white shadow-glow">
-            <BookOpen className="h-8 w-8" />
-          </div>
-        </div>
-      </div>
-
-      <div
-        className="glass-card group cursor-pointer overflow-hidden border border-white/25 px-6 py-7 transition-all hover:-translate-y-1 hover:shadow-glass"
-        onClick={() => onNavigate("questionTypes")}
-      >
-        <div className="flex items-start justify-between gap-4">
-          <div className="space-y-4">
-            <span className="zen-chip text-xs">Practice Studio 🎯</span>
-            <h3 className="text-2xl font-semibold text-midnight">题型特训模式</h3>
-            <p className="text-sm text-midnight/70">
-              针对 MCQ、SAQ、LEQ、DBQ 的专项练习，支持拖拽匹配与即时提示。
-            </p>
-            <span className="zen-chip text-sm">4 core question types</span>
-          </div>
-          <div className="rounded-2xl bg-midnight/90 p-4 text-3xl text-white shadow-glow">
-            <Target className="h-8 w-8" />
-          </div>
-        </div>
-      </div>
+    <section aria-label="学习路径" className="grid gap-4 md:grid-cols-3">
+      {[{ icon: BookOpen, n: "01", title: "理解知识", text: "观看微课，阅读笔记，整理事件与因果关系。", action: () => onNavigate("study"), label: "进入学习" },
+        { icon: PenLine, n: "02", title: "应用证据", text: "在下方题库选择对应单元，先独立作答，再查看解析。", action: () => document.getElementById("ap-vault-practice")?.scrollIntoView({ behavior: "smooth" }), label: "开始练习" },
+        { icon: RotateCcw, n: "03", title: "针对性复习", text: "回看课堂练习的错题，定位薄弱主题，再次尝试。", action: () => onNavigate("wrongNotebook"), label: "打开课堂错题本" }].map(item => <button type="button" key={item.n} onClick={item.action} className="path-card">
+          <div className="flex justify-between"><item.icon size={22} strokeWidth={1.5} /><span className="font-serif text-stone-400">{item.n}</span></div>
+          <h3 className="mt-5 text-xl">{item.title}</h3><p className="mt-3 text-sm leading-7 text-slate-600">{item.text}</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold">{item.label}<ArrowRight size={15}/></span>
+        </button>)}
     </section>
 
-    <section className="glass-panel space-y-6 px-6 py-6 sm:px-8 sm:py-8">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3 text-midnight">
-          <Sparkles className="h-6 w-6 text-glow" />
-          <h3 className="text-2xl font-semibold">All 9 Units — 点击进入学习视图</h3>
-        </div>
-        <span className="zen-chip text-sm">Focus Mode ready 🔒</span>
-      </div>
-      <div className="grid gap-5 md:grid-cols-3">
-        {units.map((unit) => (
-          <UnitCard
-            key={unit.id}
-            unit={unit}
-            onClick={onUnitClick}
-            locked={!canAccessUnit(unit)}
-          />
-        ))}
-      </div>
+    <section id="course-units" className="scroll-mt-28">
+      <div className="mb-5 flex flex-wrap items-end justify-between gap-3"><div><p className="editorial-label">YOUR COURSE MAP</p><h2 className="mt-2 text-2xl">跟着校内进度，选择你的单元</h2></div><p className="text-xs text-slate-600">Unit 1 免费学习 · 其余单元按现有权限开放</p></div>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{units.map(unit => <UnitCard key={unit.id} unit={unit} onClick={onUnitClick} locked={!canAccessUnit(unit)} />)}</div>
+    </section>
+    <APVaultEmbed />
+    <section className="rounded-2xl border border-stone-300 bg-white/60 p-6">
+      <h2 className="text-xl">第一次来？先完成一个小循环。</h2>
+      <p className="mt-3 text-sm leading-7 text-slate-600">选择 Unit 1 的一个主题 → 阅读笔记 → 在 AP Vault 完成一道练习 → 回到笔记补充缺失的证据。无需一次刷完整个单元。</p>
+      <button className="study-secondary mt-4" type="button" onClick={() => onNavigate("userGuide")}>查看使用与账号说明</button>
     </section>
   </div>
 );

@@ -1,3 +1,4 @@
+import WrongNotebookView from "./components/views/WrongNotebookView";
 import { useEffect, useMemo, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useCallback } from "react";
@@ -270,12 +271,13 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      <header className="bg-white border-b-4 border-blue-200 sticky top-0 z-50 shadow-md">
-        <div className="max-w-7xl mx-auto px-6 py-5">
+    <div className="min-h-screen bg-[#f7f3e9]">
+      <header className="bg-[#f7f3e9] border-t-8 border-t-[#2b3a4d] border-b border-stone-300 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
+                aria-label="切换课程导航" aria-expanded={isSidebarOpen}
                 className="lg:hidden p-2 hover:bg-blue-50 rounded-xl transition-colors"
                 onClick={() => toggleMobileSidebar(!isSidebarOpen)}
               >
@@ -286,11 +288,9 @@ function App() {
                 )}
               </button>
               <div>
-                <h1 className="text-3xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  APUSH Learning Site
-                </h1>
+                <button type="button" onClick={() => handleNavigate("home")} className="text-left"><h1 className="text-xl sm:text-3xl font-semibold text-[#2b3a4d]">APUSH Classroom</h1></button>
                 <p className="text-xs font-medium text-gray-500">
-                  AP US History Study Guide
+                  美国历史 · 全程学习与写作训练
                 </p>
               </div>
             </div>
@@ -298,8 +298,8 @@ function App() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="mb-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <div className="mb-6" hidden={currentView === "home"}>
           <ProgressSummary
             overallProgress={overallProgress}
             completedStepCount={completedStepCount}
@@ -422,6 +422,11 @@ function App() {
               <InteractivePractice type={practiceType} />
             )}
 
+            {currentView === "wrongNotebook" && <WrongNotebookView onBack={() => setCurrentView("home")} onReviewTopic={(topicId) => {
+              const unit = apushUnits.find(item => item.topics.some(topic => topic.id === topicId));
+              const topic = unit?.topics.find(item => item.id === topicId);
+              if (unit && topic) handleNavigateToTopic(unit, topic);
+            }} />}
             {currentView === "pastExams" && <PastExamsView />}
 
             {currentView === "adminDashboard" && <AdminDashboardView />}
