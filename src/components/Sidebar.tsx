@@ -41,11 +41,11 @@ const NAV_BUTTON_CLASS =
   "group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950";
 
 const CollapsedPanel = ({ onExpand }: { onExpand: () => void }) => (
-  <div className="hidden h-full flex-col items-center justify-center gap-6 rounded-[26px] border border-white/35 bg-white/80 p-4 text-midnight shadow-glass backdrop-blur-glass lg:flex">
+  <div className="hidden h-full flex-col items-center justify-center gap-6 rounded-md border border-white/35 bg-white/80 p-4 text-midnight shadow-glass backdrop-blur-glass lg:flex">
     <button
       type="button"
       onClick={onExpand}
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-midnight text-white shadow-glow transition-transform hover:-translate-y-0.5 hover:bg-midnight/90"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white shadow-glow transition-transform hover:-translate-y-0.5 hover:bg-midnight/90"
       aria-label="展开学习导览"
     >
       <ChevronRight className="h-4 w-4" />
@@ -91,8 +91,8 @@ export const Sidebar = ({
         <button
           type="button"
           onClick={() => onToggleUnitExpand(unit.id)}
-          className={`flex w-full items-center justify-between rounded-2xl border border-white/25 px-4 py-3 text-left text-sm font-semibold text-midnight shadow-glow transition-all hover:-translate-y-0.5 hover:shadow-glass ${
-            isUnitSelected ? "bg-white" : "bg-white/80"
+          className={`flex w-full items-center justify-between rounded-md border border-slate-200 px-4 py-3 text-left text-sm font-semibold text-midnight shadow-glow transition-all hover:-translate-y-0.5 hover:shadow-glass ${
+            isUnitSelected ? "bg-sky-50 border-sky-300" : "bg-white"
           } ${locked ? "opacity-60" : ""}`}
         >
           <span className="flex items-center gap-3">
@@ -110,7 +110,7 @@ export const Sidebar = ({
         </button>
 
         {unitExpanded && (
-          <div className="space-y-2 rounded-2xl border border-white/20 bg-white p-3 shadow-glow">
+          <div className="space-y-2 rounded-md border border-slate-200 bg-white p-3 shadow-glow">
             {unit.topics.map((topic) => {
               const steps = buildSteps(unit, topic);
               const isTopicSelected =
@@ -122,7 +122,7 @@ export const Sidebar = ({
               return (
                 <div
                   key={topic.id}
-                  className="overflow-hidden rounded-2xl border border-white/20 bg-white shadow-sm transition-all hover:border-midnight/15"
+                  className="overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm transition-all hover:border-midnight/15"
                 >
                   <button
                     type="button"
@@ -132,12 +132,12 @@ export const Sidebar = ({
                     }}
                     className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-all ${
                       isTopicSelected
-                        ? "bg-midnight text-white"
+                        ? "bg-primary text-white"
                         : "text-midnight/75 hover:bg-midnight/5"
                     }`}
                   >
                     <span className="flex items-center gap-2">
-                      <span className="text-base">✨</span>
+                      <BookOpen aria-hidden="true" className="h-4 w-4 shrink-0" />
                       <span>
                         {topic.id} {topic.title}
                       </span>
@@ -147,7 +147,7 @@ export const Sidebar = ({
                     )}
                   </button>
 
-                  <div className="space-y-1 border-t border-white/30 bg-white px-3 py-2 text-xs">
+                  <div className="space-y-1 border-t border-slate-200 bg-white px-3 py-2 text-xs">
                     {steps.map((step) => {
                       const completed = isStepCompleted(step.id);
                       const isActive =
@@ -160,7 +160,7 @@ export const Sidebar = ({
                           key={step.id}
                           className={`flex items-center justify-between gap-2 rounded-xl px-3 py-2 transition-all ${
                             isActive
-                              ? "bg-midnight text-white shadow-glass"
+                              ? "bg-primary text-white shadow-glass"
                               : "text-midnight/65 hover:bg-midnight/5"
                           }`}
                         >
@@ -282,7 +282,7 @@ export const Sidebar = ({
               href="/promo.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-blue-700 hover:to-indigo-700"
+              className="group flex w-full items-center gap-3 rounded-md bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-blue-700 hover:to-indigo-700"
               onClick={() => onToggleMobile(false)}
             >
               <span className="text-lg">🎨</span>
@@ -291,7 +291,7 @@ export const Sidebar = ({
 
             <button
               type="button"
-              className="group flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-indigo-600 hover:to-purple-700"
+              className="group flex w-full items-center gap-3 rounded-md bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-indigo-600 hover:to-purple-700"
               onClick={() => handleNavClick("promoVideo")}
             >
               <span className="text-lg">🎬</span>
@@ -305,7 +305,7 @@ export const Sidebar = ({
         {isAdmin && (
           <button
             type="button"
-            className="group flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-red-500 to-indigo-500 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-red-600 hover:to-indigo-600"
+            className="group flex w-full items-center gap-3 rounded-md bg-gradient-to-r from-red-500 to-indigo-500 px-4 py-3 text-left text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:from-red-600 hover:to-indigo-600"
             onClick={() => handleNavClick("adminDashboard")}
           >
             <span className="text-lg">⚙️</span>
