@@ -92,3 +92,7 @@ Seeking forward opens the earliest overdue unanswered checkpoint; any remaining 
 SAQ drafts and self-assessment are session-only and do not represent automated AP scores. Authentication, subscriptions, and progress in AP Vault remain independent. Existing timestamps still require editorial calibration against each source video.
 
 Validation: production build, targeted ESLint, and `node --test tests/unit1-checkpoints.test.mjs`. A simulated-media DOM check verifies the submit gate, Escape handling, wrong-first retries, seek-ahead backlog, and resume behavior. Live video source availability and timestamp alignment require separate checks.
+
+### Playback continuity fix
+
+The Unit 1 player now keeps `controls` stable while showing questions. The installed YouTube media element reloads its iframe when `controls` changes, which previously reset playback on both opening and dismissing a checkpoint. The banner now blocks interaction without changing provider attributes, captures the exact paused time, and restores that position before resuming if the provider drifted. The media container also keeps a constant layout across question states. Shared surfaces, navigation, progress indicators and buttons use compact slate/navy styling.

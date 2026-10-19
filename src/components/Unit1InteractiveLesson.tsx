@@ -14,6 +14,7 @@ export function Unit1InteractiveLesson({ topicId, title, src, checks, manual = f
   const activeRef = useRef<VideoKnowledgeCheck | null>(null);
   const handled = useRef(new Set<string>());
   const previousTime = useRef(0);
+  const pausedAt = useRef(0);
   const [playing, setPlaying] = useState(false);
   const [active, setActive] = useState<VideoKnowledgeCheck | null>(null);
   const [choice, setChoice] = useState('');
@@ -29,14 +30,23 @@ export function Unit1InteractiveLesson({ topicId, title, src, checks, manual = f
   useEffect(() => { if (active) banner.current?.focus(); }, [active]);
 
   function open(check: VideoKnowledgeCheck) {
-    if (!manual) player.current?.pause();
+    if (!manual) {
+      if (!activeRef.current) pausedAt.current = player.current?.currentTime ?? previousTime.current;
+      player.current?.pause();
+    }
     setPlaying(false); activeRef.current = check; setActive(check); setChoice(''); setFeedback(false);
   }
   function continueVideo() {
     if (!active || !feedback) return;
     handled.current.add(active.id);
-    const pending = !manual ? nextCheckpoint(sorted, handled.current, 0, player.current?.currentTime ?? 0) : undefined;
+    // Keep provider configuration stable: toggling YouTube controls reloads the iframe.
+    const resumeAt = pausedAt.current;
+    const pending = !manual ? nextCheckpoint(sorted, handled.current, 0, resumeAt) : undefined;
     if (pending) { open(pending); return; }
+    if (!manual && player.current && Math.abs(player.current.currentTime - resumeAt) > 0.75) {
+      player.current.currentTime = resumeAt;
+    }
+    previousTime.current = resumeAt;
     activeRef.current = null; setActive(null); setPlaying(!manual && !ended);
   }
   function submit() {
@@ -49,8 +59,8 @@ export function Unit1InteractiveLesson({ topicId, title, src, checks, manual = f
     <div><p className="editorial-label">UNIT 1 / WATCH · THINK · WRITE</p><h3 className="mt-2 text-xl">边看边练 · {topicId}</h3>
       <p className="mt-2 text-sm leading-6 text-slate-600">{manual ? 'B站兼容模式：请手动暂停后打开题目。B站嵌入播放器不支持强制暂停；完整必答体验请使用可控视频源。' : '视频到点自动暂停。请在视频内的题目 banner 选择并提交答案，查看反馈后继续观看。'}</p>
     </div>
-    <div className={`relative overflow-hidden rounded-xl bg-black ${active ? "min-h-[560px] sm:min-h-[510px]" : "aspect-video"}`}>
-      {manual ? <iframe src={src} title={title} className="h-full w-full" allowFullScreen /> : <ReactPlayer ref={player} src={src} title={title} controls={!active} disablePictureInPicture playsInline playing={playing} width="100%" height="100%"
+    <div className="relative aspect-video min-h-[380px] overflow-hidden rounded-xl bg-black sm:min-h-[460px]">
+      {manual ? <iframe src={src} title={title} className="h-full w-full" allowFullScreen /> : <ReactPlayer ref={player} src={src} title={title} controls disablePictureInPicture playsInline playing={playing} width="100%" height="100%"
         onPlay={() => {
           const pending = nextCheckpoint(sorted, handled.current, 0, player.current?.currentTime ?? 0);
           if (activeRef.current) { player.current?.pause(); return; }
@@ -61,8 +71,9 @@ export function Unit1InteractiveLesson({ topicId, title, src, checks, manual = f
         onTimeUpdate={event => {
           const now = event.currentTarget.currentTime;
           const check = nextCheckpoint(sorted, handled.current, previousTime.current, now);
+          if (activeRef.current) { player.current?.pause(); return; }
           previousTime.current = now;
-          if (!activeRef.current && check) open(check);
+          if (check) open(check);
         }} onEnded={() => { setPlaying(false); setEnded(true); }} />}
     {active && <div ref={banner} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby="unit1-question" onKeyDown={event => {
         if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); }
@@ -72,14 +83,14 @@ export function Unit1InteractiveLesson({ topicId, title, src, checks, manual = f
           if (event.shiftKey && (document.activeElement === first || document.activeElement === banner.current)) { event.preventDefault(); last?.focus(); }
           else if (!event.shiftKey && (document.activeElement === last || document.activeElement === banner.current)) { event.preventDefault(); first?.focus(); }
         }
-      }} className="absolute inset-0 z-20 overflow-y-auto bg-[#f7f3e9]/95 p-4 text-slate-800 sm:p-6">
-        <div className="mx-auto max-w-3xl border-l-4 border-[#806347] pl-4">
+      }} className="absolute inset-0 z-20 overflow-y-auto bg-[#f8fafc] p-4 text-slate-800 sm:p-6">
+        <div className="mx-auto max-w-3xl">
           <p className="editorial-label">REQUIRED CHECKPOINT · {timeLabel(active.timestamp)}</p>
           <p className="mt-2 text-xs text-slate-600">Video paused · Submit one answer to continue · Original AP-style practice</p>
           <h4 id="unit1-question" className="my-4 text-lg leading-7 sm:text-xl">{active.question}</h4>
           <fieldset disabled={feedback} className="grid gap-2"><legend className="sr-only">Select one answer</legend>{active.choices.map((option,index) => <label key={option.id} className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 text-sm leading-6 ${choice===option.id ? 'border-[#2b3a4d] bg-white' : 'border-stone-300 bg-white/70'}`}><input className="mt-1" type="radio" name="unit1-choice" value={option.id} checked={choice===option.id} onChange={() => setChoice(option.id)} /><span><strong className="mr-2">{String.fromCharCode(65+index)}.</strong>{option.text}</span></label>)}</fieldset>
           {feedback && <div role="status" className="my-3 rounded-lg border border-stone-300 bg-white p-3 text-sm leading-6"><strong>{choice===active.correctChoiceId ? 'Correct.' : 'Review the explanation.'}</strong><p>{active.explanation}</p><p>Correct answer: {active.correctChoiceId.toUpperCase()}</p></div>}
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="sticky -bottom-4 -mx-4 mt-4 flex flex-wrap gap-2 border-t border-slate-200 bg-[#f8fafc] px-4 py-3 sm:-bottom-6">
             {!feedback ? <button type="button" disabled={!choice} onClick={submit} className="study-primary disabled:opacity-40">Submit answer</button> : <button type="button" onClick={() => {setChoice('');setFeedback(false);}} className="study-secondary">Try again</button>}
             <button type="button" disabled={!feedback} onClick={continueVideo} className="study-primary disabled:opacity-40">Continue video</button>
           </div>

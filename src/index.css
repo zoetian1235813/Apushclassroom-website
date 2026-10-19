@@ -162,3 +162,21 @@
 :focus-visible { outline: 3px solid #806347; outline-offset: 4px; }
 @media (max-width: 640px) { .vault-frame { height: 78vh; min-height: 560px; } .vault-frame-expanded { height: 110vh; } .vault-start .study-primary { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+
+/* Shared learning UI: restrained surfaces, compact navigation and clear focus. */
+:root { --zen-border: #e2e8f0; --zen-surface: #ffffff; }
+body { color: #263445; }
+.glass-panel, .glass-card { border: 1px solid #e2e8f0; box-shadow: none; backdrop-filter: none; border-radius: 12px; }
+.shadow-glow, .shadow-glass { box-shadow: none; }
+.zen-chip { border: 1px solid #e2e8f0; box-shadow: none; background: #f8fafc; border-radius: 6px; letter-spacing: .02em; }
+.study-primary, .study-secondary { padding: 10px 16px; border-radius: 8px; line-height: 1.5; }
+.study-primary { background: #2b3a4d; border-color: #2b3a4d; }
+.study-secondary { background: white; border-color: #cbd5e1; }
+.study-secondary:hover { background: #f1f5f9; }
+.study-hero { border-radius: 12px; background: #f0ece1; }
+.path-card { border-color: #e2e8f0; border-radius: 12px; background: white; }
+.vault-section { border-color: #e2e8f0; border-radius: 12px; }
+.vault-start { background: #f8fafc; border-color: #e2e8f0; }
+aside button, aside a { transition: background-color .15s, color .15s; }
+input[type=radio], input[type=checkbox] { accent-color: #2b3a4d; }
+button:disabled { cursor: not-allowed; }
