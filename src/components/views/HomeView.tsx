@@ -15,7 +15,7 @@ export const HomeView = ({ units, onNavigate, onUnitClick, canAccessUnit = () =>
   <div className="space-y-8">
     <section className="study-hero">
       <p className="editorial-label">THE APUSH CLASSROOM / 全程学习</p>
-      <h2>读懂美国历史，<br /><span>写出有证据的答案。</span></h2>
+      <h2>读懂历史脉络，<br /><span>练出 AP 5 分实力。</span></h2>
       <p className="mt-6 max-w-xl text-base leading-8 text-slate-600">从单元知识到材料分析，再到 SAQ、DBQ 与 LEQ 写作。跟着课堂进度，一步步把“看懂了”变成“会作答”。</p>
       <div className="mt-7 flex flex-wrap gap-3">
         <button className="study-primary" type="button" onClick={() => units[0] && onUnitClick(units[0])}>免费开始 Unit 1 <ArrowRight size={17} /></button>
