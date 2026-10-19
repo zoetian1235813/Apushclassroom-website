@@ -82,3 +82,11 @@ Feel free to extend this README with deployment-specific notes (Render disks, Fl
 The home page and lesson steps now include an on-demand AP Vault iframe below the course content. The default target is the homepage registered on the AP Vault repository: `https://ap-us-30-days-counting-down.vercel.app`. Override it at build time with `VITE_AP_VAULT_URL` (HTTPS only). The frame has a descriptive title, expand/reload controls, and a permanent external link for browsers that restrict embedded sign-in. Loading is user-initiated to avoid slowing the course landing page.
 
 AP Vault authentication, subscription entitlements and progress remain independent. No tokens are passed between the sites, and the parent does not claim automatic unit filtering or completion synchronization. Students choose APUSH and their unit inside the frame. If the target later sets restrictive `frame-ancestors` or `X-Frame-Options`, adjust the target's embedding policy for the classroom origin or use the external link.
+
+## Unit 1 interactive-video pilot
+
+Topics 1.1–1.6 use a dedicated ReactPlayer 3 player (`src`, `onTimeUpdate`, media-element ref), two existing checkpoints per lesson, and one original SAQ exit ticket per topic. On supported sources, crossing a checkpoint pauses playback and opens an accessible native dialog. Students submit before seeing feedback, retry without overwriting their first answer, skip, revisit checks, or replay the preceding 20 seconds. Seeking across several checkpoints opens only the latest crossed checkpoint; earlier ones remain available manually. Changing topic or source resets the session.
+
+Bilibili remains a clearly labeled manual-pause mode; no playback synchronization is claimed. Initial SAQ drafts are preserved for comparison within the mounted lesson; the three-item checklist is self-assessment, not an automated AP score. Attempt records and drafts are session-only and are not sent to the server.
+
+Validation: `node --test tests/unit1-checkpoints.test.mjs`, production build, and targeted ESLint. The existing timestamps have not been editorially calibrated against the live videos; confirm their relevance and video availability before classroom use. This is a native H5P-style pilot, not an H5P package importer/exporter.

@@ -1,3 +1,4 @@
+import { Unit1InteractiveLesson } from "../Unit1InteractiveLesson";
 import { APVaultEmbed } from "../APVaultEmbed";
 import { useState } from "react";
 import {
@@ -149,7 +150,16 @@ export const StepView = ({
                 <Clock className="h-4 w-4" />
                 <span>{selectedStep.durationLabel ?? "~5-10 minutes"}</span>
               </div>
-              {selectedStep.videoEmbedUrl && (selectedStep.videoEmbedUrl.includes("bilibili.com") || selectedStep.videoEmbedUrl.includes("player.bilibili.com")) ? (
+              {selectedUnit.id === 1 ? (
+                <Unit1InteractiveLesson
+                  key={`${selectedStep.id}-${selectedStep.videoEmbedUrl}`}
+                  topicId={selectedTopic.id}
+                  title={`${selectedTopic.id} ${selectedTopic.title}`}
+                  src={selectedStep.videoEmbedUrl ?? selectedStep.videoLinkUrl ?? selectedStep.videoSrc ?? ""}
+                  checks={selectedStep.videoChecks ?? []}
+                  manual={selectedStep.videoEmbedUrl?.includes("bilibili.com") ?? false}
+                />
+              ) : selectedStep.videoEmbedUrl && (selectedStep.videoEmbedUrl.includes("bilibili.com") || selectedStep.videoEmbedUrl.includes("player.bilibili.com")) ? (
                 <div className="space-y-4">
                   <div className="relative aspect-video w-full overflow-hidden rounded-3xl border border-white/25 bg-black shadow-glass">
                     <iframe

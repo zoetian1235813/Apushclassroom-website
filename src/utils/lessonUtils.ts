@@ -187,14 +187,14 @@ const unit1Checks: Record<string, VideoKnowledgeCheck[]> = {
     {
       id: "1.6-resistance",
       timestamp: 236,
-      question: "Pueblo Revolt 说明了什么历史现象？",
+      question: "16 世纪美洲原住民回应欧洲殖民扩张的方式，哪一项最准确？",
       choices: [
-        { id: "a", text: "原住民对宗教强制、劳役和殖民控制存在组织化反抗" },
+        { id: "a", text: "原住民可能通过抵抗、谈判和结盟维护自身利益" },
         { id: "b", text: "原住民社会没有回应欧洲殖民扩张" },
         { id: "c", text: "西班牙从未尝试改变原住民文化" },
       ],
       correctChoiceId: "a",
-      explanation: "Pueblo Revolt 是 Unit 1 中理解文化冲突、殖民压力和原住民抵抗的关键案例。",
+      explanation: "原住民并非被动接受殖民统治。例如，特拉斯卡拉人与西班牙结盟对抗阿兹特克，体现了当地群体不同的政治目标。普韦布洛起义发生于 1680 年，超出本单元 1491–1607 的主要时段。",
     },
   ],
 };
@@ -2894,7 +2894,7 @@ export const buildStepsForTopic = (
       id: `${topic.id}-step1`,
       label: "观看导学视频",
       type: "video",
-      description: "短片讲解重点脉络；视频会在关键时间点暂停，通过互动题检查理解质量。",
+      description: contentRegion === "china" ? "观看短片后手动暂停，点击检测点完成练习。" : "短片讲解重点脉络；使用检测题检查理解质量。",
       videoSrc: `/videos/unit${unit.id}/${baseId}-intro.mp4`,
       videoEmbedUrl: video?.embed,
       videoLinkUrl: video?.link,
