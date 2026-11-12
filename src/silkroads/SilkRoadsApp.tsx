@@ -8,7 +8,7 @@ type View = "map" | "market" | "journal";
 
 export default function SilkRoadsApp() {
   const [code,setCode]=useState(""); const [name,setName]=useState(""); const [region,setRegion]=useState<RegionId>("china");
-  const [room,setRoom]=useState<SilkRoom|null>(null); const [playerId,setPlayerId]=useState(""); const [hostToken,setHostToken]=useState("");
+  const [room,setRoom]=useState<SilkRoom|null>(null); const [playerId,setPlayerId]=useState(""); const [playerToken,setPlayerToken]=useState(""); const [hostToken,setHostToken]=useState("");
   const [joinMode,setJoinMode]=useState<"create"|"join">("create"); const [view,setView]=useState<View>("map");
   const [zones,setZones]=useState(DEFAULT_ZONES); const [targetId,setTargetId]=useState("");
   const [give,setGive]=useState<string[]>([]); const [want,setWant]=useState<string[]>([]); const [via,setVia]=useState<string[]>([]);
@@ -33,14 +33,14 @@ export default function SilkRoadsApp() {
 
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search); const roomCode=params.get("room");
-    if(roomCode){const c=roomCode.toUpperCase();setCode(c);setJoinMode("join");const saved=localStorage.getItem("silk-player-"+c);const host=localStorage.getItem("silk-host-"+c);if(saved)setPlayerId(saved);if(host)setHostToken(host);}
+    if(roomCode){const c=roomCode.toUpperCase();setCode(c);setJoinMode("join");const saved=localStorage.getItem("silk-player-"+c);const host=localStorage.getItem("silk-host-"+c);if(saved)setPlayerId(saved);const player=localStorage.getItem("silk-token-"+c);if(player)setPlayerToken(player);if(host)setHostToken(host);}
   },[]);
   useEffect(()=>{if(!code||!playerId)return;const timer=window.setInterval(()=>void refresh(),2500);return()=>window.clearInterval(timer);},[code,playerId,refresh]);
 
   const joinRoom=async(c:string,n:string,r:RegionId,token?:string)=>{
     const data=await request("/rooms/"+c+"/join",{name:n,region:r,hostToken:token});
-    setCode(c);setPlayerId(data.player.id);setRoom(data.room);setHostToken(token??"");
-    localStorage.setItem("silk-player-"+c,data.player.id);if(token)localStorage.setItem("silk-host-"+c,token);
+    setCode(c);setPlayerId(data.player.id);setPlayerToken(data.playerToken);setRoom(data.room);setHostToken(token??"");
+    localStorage.setItem("silk-player-"+c,data.player.id);localStorage.setItem("silk-token-"+c,data.playerToken);if(token)localStorage.setItem("silk-host-"+c,token);
     window.history.replaceState({},"",window.location.pathname+"?room="+c);
     setNotice("Joined the "+r+" trade group.");
   };
@@ -56,22 +56,22 @@ export default function SilkRoadsApp() {
   };
   const advance=async()=>{
     if(!room)return;setBusy(true);setError("");
-    try{const data=await request("/rooms/"+room.code+"/round",{hostToken,playerId,round:room.round+1});setRoom(data.room);setNotice(data.message);}
+    try{const data=await request("/rooms/"+room.code+"/round",{hostToken,playerId,playerToken,round:room.round+1});setRoom(data.room);setNotice(data.message);}
     catch(e){setError(e instanceof Error?e.message:"Could not advance round");}finally{setBusy(false);}
   };
   const sendOffer=async()=>{
     if(!room||!target)return;setBusy(true);setError("");
-    try{const data=await request("/rooms/"+room.code+"/trades",{playerId,targetPlayerId:target.id,offeredItemIds:give,requestedItemIds:want,intermediaries:via});setRoom(data.room);setGive([]);setWant([]);setVia([]);setNotice("Offer sent. The other merchant must accept it.");}
+    try{const data=await request("/rooms/"+room.code+"/trades",{playerId,playerToken,targetPlayerId:target.id,offeredItemIds:give,requestedItemIds:want,intermediaries:via});setRoom(data.room);setGive([]);setWant([]);setVia([]);setNotice("Offer sent. The other merchant must accept it.");}
     catch(e){setError(e instanceof Error?e.message:"Trade failed");}finally{setBusy(false);}
   };
   const respond=async(id:string,accept:boolean)=>{
     if(!room)return;setBusy(true);
-    try{const data=await request("/rooms/"+room.code+"/trades/"+id+"/respond",{playerId,accept});setRoom(data.room);setNotice(accept?"Trade completed.":"Trade declined.");}
+    try{const data=await request("/rooms/"+room.code+"/trades/"+id+"/respond",{playerId,playerToken,accept});setRoom(data.room);setNotice(accept?"Trade completed.":"Trade declined.");}
     catch(e){setError(e instanceof Error?e.message:"Could not respond");}finally{setBusy(false);}
   };
   const discard=async(id:string)=>{
     if(!room)return;
-    try{const data=await request("/rooms/"+room.code+"/discard",{playerId,itemId:id});setRoom(data.room);setNotice("Card removed for the China silk tax.");}
+    try{const data=await request("/rooms/"+room.code+"/discard",{playerId,playerToken,itemId:id});setRoom(data.room);setNotice("Card removed for the China silk tax.");}
     catch(e){setError(e instanceof Error?e.message:"Could not discard card");}
   };
   const copyInvite=async()=>{await navigator.clipboard?.writeText(window.location.origin+window.location.pathname+"?room="+code);setNotice("Classroom link copied.");};
