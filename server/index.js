@@ -1215,6 +1215,7 @@ const silkKinds = {
 const silkOrigin = {};
 for (const region of silkRegionIds) for (const name of silkDecks[region]) silkOrigin[name] = region;
 const silkItem = (name, origin) => ({id:uuidv4(),name,origin:origin || silkOrigin[name] || "unknown",kind:name==="Disease"?"disease":(silkKinds[name] || "goods")});
+const silkStartingCards = {china:[0,4,5],"central-asia":[0,2,3],india:[0,1,2],persia:[0,1,2],arabia:[0,3,4],byzantium:[0,1,2]};
 const readSilkRoom = (code) => {
   const row=db.prepare("SELECT state_json FROM silk_road_rooms WHERE code=?").get(code);
   return row ? JSON.parse(row.state_json) : null;
@@ -1261,7 +1262,7 @@ app.post("/api/silk-roads/rooms/:code/join",(req,res)=>{
   if(!name||!silkRegionIds.includes(region))return res.status(400).json({error:"Enter a name and select one of the six regions."});
   if(room.status==="finished")return res.status(409).json({error:"This simulation has finished."});
   const regionPlayers=room.players.filter(p=>p.region===region).length;
-  const items=[silkItem(silkDecks[region][regionPlayers%silkDecks[region].length])];
+  const items=silkStartingCards[region].map(index=>silkItem(silkDecks[region][index]));
   if(regionPlayers===0)items.push(silkItem("Disease","unknown"));
   const player={id:uuidv4(),token:uuidv4(),name,region,items,joinedAt:new Date().toISOString()};
   room.players.push(player);if(req.body?.hostToken===room.hostToken)room.status="active";
