@@ -6,6 +6,7 @@ import "./index.css";
 import { LessonProgressProvider } from "./state/lessonProgress";
 import { AuthProvider } from "./state/authContext";
 import SAQPractice from "./components/views/SAQPractice";
+import SilkRoadsApp from "./silkroads/SilkRoadsApp";
 import { CheckInPage } from "./checkin/components/CheckInPage";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
+            <Route path="/silk-roads" element={<SilkRoadsApp />} />
             <Route path="/saq" element={<SAQPractice />} />
             <Route path="/saq/:year" element={<SAQPractice />} />
             <Route path="/checkin" element={<CheckInPage />} />

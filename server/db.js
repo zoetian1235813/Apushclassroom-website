@@ -73,6 +73,12 @@ CREATE TABLE IF NOT EXISTS wrong_questions (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS silk_road_rooms (
+  code TEXT PRIMARY KEY,
+  state_json TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS activation_codes (
   code TEXT PRIMARY KEY,
   consumed INTEGER NOT NULL DEFAULT 0,

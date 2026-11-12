@@ -36,3 +36,7 @@ tsconfig.tsbuildinfo
 *.db
 *.db-shm
 *.db-wal
+
+# Playwright output
+test-results/
+playwright-report/
