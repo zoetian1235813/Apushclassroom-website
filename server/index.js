@@ -7,6 +7,7 @@ import OpenAI from "openai";
 import { v4 as uuidv4 } from "uuid";
 
 import db from "./db.js";
+import { canTradeBetween as canSilkTrade } from "./silkRoadsRules.js";
 import { sendVerificationCode } from "./email.js";
 import { requireAuth, requireAdmin } from "./middleware.js";
 import { signToken } from "./tokens.js";
@@ -1192,6 +1193,151 @@ app.post("/api/admin/generate-promo-accounts", requireAdmin, (req, res) => {
     return res.status(500).json({ error: "Failed to generate promo accounts" });
   }
 });
+
+
+// ==================== SILK ROADS CLASSROOM SIMULATION ====================
+const silkRegionIds = ["china","central-asia","india","persia","arabia","byzantium"];
+const silkDefaultZones = {byzantium:"A",arabia:"A",persia:"B",india:"B","central-asia":"C",china:"C"};
+const silkDecks = {
+  china:["Silk-making technology","Gunpowder","Paper money","Farming techniques","Silk","Ginger","Rice","Wheat","Confucianism","Legalism","Taoism"],
+  "central-asia":["Saddle","Stirrups","Livestock","Animal hides","Central Asian Horses","Animism"],
+  india:["Medicine","Cotton","Pepper","Spices","Barley","Wheat","Hinduism","Buddhism"],
+  persia:["Ammonium Chloride","Wool","Dates","Lapis lazuli","Grain","Zoroastrianism"],
+  arabia:["Algebra","Cartography","Medical techniques","Dyes","Copper metal","Islam"],
+  byzantium:["Glass-making techniques","Glass","Olive oil","Wine","Gold"],
+};
+const silkKinds = {
+  "Silk-making technology":"technology","Gunpowder":"technology","Paper money":"technology","Farming techniques":"technology",
+  "Confucianism":"belief","Legalism":"belief","Taoism":"belief","Stirrups":"technology","Animism":"belief",
+  "Zoroastrianism":"belief","Hinduism":"belief","Buddhism":"belief","Algebra":"technology","Cartography":"technology",
+  "Medical techniques":"technology","Islam":"belief","Glass-making techniques":"technology",
+};
+const silkOrigin = {};
+for (const region of silkRegionIds) for (const name of silkDecks[region]) silkOrigin[name] = region;
+const silkItem = (name, origin) => ({id:uuidv4(),name,origin:origin || silkOrigin[name] || "unknown",kind:name==="Disease"?"disease":(silkKinds[name] || "goods")});
+const readSilkRoom = (code) => {
+  const row=db.prepare("SELECT state_json FROM silk_road_rooms WHERE code=?").get(code);
+  return row ? JSON.parse(row.state_json) : null;
+};
+const writeSilkRoom = (room) => {
+  room.updatedAt=new Date().toISOString();
+  db.prepare("INSERT INTO silk_road_rooms(code,state_json,updated_at) VALUES(?,?,?) ON CONFLICT(code) DO UPDATE SET state_json=excluded.state_json,updated_at=excluded.updated_at")
+    .run(room.code,JSON.stringify(room),room.updatedAt);
+};
+const publicSilkRoom = (room, viewerId=null) => {
+  const {hostToken,...visible}=room;
+  return {...visible,players:room.players.map(({token,...player})=>({
+    ...player,items:player.items.map(item=>player.id!==viewerId&&item.kind==="disease"
+      ? {...item,name:"Sealed card",kind:"goods",origin:"unknown"} : item)
+  }))};
+};
+const addSilkLog = (room,message) => room.log.push({id:uuidv4(),message,at:new Date().toISOString()});
+const findSilkPlayer = (room,id) => room.players.find(player=>player.id===id);
+const verifySilkPlayer = (room,id,token) => {
+  const player=findSilkPlayer(room,id);
+  return player && player.token===token ? player : null;
+};
+
+app.post("/api/silk-roads/rooms",(req,res)=>{
+  const hostName=String(req.body?.hostName || "Teacher").trim().slice(0,32);
+  const zones=req.body?.zones || silkDefaultZones;
+  if(!silkRegionIds.every(region=>["A","B","C"].includes(zones[region]))) return res.status(400).json({error:"Assign all six regions to a trade zone."});
+  let code="";
+  do{code=Math.random().toString(36).slice(2,8).toUpperCase();}while(readSilkRoom(code));
+  const hostToken=uuidv4(),now=new Date().toISOString();
+  const room={code,hostToken,hostName,round:1,status:"lobby",zones,players:[],offers:[],log:[],chinaTaxPaid:[],createdAt:now,updatedAt:now};
+  addSilkLog(room,hostName+" created a classroom.");writeSilkRoom(room);
+  return res.status(201).json({room:publicSilkRoom(room),hostToken});
+});
+app.get("/api/silk-roads/rooms/:code",(req,res)=>{
+  const room=readSilkRoom(String(req.params.code).toUpperCase());
+  if(!room)return res.status(404).json({error:"Classroom not found. Check the six-character code."});
+  return res.json({room:publicSilkRoom(room,req.query.playerId)});
+});
+app.post("/api/silk-roads/rooms/:code/join",(req,res)=>{
+  const room=readSilkRoom(String(req.params.code).toUpperCase());
+  if(!room)return res.status(404).json({error:"Classroom not found."});
+  const name=String(req.body?.name||"").trim().slice(0,32),region=req.body?.region;
+  if(!name||!silkRegionIds.includes(region))return res.status(400).json({error:"Enter a name and select one of the six regions."});
+  if(room.status==="finished")return res.status(409).json({error:"This simulation has finished."});
+  const regionPlayers=room.players.filter(p=>p.region===region).length;
+  const items=[silkItem(silkDecks[region][regionPlayers%silkDecks[region].length])];
+  if(regionPlayers===0)items.push(silkItem("Disease","unknown"));
+  const player={id:uuidv4(),token:uuidv4(),name,region,items,joinedAt:new Date().toISOString()};
+  room.players.push(player);if(req.body?.hostToken===room.hostToken)room.status="active";
+  addSilkLog(room,name+" joined the "+region+" group.");writeSilkRoom(room);
+  const {token,...publicPlayer}=player;
+  return res.status(201).json({player:publicPlayer,playerToken:token,room:publicSilkRoom(room,player.id)});
+});
+app.post("/api/silk-roads/rooms/:code/round",(req,res)=>{
+  const room=readSilkRoom(String(req.params.code).toUpperCase());
+  if(!room)return res.status(404).json({error:"Classroom not found."});
+  if(req.body?.hostToken!==room.hostToken)return res.status(403).json({error:"Only the teacher can advance the simulation."});
+  const host=verifySilkPlayer(room,req.body?.playerId,req.body?.playerToken);
+  if(!host)return res.status(403).json({error:"Your merchant session is not valid."});
+  const next=Number(req.body?.round);
+  if(next===4&&room.round===3){room.status="finished";addSilkLog(room,"The simulation ended. Merchants counted their foreign-origin items.");writeSilkRoom(room);return res.json({room:publicSilkRoom(room,host.id),message:"Simulation finished. Review your score and complete the historian's reflection."});}
+  if(next!==room.round+1||next<2||next>3)return res.status(400).json({error:"Rounds must advance in order: 1 → 2 → 3."});
+  if(room.round===2&&next===3){
+    const unpaid=room.players.filter(p=>p.region==="china"&&!room.chinaTaxPaid.includes(p.id));
+    if(unpaid.length)return res.status(409).json({error:"China's Round 2 silk tax is unpaid. Each China merchant must remove one goods card before Round 3.",unpaidMerchants:unpaid.map(p=>p.name)});
+  }
+  room.round=next;room.status="active";room.offers=room.offers.filter(o=>o.status!=="pending");
+  addSilkLog(room,"Teacher advanced the class to Round "+next+".");writeSilkRoom(room);
+  return res.json({room:publicSilkRoom(room,host.id),message:"Round "+next+" is now open. Read your regional guide card."});
+});
+app.post("/api/silk-roads/rooms/:code/trades",(req,res)=>{
+  const room=readSilkRoom(String(req.params.code).toUpperCase());
+  if(!room)return res.status(404).json({error:"Classroom not found."});
+  const from=verifySilkPlayer(room,req.body?.playerId,req.body?.playerToken);
+  const to=findSilkPlayer(room,req.body?.targetPlayerId);
+  if(!from||!to||from.id===to.id)return res.status(400).json({error:"Choose another merchant in this classroom."});
+  const offered=req.body?.offeredItemIds,requested=req.body?.requestedItemIds;
+  const owns=(player,ids)=>Array.isArray(ids)&&ids.length>0&&ids.every(id=>player.items.some(item=>item.id===id));
+  if(!owns(from,offered)||!owns(to,requested))return res.status(400).json({error:"Select cards currently held by both merchants."});
+  const intermediaryIds=Array.isArray(req.body?.intermediaries)?req.body.intermediaries:[];
+  const intermediaries=intermediaryIds.map(id=>findSilkPlayer(room,id));
+  if(intermediaries.some(p=>!p)||new Set(intermediaryIds).size!==intermediaryIds.length||intermediaryIds.includes(from.id)||intermediaryIds.includes(to.id))return res.status(400).json({error:"Invalid intermediary chain."});
+  if(!canSilkTrade(room.round,from.region,to.region,intermediaries.map(p=>p.region),room.zones)){
+    const message=room.round===1?"Round 1 allows local trade only.":room.round===2?"Round 2 allows trade only within your assigned trade zone.":"Round 3 requires a valid chain of adjacent regions and merchant intermediaries.";
+    return res.status(403).json({error:message});
+  }
+  const offer={id:uuidv4(),fromPlayerId:from.id,toPlayerId:to.id,offeredItemIds:offered,requestedItemIds:requested,intermediaries:intermediaryIds,status:"pending",createdAt:new Date().toISOString()};
+  room.offers.push(offer);addSilkLog(room,from.name+" proposed an exchange with "+to.name+".");writeSilkRoom(room);
+  return res.status(201).json({offer,room:publicSilkRoom(room,from.id)});
+});
+app.post("/api/silk-roads/rooms/:code/trades/:offerId/respond",(req,res)=>{
+  const room=readSilkRoom(String(req.params.code).toUpperCase());
+  if(!room)return res.status(404).json({error:"Classroom not found."});
+  const offer=room.offers.find(o=>o.id===req.params.offerId);
+  if(!offer||offer.status!=="pending")return res.status(404).json({error:"This offer is no longer available."});
+  const to=verifySilkPlayer(room,req.body?.playerId,req.body?.playerToken);
+  const from=findSilkPlayer(room,offer.fromPlayerId);
+  if(!to||to.id!==offer.toPlayerId)return res.status(403).json({error:"Only the receiving merchant can respond."});
+  const owns=(player,ids)=>Array.isArray(ids)&&ids.every(id=>player.items.some(item=>item.id===id));
+  if(!from||!owns(from,offer.offeredItemIds)||!owns(to,offer.requestedItemIds))return res.status(409).json({error:"Inventory changed before this offer was accepted."});
+  if(req.body?.accept!==true){offer.status="rejected";addSilkLog(room,to.name+" declined a trade offer.");}
+  else{
+    const outgoing=from.items.filter(i=>offer.offeredItemIds.includes(i.id)),incoming=to.items.filter(i=>offer.requestedItemIds.includes(i.id));
+    from.items=from.items.filter(i=>!offer.offeredItemIds.includes(i.id)).concat(incoming);
+    to.items=to.items.filter(i=>!offer.requestedItemIds.includes(i.id)).concat(outgoing);
+    offer.status="accepted";addSilkLog(room,from.name+" and "+to.name+" completed an exchange.");
+  }
+  writeSilkRoom(room);return res.json({room:publicSilkRoom(room,to.id)});
+});
+app.post("/api/silk-roads/rooms/:code/discard",(req,res)=>{
+  const room=readSilkRoom(String(req.params.code).toUpperCase());
+  if(!room)return res.status(404).json({error:"Classroom not found."});
+  const player=verifySilkPlayer(room,req.body?.playerId,req.body?.playerToken);
+  if(!player||room.round!==2||player.region!=="china")return res.status(403).json({error:"China merchants can pay this tax in Round 2 only."});
+  if(room.chinaTaxPaid.includes(player.id))return res.status(409).json({error:"Your silk tax has already been paid."});
+  const item=player.items.find(i=>i.id===req.body?.itemId&&i.kind==="goods");
+  if(!item)return res.status(400).json({error:"Choose a goods card. Trade for one if needed."});
+  player.items=player.items.filter(i=>i.id!==item.id);room.chinaTaxPaid.push(player.id);
+  addSilkLog(room,player.name+" removed a goods card for the China silk tax.");writeSilkRoom(room);
+  return res.json({room:publicSilkRoom(room,player.id)});
+});
+
 
 const isDirectRun =
   process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
