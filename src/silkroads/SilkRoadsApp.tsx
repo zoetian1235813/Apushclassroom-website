@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ArrowLeftRight, BookOpen, Check, ChevronRight, Copy, Crown, Globe2, MapPin, Route, Send, Users, X } from "lucide-react";
+import { ArrowLeftRight, BookOpen, ChevronRight, Copy, Crown, Globe2, MapPin, Send, Users, X } from "lucide-react";
 import "./SilkRoadsApp.css";
 import { DEFAULT_ZONES, GUIDES, REGIONS, scoreMerchant, type RegionId, type SilkRoom } from "./engine";
 
